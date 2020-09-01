@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="toolbar" type="id" />
+    <item name="tab" type="id" />
+    <item name="viewpager" type="id" />
+    <item name="viewpagertab" type="id" />
+    <item name="image" type="id" />
+    <item name="tag_key_attach_listener" type="id" />
+    <item name="tag_key_task_status" type="id" />
+</resources>

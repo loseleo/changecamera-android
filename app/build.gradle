@@ -1,0 +1,174 @@
+Properties localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localProperties.load(new FileInputStream(localPropertiesFile))
+}
+def debugMode = localProperties.get('DEBUG')
+debugMode = debugMode != null ? debugMode : false
+println "debugMode=$debugMode"
+
+apply plugin: 'com.android.application'
+if (!debugMode) {
+//    apply plugin: 'trace-plugin'
+//    apply plugin: 'instant_fix'
+}
+//apply plugin: 'spi.inject'
+apply plugin: 'com.alibaba.arouter'
+apply plugin: 'walle'
+
+android {
+
+    signingConfigs {
+        debug {
+            storeFile file('../dandan.keystore')
+            storePassword 'qtt1234567'
+            keyAlias 'dandan'
+            keyPassword 'qtt1234567'
+        }
+        release {
+            storeFile file('../dandan.keystore')
+            storePassword 'qtt1234567'
+            keyAlias 'dandan'
+            keyPassword 'qtt1234567'
+        }
+    }
+
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+
+        applicationId rootProject.ext.applicationId
+
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode VERSION_CODE as int
+        versionName VERSION_NAME
+        flavorDimensions "versionCode"
+        multiDexEnabled true
+        multiDexKeepFile file("multiDexKeep.txt")
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath true
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+        resConfigs "zh-rCN", "zh"
+        resConfigs "xxhdpi"
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
+
+    buildTypes {
+        debug {
+            buildConfigField("String", "API_HOST", "${DEV_API_BASE_URL}")
+
+            ndk {
+                abiFilters "armeabi", "armeabi-v7a", "x86_64", 'x86'
+            }
+
+            resValue "string", "product_name", rootProject.ext.appname + "-DEV"
+            //applicationIdSuffix "debug"
+            minifyEnabled false
+            testCoverageEnabled false
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+            manifestPlaceholders = [
+                    UMENG_CHANNEL_VALUE: "website",
+                    APP_HOST           : APP_HOST,
+                    APP_SCHEME         : APP_SCHEME,
+            ]
+        }
+
+        preRelease {
+            buildConfigField("String", "API_HOST", "${PRE_API_BASE_URL}")
+
+            ndk {
+                abiFilters "armeabi-v7a"
+            }
+
+            resValue "string", "product_name", rootProject.ext.appname + "-PRE"
+//            applicationIdSuffix "preRelease"
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), 'proguard-rules.pro', 'proguard-framework.pro'
+            signingConfig signingConfigs.debug
+            manifestPlaceholders = [
+                    UMENG_CHANNEL_VALUE: "website",
+                    APP_HOST           : APP_HOST,
+                    APP_SCHEME         : APP_SCHEME,
+            ]
+        }
+
+        release {
+            buildConfigField("String", "API_HOST", "${PRD_API_BASE_URL}")
+
+            ndk {
+                abiFilters "armeabi-v7a", 'x86'
+            }
+            resValue "string", "product_name", rootProject.ext.appname
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), 'proguard-rules.pro', 'proguard-framework.pro'
+            signingConfig signingConfigs.release
+            manifestPlaceholders = [
+                    UMENG_CHANNEL_VALUE: "website",
+                    APP_HOST           : APP_HOST,
+                    APP_SCHEME         : APP_SCHEME,
+            ]
+        }
+    }
+
+    def secretFile = file("${rootDir}/secret.gradle")
+    if (secretFile.exists()) {
+        apply from: secretFile.absolutePath
+    }
+
+    applicationVariants.all { variant ->
+
+        if (buildType.getName().startsWith("release") || rootProject.hasProperty("channelList")) {
+            def time = new Date().format(".MMdd.HHmm", TimeZone.getTimeZone("GMT+08:00"))
+            def releaseVersion = variant.mergedFlavor.versionName + time
+            variant.outputs.all { output ->
+                output.setVersionNameOverride(releaseVersion)
+            }
+        }
+    }
+
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+    packagingOptions {
+        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
+        pickFirst 'lib/armeabi/libc++_shared.so'
+    }
+}
+allprojects {
+    repositories {
+        mavenCentral()
+        flatDir {
+            dirs 'libs'
+            dirs project(':common').file('libs')
+            dirs project(':business-advertisement').file('libs')
+//            dirs project(':business-ugc').file('libs')
+        }
+    }
+}
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':common')
+    implementation project(':business-advertisement')
+    annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.14.1'
+
+}

@@ -1,0 +1,56 @@
+<resources>
+
+    <!--dp value-->
+    <dimen name="dip2">2dp</dimen>
+    <dimen name="dip4">4dp</dimen>
+    <dimen name="dip5">5dp</dimen>
+    <dimen name="dip6">6dp</dimen>
+    <dimen name="dip7">7dp</dimen>
+    <dimen name="dip8">8dp</dimen>
+    <dimen name="dip9">9dp</dimen>
+    <dimen name="dip10">10dp</dimen>
+    <dimen name="dip12">12dp</dimen>
+    <dimen name="dip13">13dp</dimen>
+    <dimen name="dip14">14dp</dimen>
+    <dimen name="dip15">15dp</dimen>
+    <dimen name="dip16">16dp</dimen>
+    <dimen name="dip17">17dp</dimen>
+    <dimen name="dip18">18dp</dimen>
+    <dimen name="dip20">20dp</dimen>
+    <dimen name="dip22">22dp</dimen>
+    <dimen name="dip24">24dp</dimen>
+    <dimen name="dip25">25dp</dimen>
+    <dimen name="dip27">27dp</dimen>
+    <dimen name="dip28">28dp</dimen>
+    <dimen name="dip30">30dp</dimen>
+    <dimen name="dip32">32dp</dimen>
+    <dimen name="dip34">34dp</dimen>
+    <dimen name="dip36">36dp</dimen>
+    <dimen name="dip38">38dp</dimen>
+    <dimen name="dip40">40dp</dimen>
+    <dimen name="dip42">42dp</dimen>
+    <dimen name="dip44">44dp</dimen>
+    <dimen name="dip50">50dp</dimen>
+    <dimen name="dip52">52dp</dimen>
+    <dimen name="dip54">54dp</dimen>
+    <dimen name="dip60">60dp</dimen>
+    <dimen name="dip65">65dp</dimen>
+    <dimen name="dip68">68dp</dimen>
+    <dimen name="dip70">70dp</dimen>
+    <dimen name="dip72">72dp</dimen>
+    <dimen name="dip76">76dp</dimen>
+    <dimen name="dip82">82dp</dimen>
+    <dimen name="dip84">84dp</dimen>
+    <dimen name="dip90">90dp</dimen>
+    <dimen name="dip96">96dp</dimen>
+    <dimen name="dip104">104dp</dimen>
+    <dimen name="dip120">120dp</dimen>
+    <dimen name="dip130">130dp</dimen>
+    <dimen name="dip164">164dp</dimen>
+    <dimen name="dip180">180dp</dimen>
+
+    <dimen name="main_tab_height">50dp</dimen>
+    <dimen name="main_tab_text_size_selected">17sp</dimen>
+    <dimen name="main_tab_text_size_unselected">14sp</dimen>
+
+</resources>

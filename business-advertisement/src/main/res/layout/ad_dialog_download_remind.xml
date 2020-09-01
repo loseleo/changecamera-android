@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/ad_dialog_bg"
+    android:clickable="true"
+    android:focusable="true">
+
+    <ImageView
+        android:id="@+id/iv_dialog_avatar"
+        android:layout_width="78dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tool:src="#999999" />
+
+
+    <TextView
+        android:id="@+id/tv_dialog_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:textColor="#333333"
+        android:layout_marginRight="12dp"
+        android:textSize="16sp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintStart_toEndOf="@id/iv_dialog_avatar"
+        app:layout_constraintTop_toTopOf="@id/iv_dialog_avatar"
+        app:layout_constraintEnd_toStartOf="@+id/iv_dialog_close"
+        tool:text="乐客健身" />
+
+    <ImageView
+        android:id="@+id/iv_dialog_close"
+        android:layout_width="47dp"
+        android:layout_height="47dp"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="@id/tv_dialog_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_dialog_title" />
+
+    <TextView
+        android:id="@+id/tv_dialog_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:lineSpacingExtra="2dp"
+        android:textColor="#FF858C96"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_dialog_avatar"
+        app:layout_constraintTop_toBottomOf="@id/tv_dialog_title"
+        tool:text="这小哥哥啥情况，这么好的身体，肌肉肌肉男，羡慕羡慕，去健身加身" />
+
+    <ProgressBar
+        android:id="@+id/bt_dialog_download"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="12dp"
+        android:progress="100"
+        android:progressDrawable="@drawable/ad_btn_bg_dialog"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_dialog_avatar" />
+
+
+    <TextView
+        android:id="@+id/tv_dialog_download"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="6dp"
+        android:text="立即下载"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/bt_dialog_download"
+        app:layout_constraintEnd_toEndOf="@id/bt_dialog_download"
+        app:layout_constraintStart_toStartOf="@id/bt_dialog_download"
+        app:layout_constraintTop_toTopOf="@id/bt_dialog_download" />
+
+</android.support.constraint.ConstraintLayout>

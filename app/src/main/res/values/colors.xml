@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="app_them_color_yellow">#FE7E2C</color>
+
+    <color name="black_2E3230">#2E3230</color>
+    <color name="gray_7D807E">#7D807E</color>
+    <color name="home_status_bar_color">#ffffff</color>
+    <color name="color_F5F5F5">#F5F5F5</color>
+    <color name="color_858C96">#858c96</color>
+    <color name="color_FB633E">#FB633E</color>
+    <color name="color_303741">#303741</color>
+    <color name="color_5D646E">#5D646E</color>
+    <color name="color_626665">#626665</color>
+    <color name="color_FB653F">#FB653F</color>
+    <color name="color_EC402B">#EC402B</color>
+    <color name="color_FFFFFF">#ffffff</color>
+    <color name="color_FFF9F9F9">#fff9f9f9</color>
+    <color name="black_60">#99000000</color>
+    <color name="color_141414">#141414</color>
+    <color name="color_DFE1E3">#DFE1E3</color>
+    <color name="highlight_color">#FB653F</color>
+    <color name="color_personal_red">#FB653F</color>
+    <color name="color_969998">#969998</color>
+    <color name="color_E7EAEC">#E7EAEC</color>
+    <color name="color_FF1B5E">#FF1B5E</color>
+    <color name="color_FF3188">#FF3188</color>
+    <color name="color_FE764F">#FE764F</color>
+    <color name="color_FDDE00">#FDDE00</color>
+
+    <color name="comment_color_353C46">#353C46</color>
+    <color name="comment_color_5D646E">#5D646E</color>
+    <color name="comment_color_1C89ED">#1C89ED</color>
+    <color name="comment_color_E8E8E8">#E8E8E8</color>
+    <color name="comment_color_E7EAEC">#E7EAEC</color>
+    <color name="comment_color_303741">#303741</color>
+    <color name="comment_color_A1AAB3">#A1AAB3</color>
+    <color name="comment_color_ECEEF0">#ECEEF0</color>
+    <color name="comment_color_FFD357">#FFD357</color>
+    <color name="comment_color_3199FF">#3199FF</color>
+    <color name="comment_color_1B89ED">#1B89ED</color>
+    <color name="comment_color_99A0AA">#99A0AA</color>
+    <color name="comment_color_384542">#384542</color>
+    <color name="comment_color_B1BEB9">#B1BEB9</color>
+    <color name="comment_color_858C96">#858C96</color>
+    <color name="comment_color_F5F5F5">#F5F5F5</color>
+    <color name="comment_color_40A3FD">#40A3FD</color>
+    <color name="comment_color_1F1F1F">#1F1F1F</color>
+    <color name="comment_color_60_1C89ED">#991C89ED</color><!--60%不透明度-->
+    <color name="comment_color_60_99A0AA">#9999A0AA</color><!--60%不透明度-->
+    <color name="comment_color_60_4D8AE9">#994D8AE9</color><!--60%不透明度-->
+    <color name="comment_view_line_night">#0AFFFFFF</color>
+    <color name="comment_view_line">#E7EAEC</color>
+    <color name="comment_color_40_858C96">#66858C96</color><!--40%不透明度-->
+    <color name="comment_color_40_A1AAB3">#66A1AAB3</color><!--40%不透明度-->
+    <color name="comment_color_40_99A0AA">#6699A0AA</color><!--40%不透明度-->
+    <color name="comment_color_80_FFFFFF">#CCFFFFFF</color><!--80%不透明度-->
+    <color name="comment_color_60_FFFFFF">#99FFFFFF</color><!--80%不透明度-->
+
+    <color name="black_70">#B3000000</color>
+
+    <color name="home_login_bubble_pop_up_money_color">#F8E71C</color>
+    <color name="home_tab_text_color_dark_selected">#313332</color>
+    <color name="home_tab_text_color_dark_normal">#313332</color>
+
+    <color name="goldcoin_dialog_close">#c0c0c0</color>
+    <color name="goldcoin_dialog_tips">#858C96</color>
+    <color name="goldcoin_dialog_title">#303741</color>
+    <color name="main_tab_line_color_light">#33FFFFFF</color>
+    <color name="main_tab_line_color_dark">#28979797</color>
+    <color name="color_333333">#333333</color>
+    <color name="color_adadad">#ADADAD</color>
+    <color name="color_D6D6D6">#D6D6D6</color>
+    <color name="home_indicator_bar">#FF722D</color>
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="preview_mock">#9a000000</color>
+
+</resources>

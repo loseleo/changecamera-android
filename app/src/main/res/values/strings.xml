@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="project_name">蛋蛋小视频</string>
+    <string name="app_github">GitHub</string>
+    <string name="app_github_url"><![CDATA[https://github.com/ogaclejapan/SmartTabLayout]]></string>
+    <string name="action_settings">Settings</string>
+
+    <string name="demo_title_basic">Basic</string>
+    <string name="demo_title_basic2">Basic(Title Offset Auto Center)</string>
+    <string name="demo_title_smart_indicator">Smart Indicator</string>
+    <string name="demo_title_distribute_evenly">Distribute Evenly</string>
+    <string name="demo_title_always_in_center">Always In Center</string>
+    <string name="demo_title_custom_tab_text">Custom Tab Text</string>
+    <string name="demo_title_custom_tab_margin">Custom Tab Margin (since 1.2~)</string>
+    <string name="demo_title_custom_tab_colors">Custom Tab Colors</string>
+    <string name="demo_title_custom_tab_icons1">Custom Tab Icons 1</string>
+    <string name="demo_title_custom_tab_icons2">Custom Tab Icons 2 (since 1.2~)</string>
+    <string name="demo_title_custom_tab_icon_and_text">Custom Tab Icon and Text</string>
+    <string name="demo_title_custom_tab_icon_and_notification_mark">Custom Tab Icon and Notification Mark</string>
+    <string name="demo_title_indicator_trick1">Indicator Thickness Trick 1</string>
+    <string name="demo_title_indicator_trick2">Indicator Thickness Trick 2</string>
+    <string name="demo_title_right_to_left">RTL support</string>
+    <string name="demo_title_advanced_medium">Advanced: Like a Medium Tag (since 1.2~)</string>
+
+    <string name="demo_tab_1">Cupcake</string>
+    <string name="demo_tab_2">Donut</string>
+    <string name="demo_tab_3">Eclair</string>
+    <string name="demo_tab_4">Froyo</string>
+    <string name="demo_tab_5">Gingerbread</string>
+    <string name="demo_tab_6">Honeycomb</string>
+    <string name="demo_tab_7">Ice Cream Sandwich</string>
+    <string name="demo_tab_8">Jelly Bean</string>
+    <string name="demo_tab_9">KitKat</string>
+    <string name="demo_tab_10">Lollipop</string>
+
+    <string name="demo_tab_no_title">No Title</string>
+    <string name="demo_tab_like_a_medium_top">Top</string>
+    <string name="demo_tab_like_a_medium_latest">Latest</string>
+    <string name="wallpaper">视频壁纸</string>
+    <string name="buy_vip_tips">特权：\n1.钻石VIP：永久免费！本地视频壁纸可任意设置，尊享视频来电显示功能；\n2.黄金VIP：购买视频享%1$s折优惠,本地视频壁纸可任意设置。</string>
+    <string name="home_no_login_text">注册/登录</string>
+    <string-array name="home_tabs">
+        <item>首页</item>
+        <item>发现</item>
+        <item>我的</item>
+    </string-array>
+    <string name="no_network_tips">您的网络断了，请检查您的网络</string>
+    <string name="munity_no_content">您查看的内容不存在，去广场看看吧~</string>
+    <string name="download">保存中...</string>
+    <string name="follow_no_data_tips">暂时没有关注任何人</string>
+    <string name="fans_no_data_tips">可怜的家伙～暂时没有粉丝哦</string>
+    <string name="detail_comment_error">加载失败，请稍后重试</string>
+    <string name="detail_reload">重新加载</string>
+    <string name="detail_error">网络连接失败，请稍后重试</string>
+
+    <string name="comment_reply_num"> 展开%s条回复</string>
+    <string name="comment_comment_num">全部 %s 条评论</string>
+    <string name="comment_write_hint">说点什么吧~</string>
+    <string name="munity_add_follow">关注</string>
+    <string name="munity_followed">已关注</string>
+    <string name="aboutus_copyright">©2019 湖北青螺信息科技有限公司</string>
+    <string name="add_follow">+ 关注</string>
+    <string name="followed">已关注</string>
+    <string name="dd_video_scroll_guide_tips">上滑切换视频哦~</string>
+    <string name="dd_video_scroll_toleft_guide_tips">左滑可以看到更多的作者视频哦~</string>
+    <string name="dd_video_double_click_guide_tips">试试双击点赞吧~</string>
+    <string name="dd_feed_follow_no_data">您还没有关注好友哦~\n快去关注更多有趣的人~</string>
+    <string name="dd_feed_follow_no_data_btn">发现有趣的人</string>
+    <string name="app_version">版本 %s </string>
+
+    <!--    用户完成第一次任务时提醒-->
+    <string name="timer_complete_first_task_tips">"金币已实时到账啦"</string>
+    <!--    未登录转满一圈提醒-->
+    <string name="timer_no_login_tips">"登录后看视频拿金币啦，边看边赚"</string>
+
+    <string name="continue_challenge">继续挑战</string>
+    <string name="take_cash_right_now">立即提现</string>
+    <string name="take_cash_tips">已存入“我的钱包”可提现</string>
+    <string name="yuan">元</string>
+    <string name="close_lockscreen_default_title">关闭按钮将会失去以下功能</string>
+    <string name="close_lockscreen_default_desc">1、失去个性化内容推荐服务\n 2、无法在锁继续观看视频</string>
+
+    <string name="network_fail">当前无网络连接，请稍后再试</string>
+    <string name="network_no_wifi">当前为非WIFI情况，请注意流量消耗</string>
+    <string name="video_error_msg">视频加载出错</string>
+    <string name="video_detail_comment_hint">我来说两句</string>
+
+    <string name="behavior_user_center">com.jifen.dandan.sub.home.view.UserCenterBehavior</string>
+    <string name="watch_ad_can_earn">观看该视频可获得</string>
+    <string name="take_right_now">立即领取</string>
+    <string name="reward_reach_to_limit">奖励到\n达上限</string>
+    <string name="some_gold_coin">%d金币</string>
+    <string name="taken_already">已领取</string>
+    <string name="congratulation_to_get">恭喜获得</string>
+    <string name="plus_some_gold_coin">+%d金币</string>
+    <string name="operate_success">操作成功，将减少此类视频推荐</string>
+    <string name="please_choose_accuse_reason">请选择举报类型</string>
+    <string name="accuse_success">举报成功</string>
+    <string name="black_list_manage">黑名单管理</string>
+    <string name="remove_from_black_list">解除拉黑</string>
+    <string name="home_page">首页</string>
+    <string name="find">发现</string>
+    <string name="mine">我的</string>
+    <string name="message">消息</string>
+    <string name="fans">粉丝</string>
+    <string name="praise">赞</string>
+    <string name="comment">评论</string>
+    <string name="followed_you">关注了你</string>
+    <string name="followed_each_other">互相关注</string>
+    <string name="gold_coin_reach_limit">今日视频奖励已完成，请明日继续， 快去玩任务赚金币吧</string>
+    <string name="confirm">确定</string>
+    <string name="i_know">我知道了</string>
+    <string name="task">任务</string>
+    <string name="me">我</string>
+    <string name="going_to_play">即将播放：</string>
+    <string name="going_to_play_content">第%d集</string>
+    <string name="follow_movie_success">已收藏</string>
+    <string name="un_follow_movie_success">已删除收藏</string>
+    <string name="follow_movie_already">已收藏</string>
+    <string name="collection_feed_desc">第%1$d集  %2$s</string>
+    <string name="do_not_use_temporary">暂不使用</string>
+    <string name="send_danmu_tips">发条弹幕冒个泡</string>
+    <string name="choose_collection">选集</string>
+    <string name="send_a_danmu">发条弹幕冒个泡</string>
+    <string name="send">发送</string>
+    <string name="please_input_danmu">请输入弹幕</string>
+    <string name="text_count_has_reach_limit">字数已超出限制</string>
+    <string name="content_cannot_be_empty">内容不能为空</string>
+
+</resources>

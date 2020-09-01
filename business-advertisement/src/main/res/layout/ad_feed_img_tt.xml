@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_marginTop="12dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="#303741"
+        android:textSize="16sp"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:ellipsize="end"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="上海同事家装修的很漂亮，原来在这里有来……." />
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:cardUseCompatPadding="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title">
+
+        <ImageView
+            android:id="@+id/iv_ad_image_bg"
+            android:layout_width="match_parent"
+            android:src="@mipmap/ad_placeholder"
+            android:layout_gravity="center"
+            android:background="#eeeeee"
+            android:scaleType="centerInside"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/iv_ad_image"
+            android:layout_width="match_parent"
+            android:scaleType="fitCenter"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/iv_ad_logo"
+            android:src="@mipmap/ad_logo_tt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"/>
+    </android.support.v7.widget.CardView>
+</android.support.constraint.ConstraintLayout>

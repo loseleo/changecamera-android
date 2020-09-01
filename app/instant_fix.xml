@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <switch>
+        <!--总开关-->
+        <enable>true</enable>
+
+        <!--默认只有ReleaseTask才会插入,这项开启后忽略-->
+        <force>false</force>
+    </switch>
+
+    <packname>
+        <name>com.jifen.dandan</name>
+    </packname>
+
+    <exceptPackname>
+        <name>com.jifen.qukan.patch</name>
+        <!--<name>com.jifen.qukan.plugin.framework.apk</name>-->
+        <!--<name>com.jifen.qukan.plugin.framework.PluginFramework</name>-->
+        <!--<name>com.jifen.qukan.plugin.framework.activity.InstalledPluginManager</name>-->
+        <!--<name>com.jifen.qukan.plugin.framework.service.ActivityManagerProxy</name>-->
+        <!--<name>com.jifen.qukan.plugin.framework.service.ServiceProxy</name>-->
+    </exceptPackname>
+</resources>

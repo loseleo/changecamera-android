@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.holleQiang:VisibleHelper-1.0.5">
+    <ANNOTATIONS>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/VisibleHelper-1.0.5.aar/f8862e95c8c6937d3b59cda3b8cdb52a/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/VisibleHelper-1.0.5.aar/f8862e95c8c6937d3b59cda3b8cdb52a/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/VisibleHelper-1.0.5.aar/f8862e95c8c6937d3b59cda3b8cdb52a/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.holleQiang/VisibleHelper/1.0.5/e3f62e180ef166d61ef6758efbdcbe9a26ffbc7c/VisibleHelper-1.0.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

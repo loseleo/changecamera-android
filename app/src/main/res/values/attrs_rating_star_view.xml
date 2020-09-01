@@ -1,0 +1,20 @@
+<resources>
+    <declare-styleable name="RatingStarView">
+        <attr name="starMargin" format="integer|dimension" /><!-- 星星间距 -->
+        <attr name="cornerRadius" format="float|dimension" /><!-- 星星圆角 -->
+        <attr name="starForegroundColor" format="color|reference" /><!-- 全星背景色color-->
+        <attr name="starBackgroundColor" format="color|reference" /><!-- 空星背景色color -->
+        <attr name="starForegroundDrawable" format="reference" /><!-- 全星背景色drawable-->
+        <attr name="starBackgroundDrawable" format="reference" /><!-- 空星背景色drawable -->
+        <attr name="strokeColor" format="color|reference" /><!-- 边的颜色 -->
+        <attr name="strokeWidthRatingStarView" format="float|dimension" /> <!-- 边的宽度 -->
+        <attr name="starNum" format="integer" /> <!-- 绘制的最大星星个数 -->
+        <attr name="rating" format="float" /><!-- 选中几个星星 -->
+        <attr name="starThickness" format="float|fraction" /><!-- 厚度 -->
+        <attr name="drawStrokeForEmptyStar" format="boolean" /><!-- 是否绘制空星边，默认true-->
+        <attr name="drawStrokeForFullStar" format="boolean" /><!-- 是否绘制全星边，默认false-->
+        <attr name="drawStrokeForHalfStar" format="boolean" /><!-- 是否绘制半星边，默认true -->
+        <attr name="enableSelectRating" format="boolean" /><!-- 是否允许选中，默认false -->
+        <attr name="makeToHalfStar" format="boolean" /><!-- 是否允许选中半星，默认true -->
+    </declare-styleable>
+</resources>

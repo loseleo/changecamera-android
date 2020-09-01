@@ -1,0 +1,29 @@
+#打包
+#所有渠道
+gradlew clean assembleReleaseChannels
+
+
+#生成单个渠道包（huawei渠道）:
+gradlew clean assembleReleaseChannels -PchannelList=website
+gradlew clean assemblePreReleaseChannels -PchannelList=website
+gradlew clean assembleDebugChannels -PchannelList=website
+
+
+#生成多个渠道包（huawei、xiaomi渠道）:
+gradlew clean assembleReleaseChannels -PchannelList=huawei,xiaomi
+gradlew clean assembleDebugChannels -PchannelList=toutiao1241,toutiao1261,toutiao1341,toutiao1441,toutiao1501,website
+
+#打母包和制作补丁命令
+gradlew clean  assembleReleaseChannels --stacktrace --no-daemon
+
+#app启动即开始调试(打命令之后，启动app，然后android studio——> Run—> Attach Debugger to Android Process)
+adb shell am set-debug-app -w com.jifen.dandan
+#打分类插件的命令（要先打宿主包才可以,本质是需要vahost）
+gradlew :business-classify:clean :business-classify:assemblePluginRelease
+gradlew :business-classify:clean :business-classify:assemblePluginPreRelease
+gradlew :business-classify:clean :business-classify:assemblePluginDebug
+
+#马甲包配置切换
+./pkg_make.sh dandan
+./pkg_make.sh quvideo
+

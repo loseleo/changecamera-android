@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">common</string>
+
+    <string name="common_empty_line1">暂时未获取到数据</string>
+    <string name="common_empty_line2">点击重试</string>
+
+    <string name="common_no_net_line1">网络异常，请检查网络连接</string>
+    <string name="common_no_net_line2">刷新试试吧～</string>
+    <string name="common_no_net_retry">重新连接</string>
+
+    <string name="common_error_line1">服务器异常</string>
+    <string name="common_error_line2">请稍后再来</string>
+    <string name="ad_install_right_now">立即安装</string>
+    <string name="ad_open_app">打开应用</string>
+    <string name="ad_downloading">下载中 %d%%</string>
+    <string name="ad_download_continue">继续下载</string>
+    <string name="ad_download_again">重新下载</string>
+    <string name="ad_download_right_now">立即下载</string>
+    <string name="ad_splash_skip">跳过</string>
+    <string name="double_back_tips">再按一次退出%s</string>
+    <string name="ad_update_app">更新</string>
+    <string name="ad_look_details">查看详情</string>
+
+    <string name="apply_permission">权限申请</string>
+    <string name="create_short_cut">已尝试添加到桌面</string>
+    <string name="network_fail">当前无网络连接，请稍后再试</string>
+    <string name="follow_movie">收藏</string>
+
+    <string name="privacy_popup_title">用户协议及隐私保护</string>
+    <string name="privacy_popup_title_again">隐私协议提示</string>
+
+
+</resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:gravity="fill">
+        <shape
+            android:gravity="fill"
+            android:shape="rectangle">
+            <solid android:color="@color/white" />
+        </shape>
+    </item>
+
+     <item
+         android:bottom="42dp" >
+         <bitmap
+             android:gravity="bottom|center_horizontal"
+             android:src="@drawable/splash_bottom"
+             android:tileMode="disabled"/>
+     </item>
+
+    <item
+         android:bottom="8dp">
+         <bitmap
+             android:gravity="bottom|center_horizontal"
+             android:src="@drawable/common_welcome_tip"
+             android:tileMode="disabled"/>
+     </item>
+
+</layer-list>
