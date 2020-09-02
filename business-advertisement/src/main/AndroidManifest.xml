@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jifen.dandan.ad" >
+    package="com.jifen.dandan.ringtone" >
     <application>
         <!--<provider-->
             <!--android:name="com.bytedance.sdk.openadsdk.TTFileProvider"-->

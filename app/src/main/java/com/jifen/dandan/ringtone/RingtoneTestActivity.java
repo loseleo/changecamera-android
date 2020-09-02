@@ -93,6 +93,7 @@ public class RingtoneTestActivity extends BaseActivity implements HomeView {
         findViewById(R.id.tv_camera).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                RingToneManager.setPermission(mActivity);
 //                AppNavigator.goCameraActivity(RingtoneTestActivity.this);
             }
         });

@@ -2,20 +2,18 @@ package com.jifen.dandan.presenter;
 import android.content.Context;
 import android.widget.FrameLayout;
 
-import com.jifen.dandan.ad.api.bean.AdConfigBean;
-import com.jifen.dandan.ad.core.AdManager;
-import com.jifen.dandan.ad.core.SimpleAdListener;
-import com.jifen.dandan.ad.core.splash.OnAdSkipListener;
-import com.jifen.dandan.ad.core.splash.OnAdTimeOverListener;
-import com.jifen.dandan.ad.core.splash.SplashAd;
-import com.jifen.dandan.ad.core.strategy.AdLoader;
-import com.jifen.dandan.ad.core.strategy.Callback;
-import com.jifen.dandan.ad.dagger.AdComponentHolder;
+import com.jifen.dandan.ringtone.api.bean.AdConfigBean;
+import com.jifen.dandan.ringtone.core.AdManager;
+import com.jifen.dandan.ringtone.core.SimpleAdListener;
+import com.jifen.dandan.ringtone.core.splash.OnAdSkipListener;
+import com.jifen.dandan.ringtone.core.splash.OnAdTimeOverListener;
+import com.jifen.dandan.ringtone.core.splash.SplashAd;
+import com.jifen.dandan.ringtone.core.strategy.AdLoader;
+import com.jifen.dandan.ringtone.core.strategy.Callback;
+import com.jifen.dandan.ringtone.dagger.AdComponentHolder;
 import com.jifen.dandan.api.Api;
 import com.jifen.dandan.common.utils.LogUtils;
-import com.jifen.dandan.common.utils.MmkvUtil;
 import com.jifen.dandan.common.utils.RxUtil;
-import com.jifen.dandan.dagger.MainComponentHolder;
 import com.jifen.dandan.contract.WelcomeView;
 import com.zhangqiang.mvp.Presenter;
 
@@ -23,14 +21,8 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Cancellable;
-import io.reactivex.functions.Consumer;
 
 import static com.jifen.dandan.common.utils.RxUtil.io_main;
 

@@ -160,7 +160,7 @@ allprojects {
             dirs 'libs'
             dirs project(':common').file('libs')
             dirs project(':business-advertisement').file('libs')
-//            dirs project(':business-ugc').file('libs')
+            dirs project(':business-ringtone').file('libs')
         }
     }
 }
@@ -168,6 +168,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':common')
     implementation project(':business-advertisement')
+    implementation project(':business-ringtone')
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.14.1'
 

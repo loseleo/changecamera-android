@@ -18,7 +18,7 @@ package com.jifen.dandan.dagger;
 //import com.jifen.dandan.ad.dagger.ADApiModule;
 import com.jifen.dandan.activity.HomeActivity;
 import com.jifen.dandan.activity.WelcomeActivity;
-import com.jifen.dandan.ad.dagger.ADApiModule;
+import com.jifen.dandan.ringtone.dagger.ADApiModule;
 import com.jifen.dandan.api.Api;
 import com.jifen.dandan.common.dagger.component.CommonComponent;
 import com.jifen.dandan.common.dagger.scope.AppScope;

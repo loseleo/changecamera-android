@@ -1,0 +1,12 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.jifen.dandan.ringtone" >
+    <application>
+
+        <activity
+            android:name="com.jifen.dandan.ringtone.RingtoneTestActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+
+    </application>
+</manifest>

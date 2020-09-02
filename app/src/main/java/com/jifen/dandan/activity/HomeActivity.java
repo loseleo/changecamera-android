@@ -21,6 +21,7 @@ import com.jifen.dandan.common.utils.StatusBarConfig;
 import com.jifen.dandan.contract.HomeView;
 import com.jifen.dandan.dagger.MainComponentHolder;
 import com.jifen.dandan.presenter.HomePresenter;
+import com.jifen.dandan.ringtone.RingtoneTestActivity;
 import com.zhangqiang.visiblehelper.OnVisibilityChangeListener;
 
 import javax.inject.Inject;
@@ -87,7 +88,9 @@ public class HomeActivity extends BaseActivity implements HomeView {
         findViewById(R.id.tv_camera).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppNavigator.goCameraActivity(HomeActivity.this);
+//                AppNavigator.goCameraActivity(HomeActivity.this);
+                Intent intent = new Intent(HomeActivity.this, RingtoneTestActivity.class);
+                startActivity(intent);
             }
         });
 

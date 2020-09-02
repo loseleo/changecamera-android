@@ -179,6 +179,7 @@
     <orderEntry type="library" name="Gradle: aiclicash.aisdk.qtt:aisdk-2.520.1.365.1" level="project" />
     <orderEntry type="library" name="Gradle: com.airbnb.android:lottie-1.0.1" level="project" />
     <orderEntry type="module" module-name="business-advertisement" />
+    <orderEntry type="module" module-name="business-ringtone" />
     <orderEntry type="module" module-name="common" />
   </component>
 </module>

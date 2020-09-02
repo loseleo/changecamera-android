@@ -1,0 +1,54 @@
+apply plugin: 'com.android.library'
+android {
+
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        flavorDimensions "versionCode"
+    }
+
+
+    buildTypes {
+
+        release {
+            minifyEnabled false
+            consumerProguardFiles 'proguard-rules.pro'
+        }
+        preRelease {
+            minifyEnabled false
+            consumerProguardFiles 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            consumerProguardFiles 'proguard-rules.pro'
+        }
+
+    }
+
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+        dirs project(':common').file('libs')
+
+    }
+}
+
+
+dependencies {
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    api project(':common')
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.14.1'
+}
+

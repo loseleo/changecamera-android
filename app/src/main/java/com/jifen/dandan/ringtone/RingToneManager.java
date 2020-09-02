@@ -1,6 +1,5 @@
 package com.jifen.dandan.ringtone;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.media.Ringtone;
@@ -10,6 +9,7 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.TextUtils;
 
+import com.jifen.dandan.common.base.BaseActivity;
 import com.jifen.dandan.common.utils.AppUtils;
 import com.jifen.dandan.common.utils.LogUtils;
 import com.jifen.dandan.ringtone.permission.PermissionUtils;
@@ -184,7 +184,7 @@ public class RingToneManager {
 
 
 
-    private int setPermission(Activity mActivity) {
+    public static int setPermission(BaseActivity mActivity) {
         int num = 0;
         try {
             StringBuilder des = new StringBuilder();
@@ -225,14 +225,13 @@ public class RingToneManager {
                 }
             }
         } catch (Exception e) {
-
         }
 
         return num;
     }
 
 
-    private String num2string(int num){
+    public static String num2string(int num){
         if (num == 0) {
             return "① ";
         } else if (num == 1) {

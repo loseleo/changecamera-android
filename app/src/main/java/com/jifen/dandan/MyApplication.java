@@ -18,7 +18,7 @@ package com.jifen.dandan;
 import android.content.Context;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.jifen.dandan.ad.dagger.AdComponentHolder;
+import com.jifen.dandan.ringtone.dagger.AdComponentHolder;
 import com.jifen.dandan.common.base.BaseApplication;
 import com.jifen.dandan.common.dagger.component.CommonComponentHolder;
 import com.jifen.dandan.common.helper.activitylife.ActivityLifeManager;
