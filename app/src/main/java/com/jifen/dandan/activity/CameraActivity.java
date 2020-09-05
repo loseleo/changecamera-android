@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.hardware.Camera;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -20,11 +19,8 @@ import com.jifen.dandan.R;
 import com.jifen.dandan.common.base.BaseActivity;
 import com.jifen.dandan.common.router.AppNavigator;
 import com.jifen.dandan.common.router.PageIdentity;
-import com.jifen.dandan.camerautils.FileUtil;
-import com.jifen.dandan.common.utils.LogUtils;
+import com.jifen.dandan.utils.FileUtil;
 import com.jifen.dandan.view.CustomCameraPreview;
-
-import java.io.IOException;
 
 /**
  * 拍照界面

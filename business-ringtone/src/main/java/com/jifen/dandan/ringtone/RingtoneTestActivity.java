@@ -1,18 +1,25 @@
 package com.jifen.dandan.ringtone;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 import android.view.View;
 
 import com.jifen.dandan.common.base.BaseActivity;
-import com.jifen.dandan.common.router.PageIdentity;
 import com.jifen.dandan.common.utils.StatusBarConfig;
+import com.jifen.dandan.ringtone.manager.RingToneManager;
 import com.zhangqiang.visiblehelper.OnVisibilityChangeListener;
 
 
 public class RingtoneTestActivity extends BaseActivity {
 
+
+    private static final String INTENT_KEY_SCHEMA_URI = "schemaUri";
+
+    private long mExitTime;
     private RingtoneTestActivity mActivity;
 
     @Override
@@ -62,17 +69,14 @@ public class RingtoneTestActivity extends BaseActivity {
         findViewById(R.id.tv_mp3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int nmu = RingToneManager.setPermission(mActivity);
-                if (nmu <= 0){
-                    RingToneManager.getInstance().setRingtoneImpl2("");
-                }
+                RingToneManager.setPermission(mActivity);
+//                AppNavigator.goCameraActivity(RingtoneTestActivity.this);
             }
         });
 
         findViewById(R.id.tv_mp4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RingToneManager.setPermission(mActivity);
             }
         });
 
@@ -87,11 +91,6 @@ public class RingtoneTestActivity extends BaseActivity {
     public void initData() {
     }
 
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        setIntent(intent);
-    }
 
 
     @Override
@@ -104,20 +103,37 @@ public class RingtoneTestActivity extends BaseActivity {
         super.onStop();
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
 
     @Nullable
     @Override
     public String getPageName() {
-        return PageIdentity.APP_HOME;
+        return "RingtoneTestActivity";
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    public Context getApplicationContext() {
+        return null;
     }
+
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode) {
+
+    }
+
+    CallPhoneStateListener phoneStateListener;
+    TelephonyManager telephonyManager;
+    /**
+     * 初始化来电状态监听器
+     */
+    private void initPhoneStateListener() {
+        if (phoneStateListener == null) {
+            phoneStateListener = new CallPhoneStateListener(this);
+        }
+        if (telephonyManager == null) {
+            telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+        }
+        telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
+    }
+
 
 }

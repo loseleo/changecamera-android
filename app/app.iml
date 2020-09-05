@@ -87,6 +87,7 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/assets" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/blame" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/build-info" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/builds" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/check-manifest" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
@@ -179,7 +180,6 @@
     <orderEntry type="library" name="Gradle: aiclicash.aisdk.qtt:aisdk-2.520.1.365.1" level="project" />
     <orderEntry type="library" name="Gradle: com.airbnb.android:lottie-1.0.1" level="project" />
     <orderEntry type="module" module-name="business-advertisement" />
-    <orderEntry type="module" module-name="business-ringtone" />
     <orderEntry type="module" module-name="common" />
   </component>
 </module>

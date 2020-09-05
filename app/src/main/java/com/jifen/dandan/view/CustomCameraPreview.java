@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.jifen.dandan.camerautils.CamParaUtil;
+import com.jifen.dandan.utils.CamParaUtil;
 
 /**
  * Created by gxj on 2018/2/17 01:46.

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fix_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/content_wrap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true">
+        <!--视频主体-->
+        <RelativeLayout
+            android:id="@+id/videoViewWrap"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/common_logo_launcher"
+            android:padding="1dp">
+
+
+            <ImageView
+                android:id="@+id/iv_live_cover"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/iv_close_window"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:paddingLeft="15dp"
+                android:paddingTop="5dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="15dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_flash_off" />
+
+
+            <TextView
+                android:id="@+id/tv_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:textColor="#313332"
+                android:textSize="17dp"
+                android:textStyle="bold"
+                android:text="找到"/>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/tv_info"
+                android:background="@drawable/common_logo_launcher"
+                android:layout_margin="20dp"
+                android:padding="10dp">
+                <TextView
+                    android:id="@+id/tv_permission"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textSize="12sp"
+                    android:textColor="#313332"
+                    android:text=""/>
+                <ImageView
+                    android:id="@+id/imv_open"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_local_media"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_local_media"
+                    android:layout_alignLeft="@id/imv_open"
+                    android:layout_alignTop="@id/imv_open"
+                    android:layout_marginLeft="5dp"/>
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <!--缩放按钮-->
+        <ImageView
+            android:id="@+id/iv_zoom_btn"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="20dp"
+            android:scaleType="centerInside"
+            android:visibility="gone" />
+    </RelativeLayout>
+</RelativeLayout>

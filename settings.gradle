@@ -1,1 +1,1 @@
-include ':app', ':common', ':business-advertisement', ':business-ringtone'
+include ':app', ':common', ':business-advertisement'
