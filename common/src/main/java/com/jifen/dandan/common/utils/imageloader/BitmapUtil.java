@@ -71,6 +71,11 @@ public class BitmapUtil {
         Glide.with(context).load(url).into(imageView);
     }
 
+    public static void loadImage(int drawable, ImageView imageView) {
+        Context context = imageView.getContext();
+        Glide.with(context).load(drawable).into(imageView);
+    }
+
     public static void loadImageWithErrorRes(String url, ImageView imageView, int errorResId) {
         if (imageView == null) {
             return;

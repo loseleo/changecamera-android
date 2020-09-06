@@ -65,7 +65,13 @@
             android:name=".activity.HomeActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Activity.Launcher">
+            android:theme="@style/AppTheme.Main">
+        </activity>
+        <activity
+            android:name=".activity.OldEffectActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Main">
         </activity>
 
         <!-- 对外调起应用入口 -->

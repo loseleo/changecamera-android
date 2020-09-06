@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.jifen.dandan.R;
+import com.jifen.dandan.common.router.AppNavigator;
 import com.jifen.dandan.utils.FileUtil;
 import com.jifen.dandan.common.base.BaseActivity;
 import com.jifen.dandan.common.router.PageIdentity;
@@ -87,6 +88,7 @@ public class ImgPreviewActivity extends BaseActivity {
         ivConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                goNextPage();
                 finish();
             }
         });
@@ -137,6 +139,25 @@ public class ImgPreviewActivity extends BaseActivity {
     @Override
     public String getPageName() {
         return PageIdentity.APP_IMGPREVIEW;
+    }
+
+    private void goNextPage(){
+//         String[] functions = new String[]{"变老相机","性别转换","童颜相机","漫画脸","动物预测","年龄检测"};
+
+        if (TextUtils.equals(selectFunction,functions[0])) {
+            AppNavigator.goOldfffectActivity(ImgPreviewActivity.this,imagePath);
+        }else if(TextUtils.equals(selectFunction,functions[1])){
+
+        }else if(TextUtils.equals(selectFunction,functions[2])){
+
+        }else if(TextUtils.equals(selectFunction,functions[3])){
+
+        }else if(TextUtils.equals(selectFunction,functions[4])){
+
+        }else if(TextUtils.equals(selectFunction,functions[5])){
+
+        }
+
     }
 
 }

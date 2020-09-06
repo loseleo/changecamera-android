@@ -38,6 +38,12 @@ public class AppNavigator {
                 .navigation(context);
     }
 
+    public static void goOldfffectActivity(Context context,String imagePath) {
+        ARouter.getInstance().build(PageIdentity.APP_OLDFFFECT)
+                 .withString("image_path", imagePath)
+                .navigation(context);
+    }
+
     public static void goWebViewActivity(Context context, String url) {
         if (!TextUtils.isEmpty(url)) {
 //            ApiRequest.WebViewOptions options = new ApiRequest.WebViewOptions();

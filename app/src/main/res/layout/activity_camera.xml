@@ -22,6 +22,14 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintDimensionRatio="1:1">
+        <ImageView
+            android:layout_width="220dp"
+            android:layout_height="285dp"
+            android:src="@mipmap/icon_camera_face"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
 
     </android.support.constraint.ConstraintLayout>
 
@@ -29,7 +37,7 @@
         android:id="@+id/cl_top"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/black"
+        android:background="#14172D"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/camera_crop_container"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -74,14 +82,14 @@
         app:layout_constraintTop_toBottomOf="@+id/camera_crop_container"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:background="@color/black"
+        android:background="#14172D"
         app:layout_constraintRight_toRightOf="parent">
 
         <ImageView
             android:id="@+id/camera_take"
             android:layout_width="72dp"
             android:layout_height="72dp"
-            android:src="@mipmap/camera_take"
+            android:src="@mipmap/icon_camera_shoot"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

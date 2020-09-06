@@ -2,10 +2,8 @@ package com.jifen.dandan.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -17,6 +15,8 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.jifen.dandan.MyApplication;
 import com.jifen.dandan.R;
+import com.jifen.dandan.bean.FunctionBean;
+import com.jifen.dandan.bean.RecommendBean;
 import com.jifen.dandan.common.base.BaseActivity;
 import com.jifen.dandan.common.router.AppNavigator;
 import com.jifen.dandan.common.router.PageIdentity;
@@ -28,7 +28,6 @@ import com.jifen.dandan.common.utils.imageloader.BitmapUtil;
 import com.jifen.dandan.contract.HomeView;
 import com.jifen.dandan.dagger.MainComponentHolder;
 import com.jifen.dandan.presenter.HomePresenter;
-import com.jifen.dandan.ringtone.RingtoneTestActivity;
 import com.jifen.dandan.utils.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -60,10 +59,6 @@ public class HomeActivity extends BaseActivity implements HomeView {
 
     private CellRVAdapter recommendAdapter = new CellRVAdapter();
     private CellRVAdapter hotFunctionAdapter = new CellRVAdapter();
-
-    private String[] recommends = new String[]{"变老相机","性别转换","童颜相机","漫画脸","动物预测","年龄检测"};
-    private String[] hotFunctions = new String[]{"变老相机","性别转换","童颜相机","漫画脸","动物预测","年龄检测"};
-
 
     @Inject
     public HomePresenter mPresenter;
@@ -124,21 +119,37 @@ public class HomeActivity extends BaseActivity implements HomeView {
 
         setBanner();
 
+        ArrayList<RecommendBean> recommendList = new ArrayList<>();
+        recommendList.add( new RecommendBean("1","相机","",R.mipmap.icon_home_kks,""));
+        recommendList.add( new RecommendBean("1","广告","https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2058213453,278814451&fm=26&gp=0.jpg",0,""));
+        recommendList.add( new RecommendBean("1","广告","https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2058213453,278814451&fm=26&gp=0.jpg",0,""));
+        recommendList.add( new RecommendBean("1","广告","https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2058213453,278814451&fm=26&gp=0.jpg",0,""));
         rvRecommend.setLayoutManager(new GridLayoutManager(this, 4));
         rvRecommend.setAdapter(recommendAdapter);
         List<Cell> recommendCellList = new ArrayList<>();
-        for (String function : recommends) {
-            MultiCell<String> cell = new MultiCell<>(R.layout.item_home_recommend, function, new ViewHolderBinder<String>() {
+        for (RecommendBean recommend : recommendList) {
+            MultiCell<RecommendBean> cell = new MultiCell<>(R.layout.item_home_recommend, recommend, new ViewHolderBinder<RecommendBean>() {
                 @Override
-                public void onBind(ViewHolder viewHolder, String function) {
+                public void onBind(ViewHolder viewHolder, RecommendBean recommend) {
 
                     ImageView ivCover = viewHolder.getView(R.id.iv_cover);
                     TextView tvTitle = viewHolder.getView(R.id.tv_title);
-                    BitmapUtil.loadImage("https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2058213453,278814451&fm=26&gp=0.jpg", ivCover);
-                    tvTitle.setText(function);
+                    if (recommend.getDrawable() != 0) {
+                        BitmapUtil.loadImage(recommend.getDrawable(), ivCover);
+                    }
+
+                    if(!TextUtils.isEmpty(recommend.getCover())){
+                        BitmapUtil.loadImage(recommend.getCover(), ivCover);
+                    }
+
+                    tvTitle.setText(recommend.getTitle());
+
                     viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            if(TextUtils.equals("1",recommend.getId())){
+                                AppNavigator.goCameraActivity(HomeActivity.this);
+                            }
                         }
                     });
                 }
@@ -148,18 +159,42 @@ public class HomeActivity extends BaseActivity implements HomeView {
         recommendAdapter.setDataList(recommendCellList);
 
 
+        ArrayList<FunctionBean> functionBeanList = new ArrayList<>();
+        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_OLD,"变老相机",R.drawable.timg));
+        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_GEBDER,"性别转换",R.drawable.timg));
+        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_CHILD,"童颜相机",R.drawable.timg));
+        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_CARTOON,"漫画脸",R.drawable.timg));
+        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_ANIMAL,"动物预测",R.drawable.timg));
+        functionBeanList.add( new FunctionBean(FunctionBean.ID_DETECTION_AGE,"年龄检测",R.drawable.timg));
+
+
         rvHotFunction.setLayoutManager(new GridLayoutManager(this, 2));
         rvHotFunction.setAdapter(hotFunctionAdapter);
         List<Cell> hotCellList = new ArrayList<>();
-        for (String function : hotFunctions) {
-            MultiCell<String> cell = new MultiCell<>(R.layout.item_home_hot_function, function, new ViewHolderBinder<String>() {
+        for (FunctionBean functionBean : functionBeanList) {
+            MultiCell<FunctionBean> cell = new MultiCell<>(R.layout.item_home_hot_function, functionBean, new ViewHolderBinder<FunctionBean>() {
                 @Override
-                public void onBind(ViewHolder viewHolder, String function) {
+                public void onBind(ViewHolder viewHolder, FunctionBean functionBean) {
                     ImageView ivCover = viewHolder.getView(R.id.iv_cover);
-                    BitmapUtil.loadImage("https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2058213453,278814451&fm=26&gp=0.jpg", ivCover);
+                    BitmapUtil.loadImage(functionBean.getDrawable(), ivCover);
                     viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            String id = functionBean.getId();
+                            if (TextUtils.equals(id,FunctionBean.ID_CHANGE_OLD)) {
+                                AppNavigator.goCameraActivity(HomeActivity.this);
+                               }else if (TextUtils.equals(id,FunctionBean.ID_CHANGE_GEBDER)) {
+                                AppNavigator.goCameraActivity(HomeActivity.this);
+                               }else if (TextUtils.equals(id,FunctionBean.ID_CHANGE_CHILD)) {
+                                AppNavigator.goCameraActivity(HomeActivity.this);
+                               }else if (TextUtils.equals(id,FunctionBean.ID_CHANGE_CARTOON)) {
+                                AppNavigator.goCameraActivity(HomeActivity.this);
+                               }else if (TextUtils.equals(id,FunctionBean.ID_CHANGE_ANIMAL)) {
+                                AppNavigator.goCameraActivity(HomeActivity.this);
+                               }else if (TextUtils.equals(id,FunctionBean.ID_DETECTION_AGE)) {
+                                AppNavigator.goCameraActivity(HomeActivity.this);
+                            }
+
                         }
                     });
                 }

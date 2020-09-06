@@ -18,6 +18,7 @@ public class PageIdentity {
     public static final String APP_HOME = "/app/home";
     public static final String APP_CAMERA = "/app/camera";
     public static final String APP_IMGPREVIEW = "/app/imgpreview";
+    public static final String APP_OLDFFFECT = "/app/oldfffect";
 
 
 
