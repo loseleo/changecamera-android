@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:loadingView="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="false"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/ic_back"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:padding="3dp"
+        android:src="@mipmap/icon_back_black"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="魔幻相机"
+        android:textColor="#161B1E"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ic_back"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ic_back" />
+
+    <ImageView
+        android:id="@+id/iv_preview"
+        android:layout_width="230dp"
+        android:layout_height="230dp"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="@+id/lv_w"
+        app:layout_constraintLeft_toLeftOf="@+id/lv_w"
+        app:layout_constraintRight_toRightOf="@+id/lv_w"
+        app:layout_constraintTop_toTopOf="@+id/lv_w" />
+
+
+    <com.beige.camera.common.view.loadding.LoadingView2
+        android:id="@+id/lv_w"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ic_back"
+        loadingView:loadding_color="#FF3487"
+        loadingView:progress_style="material"
+        loadingView:ring_radius="130dp" />
+
+    <com.beige.camera.common.view.loadding.LoadingView
+        android:id="@+id/lv_n"
+        android:layout_width="260dp"
+        android:layout_height="260dp"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/lv_w"
+        app:layout_constraintLeft_toLeftOf="@+id/lv_w"
+        app:layout_constraintRight_toRightOf="@+id/lv_w"
+        app:layout_constraintTop_toTopOf="@+id/lv_w"
+        loadingView:loadding_color="#FF8B70"
+        loadingView:progress_style="linear"
+        loadingView:ring_radius="120dp" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lv_w">
+
+        <TextView
+            android:id="@+id/tv_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0%"
+            android:textColor="#FF3487"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="6dp"
+            android:max="100"
+            android:progressDrawable="@drawable/bg_progressbar_upload"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_progress" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="扫描中…"
+            android:textColor="#161B1E"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progressbar"
+            />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.constraint.ConstraintLayout>

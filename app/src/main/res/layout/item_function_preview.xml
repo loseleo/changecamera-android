@@ -42,7 +42,7 @@
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_cover"
+        app:layout_constraintTop_toBottomOf="@id/bg_selected"
         tools:text="主标题最多" />
 
 </android.support.constraint.ConstraintLayout>

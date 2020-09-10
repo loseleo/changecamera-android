@@ -56,5 +56,4 @@
     <attr name="fm_sweepAngle" format="integer"/>
   </declare-styleable>
 
-
 </resources>

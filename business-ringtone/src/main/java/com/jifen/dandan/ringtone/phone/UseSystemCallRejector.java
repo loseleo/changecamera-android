@@ -1,13 +1,13 @@
-package com.jifen.dandan.ringtone.phone;
+package com.beige.camera.ringtone.phone;
 
 import android.os.Build;
 import android.text.TextUtils;
 
-import com.jifen.dandan.ringtone.interfaces.ICallRejector;
-import com.jifen.dandan.ringtone.manager.RingVideoViewManager;
-import com.jifen.dandan.ringtone.permission.RomUtils;
-import com.jifen.dandan.ringtone.permission.SystemProperties;
-import com.jifen.dandan.ringtone.permission.VivoUtils;
+import com.beige.camera.ringtone.interfaces.ICallRejector;
+import com.beige.camera.ringtone.manager.RingVideoViewManager;
+import com.beige.camera.ringtone.permission.RomUtils;
+import com.beige.camera.ringtone.permission.SystemProperties;
+import com.beige.camera.ringtone.permission.VivoUtils;
 
 public class UseSystemCallRejector implements ICallRejector {
 

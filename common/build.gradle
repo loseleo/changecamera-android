@@ -152,6 +152,8 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.3.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
 
+    api 'com.aliyun.dpa:oss-android-sdk:2.9.2'
+
 //    api 'com.github.cmcy:media-selector:2.0.4'
     // 项目使用的 Android Support Library 使用这个
 //    api ('com.github.cmcy:media-selector:1.1.1'){

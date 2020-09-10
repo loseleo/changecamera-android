@@ -1,4 +1,4 @@
-package com.jifen.dandan.ringtone.phone;
+package com.beige.camera.ringtone.phone;
 
 import android.content.Context;
 import android.media.AudioManager;
@@ -6,8 +6,8 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.view.KeyEvent;
 
-import com.jifen.dandan.common.utils.AppUtils;
-import com.jifen.dandan.ringtone.interfaces.ICallAcceptor;
+import com.beige.camera.common.utils.AppUtils;
+import com.beige.camera.ringtone.interfaces.ICallAcceptor;
 
 public class Above19CallAcceptor implements ICallAcceptor {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)

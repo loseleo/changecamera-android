@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2016 Facishare Technology Co., Ltd. All Rights Reserved.
  */
-package com.jifen.dandan.ringtone.permission;
+package com.beige.camera.ringtone.permission;
 
 import android.annotation.TargetApi;
 import android.app.AppOpsManager;
@@ -14,8 +14,8 @@ import android.os.Build;
 import android.provider.Settings;
 import android.util.Log;
 
-import com.jifen.dandan.common.utils.LogUtils;
-import com.jifen.dandan.common.utils.MsgUtils;
+import com.beige.camera.common.utils.LogUtils;
+import com.beige.camera.common.utils.MsgUtils;
 
 import java.lang.reflect.Method;
 

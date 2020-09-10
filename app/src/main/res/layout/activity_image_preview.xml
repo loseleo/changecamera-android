@@ -9,7 +9,7 @@
         android:id="@+id/cl_top"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/black"
+        android:background="#14172D"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/iv_preview"
@@ -23,7 +23,8 @@
             android:src="@mipmap/common_back_white"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_margin="20dp"/>
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="40dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -35,7 +36,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="30dp"/>
+            android:layout_marginTop="40dp"/>
 
     </android.support.constraint.ConstraintLayout>
 
@@ -58,7 +59,7 @@
         app:layout_constraintTop_toBottomOf="@+id/iv_preview"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:background="@color/black"
+        android:background="#14172D"
         app:layout_constraintRight_toRightOf="parent">
 
         <android.support.v7.widget.RecyclerView
@@ -71,22 +72,22 @@
 
         <ImageView
             android:id="@+id/iv_confirm"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@mipmap/icon_selected_white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="20dp"/>
         <ImageView
             android:id="@+id/iv_rotate"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@mipmap/icon_rotate"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="20dp"/>
 
     </android.support.constraint.ConstraintLayout>
 

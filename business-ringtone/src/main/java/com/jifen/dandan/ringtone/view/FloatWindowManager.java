@@ -1,4 +1,4 @@
-package com.jifen.dandan.ringtone.view;
+package com.beige.camera.ringtone.view;
 
 import android.content.Context;
 import android.graphics.PixelFormat;
@@ -10,8 +10,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
-import com.jifen.dandan.common.base.BaseActivity;
-import com.jifen.dandan.ringtone.utils.SystemUtils;
+import com.beige.camera.common.base.BaseActivity;
+import com.beige.camera.ringtone.utils.SystemUtils;
 
 /**
  * FloatWindowManager:管理悬浮窗视频播放

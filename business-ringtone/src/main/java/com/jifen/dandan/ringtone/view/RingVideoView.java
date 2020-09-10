@@ -1,4 +1,4 @@
-package com.jifen.dandan.ringtone.view;
+package com.beige.camera.ringtone.view;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,11 +11,11 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.jifen.dandan.common.utils.MmkvUtil;
-import com.jifen.dandan.ringtone.R;
-import com.jifen.dandan.ringtone.manager.RingVideoManager;
-import com.jifen.dandan.ringtone.phone.PhoneHolder;
-import com.jifen.dandan.ringtone.utils.PhoneUtils;
+import com.beige.camera.common.utils.MmkvUtil;
+import com.beige.camera.ringtone.R;
+import com.beige.camera.ringtone.manager.RingVideoManager;
+import com.beige.camera.ringtone.phone.PhoneHolder;
+import com.beige.camera.ringtone.utils.PhoneUtils;
 
 public class RingVideoView extends FrameLayout implements IFloatView, View.OnClickListener {
     private FloatViewListener mListener;

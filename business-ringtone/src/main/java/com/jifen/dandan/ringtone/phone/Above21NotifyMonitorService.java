@@ -1,4 +1,4 @@
-package com.jifen.dandan.ringtone.phone;
+package com.beige.camera.ringtone.phone;
 
 import android.app.ActivityManager;
 import android.content.ComponentName;
@@ -10,7 +10,7 @@ import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.support.annotation.RequiresApi;
 
-import com.jifen.platform.log.LogUtils;
+import com.beige.platform.log.LogUtils;
 
 import java.util.Iterator;
 import java.util.List;

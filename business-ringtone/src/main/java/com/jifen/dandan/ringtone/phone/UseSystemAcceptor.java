@@ -1,9 +1,9 @@
-package com.jifen.dandan.ringtone.phone;
+package com.beige.camera.ringtone.phone;
 
 import android.os.Build;
 
-import com.jifen.dandan.ringtone.interfaces.ICallAcceptor;
-import com.jifen.dandan.ringtone.manager.RingVideoViewManager;
+import com.beige.camera.ringtone.interfaces.ICallAcceptor;
+import com.beige.camera.ringtone.manager.RingVideoViewManager;
 
 public class UseSystemAcceptor implements ICallAcceptor {
 

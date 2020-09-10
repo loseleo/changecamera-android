@@ -1,5 +1,5 @@
 
-package com.jifen.dandan.ringtone.view;
+package com.beige.camera.ringtone.view;
 
 import android.content.Context;
 import android.graphics.Rect;
@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jifen.dandan.ringtone.R;
+import com.beige.camera.ringtone.R;
 
 
 /**

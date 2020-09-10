@@ -1,4 +1,4 @@
-package com.jifen.dandan.ringtone.interfaces;
+package com.beige.camera.ringtone.interfaces;
 
 import com.zheyun.bumblebee.common.subscribe.BaseObservable;
 

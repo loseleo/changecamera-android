@@ -10,11 +10,11 @@
     </switch>
 
     <packname>
-        <name>com.jifen.dandan</name>
+        <name>com.beige.camera</name>
     </packname>
 
     <exceptPackname>
-        <name>com.jifen.qukan.patch</name>
+        <name>com.beige.qukan.patch</name>
         <!--<name>com.jifen.qukan.plugin.framework.apk</name>-->
         <!--<name>com.jifen.qukan.plugin.framework.PluginFramework</name>-->
         <!--<name>com.jifen.qukan.plugin.framework.activity.InstalledPluginManager</name>-->

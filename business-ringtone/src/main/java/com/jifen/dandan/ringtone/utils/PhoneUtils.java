@@ -1,4 +1,4 @@
-package com.jifen.dandan.ringtone.utils;
+package com.beige.camera.ringtone.utils;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -32,10 +32,10 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.jifen.dandan.common.utils.AppUtils;
-import com.jifen.dandan.ringtone.permission.PermissionUtils;
-import com.jifen.framework.core.utils.ImageUtil;
-import com.jifen.qukan.ui.common.MsgUtils;
+import com.beige.camera.common.utils.AppUtils;
+import com.beige.camera.ringtone.permission.PermissionUtils;
+import com.beige.framework.core.utils.ImageUtil;
+import com.beige.qukan.ui.common.MsgUtils;
 
 import java.io.File;
 import java.util.ArrayList;

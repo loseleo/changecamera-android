@@ -15,9 +15,9 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<com.jifen.dandan.common.view.loadding.LoadingView xmlns:android="http://schemas.android.com/apk/res/android"
-                                            xmlns:loadingView="http://schemas.android.com/apk/res-auto"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_gravity="center"
-                                            loadingView:progress_style="material" />
+<com.beige.camera.common.view.loadding.LoadingView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:loadingView="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    loadingView:progress_style="material" />

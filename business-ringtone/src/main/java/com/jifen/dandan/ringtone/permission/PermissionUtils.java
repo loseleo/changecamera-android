@@ -1,4 +1,4 @@
-package com.jifen.dandan.ringtone.permission;
+package com.beige.camera.ringtone.permission;
 
 import android.app.Activity;
 import android.app.AppOpsManager;
@@ -19,8 +19,8 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 
-import com.jifen.dandan.common.utils.LogUtils;
-import com.jifen.dandan.common.utils.MsgUtils;
+import com.beige.camera.common.utils.LogUtils;
+import com.beige.camera.common.utils.MsgUtils;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 

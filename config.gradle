@@ -8,8 +8,8 @@ ext {
 
     //android arch core
     androidArchVersion = '1.1.1'
-    applicationId = 'com.jifen.dandan'
-    appname='相机'
+    applicationId = 'com.beige.camera'
+    appname='魔幻相机'
 
     setDefaultConfig = { extension ->
         def androidProject = extension.android

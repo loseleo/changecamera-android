@@ -1,12 +1,12 @@
-package com.jifen.dandan.ringtone.phone;
+package com.beige.camera.ringtone.phone;
 
 import android.content.Context;
 import android.os.Build;
 import android.telecom.TelecomManager;
 
-import com.jifen.dandan.common.utils.AppUtils;
-import com.jifen.dandan.ringtone.interfaces.ICallAcceptor;
-import com.jifen.dandan.ringtone.manager.RingVideoViewManager;
+import com.beige.camera.common.utils.AppUtils;
+import com.beige.camera.ringtone.interfaces.ICallAcceptor;
+import com.beige.camera.ringtone.manager.RingVideoViewManager;
 
 public class Above26CallAcceptor implements ICallAcceptor {
 

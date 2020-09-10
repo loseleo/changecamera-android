@@ -1,4 +1,4 @@
-package com.jifen.dandan.ringtone.utils;
+package com.beige.camera.ringtone.utils;
 
 //import com.google.i18n.phonenumbers.NumberParseException;
 //import com.google.i18n.phonenumbers.PhoneNumberToCarrierMapper;

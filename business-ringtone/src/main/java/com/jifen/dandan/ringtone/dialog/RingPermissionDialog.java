@@ -1,4 +1,4 @@
-package com.jifen.dandan.ringtone.dialog;
+package com.beige.camera.ringtone.dialog;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -11,12 +11,12 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.jifen.dandan.common.base.BaseDialogFragment;
-import com.jifen.dandan.common.utils.ScreenUtils;
-import com.jifen.dandan.common.utils.span.SpanUtils;
-import com.jifen.dandan.common.utils.span.URLSpanWrapper;
-import com.jifen.dandan.ringtone.R;
-import com.jifen.dandan.ringtone.permission.PermissionUtils;
+import com.beige.camera.common.base.BaseDialogFragment;
+import com.beige.camera.common.utils.ScreenUtils;
+import com.beige.camera.common.utils.span.SpanUtils;
+import com.beige.camera.common.utils.span.URLSpanWrapper;
+import com.beige.camera.ringtone.R;
+import com.beige.camera.ringtone.permission.PermissionUtils;
 import com.zhangqiang.visiblehelper.OnVisibilityChangeListener;
 
 

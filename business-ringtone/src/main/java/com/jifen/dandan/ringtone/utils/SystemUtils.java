@@ -1,4 +1,4 @@
-package com.jifen.dandan.ringtone.utils;
+package com.beige.camera.ringtone.utils;
 
 import android.content.Context;
 import android.content.res.Resources;

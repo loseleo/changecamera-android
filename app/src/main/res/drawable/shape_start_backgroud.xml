@@ -16,12 +16,12 @@
              android:tileMode="disabled"/>
      </item>
 
-    <item
+   <!-- <item
          android:bottom="8dp">
          <bitmap
              android:gravity="bottom|center_horizontal"
              android:src="@drawable/common_welcome_tip"
              android:tileMode="disabled"/>
-     </item>
+     </item>-->
 
 </layer-list>

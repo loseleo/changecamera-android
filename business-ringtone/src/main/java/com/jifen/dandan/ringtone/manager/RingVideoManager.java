@@ -1,4 +1,4 @@
-package com.jifen.dandan.ringtone.manager;
+package com.beige.camera.ringtone.manager;
 
 import android.content.Context;
 import android.text.TextUtils;

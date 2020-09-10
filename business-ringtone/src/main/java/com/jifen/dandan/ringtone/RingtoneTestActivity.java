@@ -1,4 +1,4 @@
-package com.jifen.dandan.ringtone;
+package com.beige.camera.ringtone;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,9 +8,9 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.view.View;
 
-import com.jifen.dandan.common.base.BaseActivity;
-import com.jifen.dandan.common.utils.StatusBarConfig;
-import com.jifen.dandan.ringtone.manager.RingToneManager;
+import com.beige.camera.common.base.BaseActivity;
+import com.beige.camera.common.utils.StatusBarConfig;
+import com.beige.camera.ringtone.manager.RingToneManager;
 import com.zhangqiang.visiblehelper.OnVisibilityChangeListener;
 
 

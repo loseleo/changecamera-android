@@ -1,4 +1,4 @@
-package com.jifen.dandan.ringtone.view;
+package com.beige.camera.ringtone.view;
 
 /**
  * description:保存上一次悬浮窗的位置

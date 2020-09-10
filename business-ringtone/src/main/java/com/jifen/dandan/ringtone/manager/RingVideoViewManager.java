@@ -1,14 +1,14 @@
-package com.jifen.dandan.ringtone.manager;
+package com.beige.camera.ringtone.manager;
 
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.jifen.dandan.common.utils.MmkvUtil;
-import com.jifen.dandan.ringtone.utils.SystemUtils;
-import com.jifen.dandan.ringtone.view.FloatViewParams;
-import com.jifen.dandan.ringtone.view.FloatWindowManager;
-import com.jifen.dandan.ringtone.view.RingVideoView;
+import com.beige.camera.common.utils.MmkvUtil;
+import com.beige.camera.ringtone.utils.SystemUtils;
+import com.beige.camera.ringtone.view.FloatViewParams;
+import com.beige.camera.ringtone.view.FloatWindowManager;
+import com.beige.camera.ringtone.view.RingVideoView;
 
 public class RingVideoViewManager {
 

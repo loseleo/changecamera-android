@@ -1,4 +1,4 @@
-package com.jifen.dandan.ringtone.manager;
+package com.beige.camera.ringtone.manager;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,11 +9,11 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.TextUtils;
 
-import com.jifen.dandan.common.base.BaseActivity;
-import com.jifen.dandan.common.utils.AppUtils;
-import com.jifen.dandan.common.utils.LogUtils;
-import com.jifen.dandan.ringtone.dialog.RingPermissionDialog;
-import com.jifen.dandan.ringtone.permission.PermissionUtils;
+import com.beige.camera.common.base.BaseActivity;
+import com.beige.camera.common.utils.AppUtils;
+import com.beige.camera.common.utils.LogUtils;
+import com.beige.camera.ringtone.dialog.RingPermissionDialog;
+import com.beige.camera.ringtone.permission.PermissionUtils;
 
 import java.io.File;
 

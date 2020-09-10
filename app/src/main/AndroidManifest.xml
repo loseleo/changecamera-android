@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.jifen.dandan">
+    package="com.beige.camera">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -29,7 +29,7 @@
 
 
     <application
-        android:name=".MyApplication"
+        android:name="com.beige.camera.MyApplication"
         android:allowBackup="false"
         android:hardwareAccelerated="true"
         android:icon="@drawable/common_logo_launcher"
@@ -41,7 +41,7 @@
         tools:replace="android:label,android:allowBackup,android:name">
 
         <activity
-            android:name=".activity.WelcomeActivity"
+            android:name="com.beige.camera.activity.WelcomeActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Activity.Launcher">
@@ -51,32 +51,64 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.jifen.dandan.activity.ImgPreviewActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
-            android:name="com.jifen.dandan.activity.CameraActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Activity.Launcher">
-        </activity>
-        <activity
-            android:name=".activity.HomeActivity"
+            android:name="com.beige.camera.activity.ImgPreviewActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Main">
         </activity>
         <activity
-            android:name=".activity.OldEffectActivity"
+            android:name="com.beige.camera.activity.CameraActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Main">
+        </activity>
+        <activity
+            android:name="com.beige.camera.activity.HomeActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Main">
+        </activity>
+        <activity
+            android:name="com.beige.camera.activity.OldEffectActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Main">
+        </activity>
+        <activity
+            android:name="com.beige.camera.activity.AnimalEffectActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Main">
+        </activity>
+        <activity
+            android:name="com.beige.camera.activity.GenderEffectActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Main">
         </activity>
 
+        <activity
+            android:name="com.beige.camera.activity.AgeEffectActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Main">
+        </activity>
+        <activity
+            android:name="com.beige.camera.activity.CartoonEffectActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Main">
+        </activity>
+
+        <activity
+            android:name="com.beige.camera.activity.UploadImgActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Main">
+        </activity>
         <!-- 对外调起应用入口 -->
         <activity
-            android:name=".activity.DepthLinkActivity"
+            android:name="com.beige.camera.activity.DepthLinkActivity"
             android:launchMode="singleTask"
             android:noHistory="true">
             <intent-filter>

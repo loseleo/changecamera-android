@@ -1,11 +1,11 @@
-package com.jifen.dandan.ringtone.phone;
+package com.beige.camera.ringtone.phone;
 
 import android.os.Build;
 
-import com.jifen.dandan.ringtone.interfaces.CallStateObservable;
-import com.jifen.dandan.ringtone.interfaces.ICallAcceptor;
-import com.jifen.dandan.ringtone.interfaces.ICallRejector;
-import com.jifen.dandan.ringtone.manager.RingVideoViewManager;
+import com.beige.camera.ringtone.interfaces.CallStateObservable;
+import com.beige.camera.ringtone.interfaces.ICallAcceptor;
+import com.beige.camera.ringtone.interfaces.ICallRejector;
+import com.beige.camera.ringtone.manager.RingVideoViewManager;
 
 
 public class PhoneHolder implements ICallAcceptor, ICallRejector {

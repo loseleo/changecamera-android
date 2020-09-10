@@ -1,13 +1,13 @@
-package com.jifen.dandan.ringtone;
+package com.beige.camera.ringtone;
 
 import android.content.Context;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
-import com.jifen.dandan.common.utils.LogUtils;
-import com.jifen.dandan.ringtone.manager.RingToneManager;
-import com.jifen.dandan.ringtone.manager.RingVideoManager;
-import com.jifen.dandan.ringtone.manager.RingVideoViewManager;
+import com.beige.camera.common.utils.LogUtils;
+import com.beige.camera.ringtone.manager.RingToneManager;
+import com.beige.camera.ringtone.manager.RingVideoManager;
+import com.beige.camera.ringtone.manager.RingVideoViewManager;
 
 public class CallPhoneStateListener extends PhoneStateListener {
 

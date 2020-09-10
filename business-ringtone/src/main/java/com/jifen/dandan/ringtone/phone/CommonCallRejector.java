@@ -1,11 +1,11 @@
-package com.jifen.dandan.ringtone.phone;
+package com.beige.camera.ringtone.phone;
 
 import android.os.IBinder;
 
 import com.android.internal.telephony.ITelephony;
-import com.jifen.dandan.common.utils.AppUtils;
-import com.jifen.dandan.ringtone.interfaces.ICallRejector;
-import com.jifen.dandan.ringtone.manager.RingVideoViewManager;
+import com.beige.camera.common.utils.AppUtils;
+import com.beige.camera.ringtone.interfaces.ICallRejector;
+import com.beige.camera.ringtone.manager.RingVideoViewManager;
 
 import java.lang.reflect.Method;
 
