@@ -6,24 +6,18 @@ import android.widget.FrameLayout;
 
 import com.beige.camera.common.feed.bean.AdModel;
 import com.beige.camera.ringtone.core.dismiss.OnDismissedListener;
-import com.beige.camera.ringtone.core.infoflow.CPCInfoFlowAd;
 import com.beige.camera.ringtone.core.infoflow.GDTInfoFlowVideoAd;
 import com.beige.camera.ringtone.core.infoflow.InfoFlowAd;
 import com.beige.camera.ringtone.core.infoflow.InfoFlowVideoAd;
-import com.beige.camera.ringtone.core.infoflow.JJInfoFlowAd;
 import com.beige.camera.ringtone.core.infoflow.OnVideoPlayListener;
 import com.beige.camera.ringtone.core.infoflow.TTInfoFlowVideoAd;
 import com.beige.camera.ringtone.core.infoflow.img.CPCCaImgAd;
 import com.beige.camera.ringtone.core.infoflow.img.GDTInfoFlowImgAd;
 import com.beige.camera.ringtone.core.infoflow.img.TTInfoFlowImgAd;
-import com.beige.camera.ringtone.core.jj.JJAdResource;
-import com.beige.camera.ringtone.core.rewardvideo.CPCRewardVideoAd;
 import com.beige.camera.ringtone.core.rewardvideo.GDTRewardVideoAd;
-import com.beige.camera.ringtone.core.rewardvideo.JJRewardVideoAd;
 import com.beige.camera.ringtone.core.rewardvideo.RewardVideoAd;
 import com.beige.camera.ringtone.core.rewardvideo.TTRewardVideoAd;
 import com.beige.camera.ringtone.core.splash.CPCCaSplashAd;
-import com.beige.camera.ringtone.core.splash.CPCSplashAd;
 import com.beige.camera.ringtone.core.splash.GDTSplashAd;
 import com.beige.camera.ringtone.core.splash.OnAdSkipListener;
 import com.beige.camera.ringtone.core.splash.SplashAd;
@@ -60,8 +54,6 @@ public class AdManager {
                     splashAd = new TTSplashAd(adModel, adContainer);
                 } else if (AdModel.AD_CHANNEL_CPC_CA.equals(adChannel)) {
                     splashAd = new CPCCaSplashAd(adModel, adContainer);
-                }else if(AdModel.AD_CHANNEL_CPC.equals(adChannel)){
-                    splashAd = new CPCSplashAd(adModel,adContainer);
                 }
                 if (splashAd != null) {
                     splashAd.addOnAdSkipListener(new OnAdSkipListener() {
@@ -96,10 +88,6 @@ public class AdManager {
                     return new TTInfoFlowImgAd(adContainer, adModel);
                 } else if (AdModel.AD_CHANNEL_GDT.equals(adChannel)) {
                     return new GDTInfoFlowImgAd(adContainer, adModel);
-                } else if (AdModel.AD_CHANNEL_CPC.equals(adChannel)) {
-                    return new CPCInfoFlowAd(adContainer, adModel);
-                } else if (AdModel.AD_CHANNEL_CPC_RTB.equals(adChannel)) {
-                    return new JJInfoFlowAd(adContainer, adModel);
                 } else if (AdModel.AD_CHANNEL_CPC_CA.equals(adChannel)) {
                     return new CPCCaImgAd(adContainer, adModel);
                 }
@@ -123,15 +111,11 @@ public class AdManager {
             @Override
             public InfoFlowAd create(AdModel adModel) {
                 String adChannel = adModel.getAdChannel();
-                if (AdModel.AD_CHANNEL_CPC.equals(adChannel)) {
-                    return new CPCInfoFlowAd(adContainer, adModel);
-                } else if (AdModel.AD_CHANNEL_TOUTIAO.equals(adChannel)) {
+                 if (AdModel.AD_CHANNEL_TOUTIAO.equals(adChannel)) {
                     return new TTInfoFlowVideoAd(adContainer, adModel);
                 } else if (AdModel.AD_CHANNEL_GDT.equals(adChannel)) {
                     return new GDTInfoFlowVideoAd(adContainer, adModel);
-                } else if (AdModel.AD_CHANNEL_CPC_RTB.equals(adChannel)) {
-                    return new JJInfoFlowAd(adContainer, adModel);
-                }else if(AdModel.AD_CHANNEL_CPC_CA.equals(adChannel)){
+                } else if(AdModel.AD_CHANNEL_CPC_CA.equals(adChannel)){
 //                    return new CPCCaInfoFlowAd(adContainer,adModel);
                 }
                 return null;
@@ -205,7 +189,7 @@ public class AdManager {
                             extra.put("duration", duration + "");
                             extra.put("play_count", playCount + "");
                             AdModel adModel = ad.getAdModel();
-                            AdReportDataUtils.adVideoPlayDuration(adModel, addJJReportExtra(extra, ad));
+                            AdReportDataUtils.adVideoPlayDuration(adModel, extra);
                         }
                     });
                 }
@@ -286,26 +270,6 @@ public class AdManager {
 
 
     /**
-     * 预加载激励视频
-     *
-     * @param activity
-     * @param adModels
-     */
-    public static AdLoader<RewardVideoAd<CPCRewardVideoAd.CpcRewardVideoResource>> preloadRewardVideoAd(Activity activity, List<AdModel> adModels, Callback<RewardVideoAd<CPCRewardVideoAd.CpcRewardVideoResource>> callback) {
-
-        return preloadAd(adModels, new AdFactory<RewardVideoAd<CPCRewardVideoAd.CpcRewardVideoResource>>() {
-            @Override
-            public RewardVideoAd<CPCRewardVideoAd.CpcRewardVideoResource> create(AdModel adModel) {
-                String adChannel = adModel.getAdChannel();
-                if (AdModel.AD_CHANNEL_CPC.equals(adChannel)) {
-                    return new CPCRewardVideoAd(adModel, activity);
-                }
-                return null;
-            }
-        }, new RewardVideoAdCallback<>(callback));
-    }
-
-    /**
      * 是否使用个性化金币
      *
      * @param adModels adModels
@@ -359,7 +323,7 @@ public class AdManager {
         @Override
         public void onAdLoaded() {
             AdModel adModel = ad.getAdModel();
-            AdReportDataUtils.adRequestSuccess(adModel, addJJReportExtra(null, ad));
+            AdReportDataUtils.adRequestSuccess(adModel,null);
         }
 
         @Override
@@ -368,7 +332,7 @@ public class AdManager {
             AdModel adModel = ad.getAdModel();
             HashMap<String, String> extra = new HashMap<>();
             extra.put("show_count", showCount + "");
-            AdReportDataUtils.adShowSuccess(adModel, addJJReportExtra(extra, ad));
+            AdReportDataUtils.adShowSuccess(adModel,null);
         }
 
         @Override
@@ -376,7 +340,7 @@ public class AdManager {
             AdModel adModel = ad.getAdModel();
             String errorMsg = e != null ? e.getMessage() : "";
             HashMap<String, String> extra = new HashMap<>();
-            AdReportDataUtils.adShowFail(adModel, addJJReportExtra(extra, ad), errorMsg);
+            AdReportDataUtils.adShowFail(adModel, null, errorMsg);
         }
 
         @Override
@@ -385,28 +349,10 @@ public class AdManager {
             AdModel adModel = ad.getAdModel();
             HashMap<String, String> extra = new HashMap<>();
             extra.put("click_count", clickCount + "");
-            AdReportDataUtils.adClick(adModel, addJJReportExtra(extra, ad));
+            AdReportDataUtils.adClick(adModel,extra);
         }
     }
 
-    /**
-     * 添加竞价相关的的上报信息
-     */
-    private static HashMap<String, String> addJJReportExtra(@Nullable HashMap<String, String> extra, Ad ad) {
-        if (ad == null) {
-            return extra;
-        }
-        Object adResource = ad.getAdResource();
-        if (adResource instanceof JJAdResource) {
-            String successChannel = ((JJAdResource) adResource).getSuccessChannel();
-            if (extra == null) {
-                extra = new HashMap<>();
-            }
-            extra.put("successChannel", successChannel);
-            extra.put("successAdId", ((JJAdResource) adResource).getSuccessAdId());
-        }
-        return extra;
-    }
 
     public interface ExtraProvider {
 
@@ -430,10 +376,6 @@ public class AdManager {
                 return new GDTRewardVideoAd(adModel, activity);
             } else if (AdModel.AD_CHANNEL_TOUTIAO.equals(adChannel)) {
                 return new TTRewardVideoAd(adModel, activity);
-            } else if (AdModel.AD_CHANNEL_CPC.equals(adChannel)) {
-                return new CPCRewardVideoAd(adModel, activity);
-            } else if (AdModel.AD_CHANNEL_CPC_RTB.equals(adChannel)) {
-                return new JJRewardVideoAd(activity, adModel);
             }
             return null;
         }
@@ -454,9 +396,9 @@ public class AdManager {
                     boolean rewardVerify = ad.isRewardVerify();
                     AdModel adModel = ad.getAdModel();
                     if (rewardVerify) {
-                        AdReportDataUtils.adVideoPalySuccess(adModel, addJJReportExtra(null, ad));
+                        AdReportDataUtils.adVideoPalySuccess(adModel, null);
                     } else {
-                        AdReportDataUtils.adVideoPalyFail(adModel, addJJReportExtra(null, ad));
+                        AdReportDataUtils.adVideoPalyFail(adModel, null);
                     }
                 }
             });

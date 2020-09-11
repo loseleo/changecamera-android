@@ -6,14 +6,13 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bykv.vk.openvk.TTSphObject;
-import com.bykv.vk.openvk.TTVfNative;
-import com.bykv.vk.openvk.VfSlot;
 import com.beige.camera.ringtone.TTAdManagerHolder;
-import com.beige.camera.ringtone.core.loader.ResourceLoader;
 import com.beige.camera.common.feed.bean.AdModel;
+import com.beige.camera.ringtone.core.loader.ResourceLoader;
+import com.bytedance.sdk.openadsdk.AdSlot;
+import com.bytedance.sdk.openadsdk.TTAdNative;
 
-public class TTSplashAd extends SplashAd<TTSphObject> {
+public class TTSplashAd extends SplashAd<com.bytedance.sdk.openadsdk.TTSplashAd> {
 
 
     public TTSplashAd(AdModel adModel, ViewGroup adContainer) {
@@ -22,12 +21,12 @@ public class TTSplashAd extends SplashAd<TTSphObject> {
 
     @NonNull
     @Override
-    protected ResourceLoader<TTSphObject> onCreateResourceLoader(AdModel adModel) {
+    protected ResourceLoader<com.bytedance.sdk.openadsdk.TTSplashAd> onCreateResourceLoader(AdModel adModel) {
         return new TTSplashResLoader(adModel,getAdContainer().getContext());
     }
 
     @Override
-    protected void onSetupAdResource(TTSphObject ad) {
+    protected void onSetupAdResource(com.bytedance.sdk.openadsdk.TTSplashAd ad) {
         ViewGroup adContainer = getAdContainer();
         //获取SplashView
         View view = ad.getSplashView();
@@ -38,24 +37,24 @@ public class TTSplashAd extends SplashAd<TTSphObject> {
         //ad.setNotAllowSdkCountdown();
 
         //设置SplashView的交互监听器
-        ad.setSplashInteractionListener(new TTSphObject.VfInteractionListener() {
+        ad.setSplashInteractionListener(new com.bytedance.sdk.openadsdk.TTSplashAd.AdInteractionListener() {
             @Override
-            public void onClicked(View view, int i) {
+            public void onAdClicked(View view, int i) {
                  notifyAdClick();
             }
 
             @Override
-            public void onShow(View view, int i) {
+            public void onAdShow(View view, int i) {
                 notifyAdDisplay();
             }
 
             @Override
-            public void onSkip() {
+            public void onAdSkip() {
                 notifyAdSkip();
             }
 
             @Override
-            public void onTimeOver() {
+            public void onAdTimeOver() {
                 notifyAdTimeOver();
             }
         });
@@ -104,11 +103,11 @@ public class TTSplashAd extends SplashAd<TTSphObject> {
     protected void onDestroy() {
     }
 
-    static class TTSplashResLoader extends ResourceLoader<TTSphObject> {
+    static class TTSplashResLoader extends ResourceLoader<com.bytedance.sdk.openadsdk.TTSplashAd> {
 
         private static final int AD_TIME_OUT = 3000;
         private Context context;
-        private TTVfNative mTTAdNative;
+        private TTAdNative mTTAdNative;
 
         TTSplashResLoader(AdModel adModel, Context context) {
             super(adModel);
@@ -119,15 +118,15 @@ public class TTSplashAd extends SplashAd<TTSphObject> {
         @Override
         protected void onLoad(AdModel adModel) {
 
-            mTTAdNative = TTAdManagerHolder.get().createVfNative(context);
+            mTTAdNative = TTAdManagerHolder.get().createAdNative(context);
             //step3:创建开屏广告请求参数AdSlot,具体参数含义参考文档
-            VfSlot adSlot = new VfSlot.Builder()
+            AdSlot adSlot = new AdSlot.Builder()
                     .setCodeId(adModel.getAdId())
                     .setSupportDeepLink(true)
                     .setImageAcceptedSize(1080, 1920)
                     .build();
             //step4:请求广告，调用开屏广告异步请求接口，对请求回调的广告作渲染处理
-            mTTAdNative.loadSphVs(adSlot, new TTVfNative.SphVfListener() {
+            mTTAdNative.loadSplashAd(adSlot, new TTAdNative.SplashAdListener() {
                 @Override
                 @MainThread
                 public void onError(int code, String message) {
@@ -141,7 +140,8 @@ public class TTSplashAd extends SplashAd<TTSphObject> {
                 }
 
                 @Override
-                public void onSphVsLoad(TTSphObject ad) {
+                @MainThread
+                public void onSplashAdLoad(com.bytedance.sdk.openadsdk.TTSplashAd ad) {
                     if (ad == null) {
                         notifyFail(new RuntimeException("load tt splash result null"));
                         return;

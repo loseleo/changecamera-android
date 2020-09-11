@@ -20,23 +20,18 @@ public class AdReportDataUtils {
 
     public static  void adClick(AdModel adModel, HashMap<String, String> extra){
 //        reportData("ad_click", Action.ACTION_CLICK, adModel, extra);
-        MinikitReportUtils.getInstance().reportDspClick(adModel);
     }
 
     public static  void adShowSuccess(AdModel adModel, HashMap<String, String> extra){
 //        reportData("ad_show_success", Action.ACTION_SHOW,adModel, extra);
-        MinikitReportUtils.getInstance().reportDspShow(adModel);
     }
 
     public static  void adRequestSuccess(AdModel adModel, HashMap<String, String> extra){
 //        reportData("ad_request_success", Action.ACTION_SHOW,adModel, extra);
-        MinikitReportUtils.getInstance().reportResponse(adModel);
-        MinikitReportUtils.getInstance().reportBiddingResult(adModel);
     }
 
     public static  void adRequestStart(AdModel adModel, HashMap<String, String> extra){
 //        reportData("ad_request_start", Action.ACTION_SHOW,adModel, extra);
-        MinikitReportUtils.getInstance().reportRequest(adModel);
     }
 
     public static  void adVideoPalyFail(AdModel adModel, HashMap<String, String> extra){

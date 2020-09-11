@@ -1,33 +1,33 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.beige.camera.ringtone" >
     <application>
-        <!--<provider-->
-            <!--android:name="com.bytedance.sdk.openadsdk.TTFileProvider"-->
-            <!--android:authorities="${applicationId}.TTFileProvider"-->
-            <!--android:exported="false"-->
-            <!--android:grantUriPermissions="true">-->
-            <!--<meta-data-->
-                <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
-                <!--android:resource="@xml/file_paths" />-->
-        <!--</provider>-->
+
+        <provider
+            android:name="com.bytedance.sdk.openadsdk.TTFileProvider"
+            android:authorities="${applicationId}.TTFileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
 
 
-        <!--<provider-->
-            <!--android:name="com.bytedance.sdk.openadsdk.multipro.TTMultiProvider"-->
-            <!--android:authorities="${applicationId}.TTMultiProvider"-->
-            <!--android:exported="false" />-->
+        <provider
+            android:name="com.bytedance.sdk.openadsdk.multipro.TTMultiProvider"
+            android:authorities="${applicationId}.TTMultiProvider"
+            android:exported="false" />
 
-
-        <!--&lt;!&ndash; 广点通start&ndash;&gt;-->
-        <!--<provider-->
-            <!--android:name="android.support.v4.content.FileProvider"-->
-            <!--android:authorities="${applicationId}.fileprovider"-->
-            <!--android:exported="false"-->
-            <!--android:grantUriPermissions="true">-->
-            <!--<meta-data-->
-                <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
-                <!--android:resource="@xml/gdt_file_path" />-->
-        <!--</provider>-->
+        <!-- 广点通start-->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/gdt_file_path" />
+        </provider>
 
         <activity
             android:name="com.qq.e.ads.PortraitADActivity"
@@ -36,7 +36,6 @@
 
         <activity
             android:name="com.qq.e.ads.LandscapeADActivity"
-            android:screenOrientation="landscape"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
         <!-- 广点通end-->
 

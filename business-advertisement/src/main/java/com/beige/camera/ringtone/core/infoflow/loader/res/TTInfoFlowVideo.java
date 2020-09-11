@@ -2,14 +2,14 @@ package com.beige.camera.ringtone.core.infoflow.loader.res;
 
 import android.graphics.Bitmap;
 
-import com.bykv.vk.openvk.TTDrawVfObject;
 import com.beige.camera.ringtone.core.infoflow.BaseInfoFlowVideoAd;
+import com.bytedance.sdk.openadsdk.TTDrawFeedAd;
 
 public class TTInfoFlowVideo implements BaseInfoFlowVideoAd.InfoFlowVideoInfoOwner {
 
-    private TTDrawVfObject ttDrawFeedOb;
+    private TTDrawFeedAd ttDrawFeedOb;
 
-    public TTInfoFlowVideo(TTDrawVfObject ttDrawFeedOb) {
+    public TTInfoFlowVideo(TTDrawFeedAd ttDrawFeedOb) {
         this.ttDrawFeedOb = ttDrawFeedOb;
     }
 
@@ -18,7 +18,7 @@ public class TTInfoFlowVideo implements BaseInfoFlowVideoAd.InfoFlowVideoInfoOwn
         return (long) (ttDrawFeedOb.getVideoDuration() * 1000);
     }
 
-    public TTDrawVfObject getTTDrawFeedOb() {
+    public TTDrawFeedAd getTTDrawFeedOb() {
         return ttDrawFeedOb;
     }
 
@@ -44,7 +44,7 @@ public class TTInfoFlowVideo implements BaseInfoFlowVideoAd.InfoFlowVideoInfoOwn
 
     @Override
     public Bitmap getLogo() {
-        return ttDrawFeedOb.getLogo();
+        return ttDrawFeedOb.getAdLogo();
     }
 }
 

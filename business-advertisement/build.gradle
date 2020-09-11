@@ -47,19 +47,8 @@ dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     api project(':common')
     annotationProcessor 'com.google.dagger:dagger-compiler:2.14.1'
-    //广点通竞价sdk
-//    api 'com.jifen.framework:GDTSDK.union:4.90.960'
-    api(name: 'GDTSDK.unionNormal.custom.4.211.1081', ext: 'aar')
-    //头条穿山甲竞价sdk
-//    api 'aiclicash.aisdk.shell_ad:shell_ad:2.7.6.2-new'
-    //cpc
-//    api 'com.jifen.qukan:framework-cpc-bridge:0.0.0.4'
-//    api 'aiclicash.aisdk.qtt:aisdk:2.080.1.349.6'
-//    api 'aiclicash.aisdk.qtt:aisdk:2.181.1.350.2-qr'
-    api('aiclicash.aisdk.qtt:aisdk:2.520.1.365.1') {
-        exclude group: 'aiclicash.aisdk.gdt'
-    }
-    api 'aiclicash.aisdk.shell_ad:shell_ad:2.9.7.0-release'
+    api(name: 'GDTSDK.unionNoPlugin.4.270.1140', ext: 'aar')
+    api(name: 'open_ad_sdk', ext: 'aar')
     // glide
     implementation 'com.github.bumptech.glide:glide:4.3.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'

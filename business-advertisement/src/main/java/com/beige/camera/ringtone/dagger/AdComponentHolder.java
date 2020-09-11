@@ -4,7 +4,6 @@ import android.app.Application;
 import android.os.Build;
 import android.os.StrictMode;
 
-import com.beige.camera.ringtone.CPCICliFactoryHolder;
 import com.beige.camera.ringtone.TTAdManagerHolder;
 import com.beige.camera.common.dagger.component.CommonComponent;
 import com.beige.camera.common.dagger.component.CommonComponentHolder;
@@ -26,7 +25,6 @@ public class AdComponentHolder {
         Application application = commonComponent.getApplication();
         if (ProcessUtil.isMainProcessChecked(application)) {
 
-            CPCICliFactoryHolder.getInstance().init(application);
 
             if (Build.VERSION.SDK_INT >= 24) {
                 try {

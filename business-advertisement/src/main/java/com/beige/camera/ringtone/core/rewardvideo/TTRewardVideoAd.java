@@ -3,12 +3,6 @@ package com.beige.camera.ringtone.core.rewardvideo;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 
-import com.bykv.vk.openvk.TTAppDownloadListener;
-import com.bykv.vk.openvk.TTRdVideoObject;
-import com.bykv.vk.openvk.TTVfConstant;
-import com.bykv.vk.openvk.TTVfManager;
-import com.bykv.vk.openvk.TTVfNative;
-import com.bykv.vk.openvk.VfSlot;
 import com.beige.camera.common.base.BaseApplication;
 import com.beige.camera.common.feed.bean.AdModel;
 import com.beige.camera.ringtone.TTAdManagerHolder;
@@ -16,6 +10,11 @@ import com.beige.camera.ringtone.core.loader.ResourceLoader;
 import com.beige.camera.common.utils.JsonUtils;
 import com.beige.camera.common.utils.LogUtils;
 import com.beige.camera.common.utils.ScreenUtils;
+import com.bytedance.sdk.openadsdk.AdSlot;
+import com.bytedance.sdk.openadsdk.TTAdConstant;
+import com.bytedance.sdk.openadsdk.TTAdManager;
+import com.bytedance.sdk.openadsdk.TTAdNative;
+import com.bytedance.sdk.openadsdk.TTAppDownloadListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,24 +34,24 @@ public class TTRewardVideoAd extends RewardVideoAd<TTRewardVideoAd.TTRewardVideo
 
     @Override
     protected void onSetupAdResource(Activity activity, TTRewardVideoResource ttRewardVideoResource) {
-        TTRdVideoObject ttRewardVideoAd = ttRewardVideoResource.getTtRewardVideoAd();
-        ttRewardVideoAd.setRdVrInteractionListener(new TTRdVideoObject.RdVrInteractionListener() {
+        com.bytedance.sdk.openadsdk.TTRewardVideoAd ttRewardVideoAd = ttRewardVideoResource.getTtRewardVideoAd();
+        ttRewardVideoAd.setRewardAdInteractionListener(new com.bytedance.sdk.openadsdk.TTRewardVideoAd.RewardAdInteractionListener() {
             boolean isVideoComplete;
 
             @Override
-            public void onShow() {
+            public void onAdShow() {
                 LogUtils.e("RewardVideo", "onAdShow");
                 notifyAdDisplay();
             }
 
             @Override
-            public void onVideoBarClick() {
+            public void onAdVideoBarClick() {
                 LogUtils.e("RewardVideo", "onAdVideoBarClick");
                 notifyAdClick();
             }
 
             @Override
-            public void onClose() {
+            public void onAdClose() {
                 LogUtils.e("RewardVideo", "onAdClose");
                 if (isVideoComplete) {
                     notifyReward(true);
@@ -74,7 +73,7 @@ public class TTRewardVideoAd extends RewardVideoAd<TTRewardVideoAd.TTRewardVideo
 
             //视频播放完成后，奖励验证回调，rewardVerify：是否有效，rewardAmount：奖励梳理，rewardName：奖励名称
             @Override
-            public void onRdVerify(boolean rewardVerify, int rewardAmount, String rewardName) {
+            public void onRewardVerify(boolean rewardVerify, int rewardAmount, String rewardName) {
                 LogUtils.e("RewardVideo", "verify:" + rewardVerify + " amount:" + rewardAmount + " name:" + rewardName);
             }
 
@@ -120,18 +119,18 @@ public class TTRewardVideoAd extends RewardVideoAd<TTRewardVideoAd.TTRewardVideo
 //                    return;
 //                }
         //播放激励视频广告
-        ttRewardVideoAd.showRdVideoVr(activity);
+        ttRewardVideoAd.showRewardVideoAd(activity);
     }
 
     static class TTRewardVideoResource {
 
-        private TTRdVideoObject ttRewardVideoAd;
+        private com.bytedance.sdk.openadsdk.TTRewardVideoAd ttRewardVideoAd;
 
-        TTRewardVideoResource(TTRdVideoObject ttRewardVideoAd) {
+        TTRewardVideoResource(com.bytedance.sdk.openadsdk.TTRewardVideoAd ttRewardVideoAd) {
             this.ttRewardVideoAd = ttRewardVideoAd;
         }
 
-        TTRdVideoObject getTtRewardVideoAd() {
+        com.bytedance.sdk.openadsdk.TTRewardVideoAd getTtRewardVideoAd() {
             return ttRewardVideoAd;
         }
     }
@@ -149,26 +148,26 @@ public class TTRewardVideoAd extends RewardVideoAd<TTRewardVideoAd.TTRewardVideo
         protected void onLoad(AdModel adModel) {
 
             //step1:初始化sdk
-            TTVfManager ttAdManager = TTAdManagerHolder.get();
+            TTAdManager ttAdManager = TTAdManagerHolder.get();
             //step2:(可选，强烈建议在合适的时机调用):申请部分权限，如read_phone_state,防止获取不了imei时候，下载类广告没有填充的问题。
             TTAdManagerHolder.get().requestPermissionIfNecessary(activity);
             //step3:创建TTAdNative对象,用于调用广告请求接口
-            TTVfNative mTTAdNative = ttAdManager.createVfNative(BaseApplication.getsInstance().getApplicationContext());
+            TTAdNative mTTAdNative = ttAdManager.createAdNative(BaseApplication.getsInstance().getApplicationContext());
 
             Map<String, String> data = new HashMap<>();
             data.put("adCode", adModel.getAdCode());
             data.put("adId", adModel.getAdId());
             data.put("adChannel", adModel.getAdChannel());
-            VfSlot adSlot = new VfSlot.Builder()
+            AdSlot adSlot = new AdSlot.Builder()
                     .setCodeId(adModel.getAdId())
                     .setSupportDeepLink(true)
                     .setImageAcceptedSize(ScreenUtils.getScreenWidth(), ScreenUtils.getScreenHeight())
 //                    .setUserID(UserInfoManager.getMemberId())//用户id,必传参数
                     .setMediaExtra(JsonUtils.mapToJsonString(data)) //附加参数，ad_video_pause.png`可选
-                    .setOrientation(TTVfConstant.VERTICAL) //必填参数，期望视频的播放方向：TTAdConstant.HORIZONTAL 或 TTAdConstant.VERTICAL
+                    .setOrientation(TTAdConstant.VERTICAL) //必填参数，期望视频的播放方向：TTAdConstant.HORIZONTAL 或 TTAdConstant.VERTICAL
                     .build();
 
-            mTTAdNative.loadRdVideoVr(adSlot, new TTVfNative.RdVideoVfListener() {
+            mTTAdNative.loadRewardVideoAd(adSlot, new TTAdNative.RewardVideoAdListener() {
                 @Override
                 public void onError(int code, String message) {
                     LogUtils.e("RewardVideo onError=", message);
@@ -177,15 +176,16 @@ public class TTRewardVideoAd extends RewardVideoAd<TTRewardVideoAd.TTRewardVideo
 
                 //视频广告的素材加载完毕，比如视频url等，在此回调后，可以播放在线视频，网络不好可能出现加载缓冲，影响体验。
                 @Override
-                public void onRdVideoVrLoad(TTRdVideoObject ad) {
+                public void onRewardVideoAdLoad(com.bytedance.sdk.openadsdk.TTRewardVideoAd ad) {
                     notifySuccess(new TTRewardVideoResource(ad));
                     LogUtils.e("RewardVideo", "onRewardVideoAdLoad");
-//                mttRewardVideoAd.setShowDownLoadBar(false);
                 }
+
+
 
                 //视频广告加载后，视频资源缓存到本地的回调，在此回调后，播放本地视频，流畅不阻塞。
                 @Override
-                public void onRdVideoCached() {
+                public void onRewardVideoCached() {
                     LogUtils.d("RewardVideo", "onRewardVideoCached");
                 }
 

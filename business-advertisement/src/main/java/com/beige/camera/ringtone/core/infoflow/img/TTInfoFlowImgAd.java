@@ -8,17 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import com.bykv.vk.openvk.TTImage;
-import com.bykv.vk.openvk.TTNtObject;
-import com.bykv.vk.openvk.TTVfManager;
-import com.bykv.vk.openvk.TTVfNative;
-import com.bykv.vk.openvk.TTVfObject;
-import com.bykv.vk.openvk.VfSlot;
 import com.beige.camera.common.feed.bean.AdModel;
 import com.beige.camera.ringtone.R;
 import com.beige.camera.ringtone.TTAdManagerHolder;
 import com.beige.camera.ringtone.core.loader.ResourceLoader;
 import com.beige.camera.common.utils.ThreadUtils;
+import com.bytedance.sdk.openadsdk.AdSlot;
+import com.bytedance.sdk.openadsdk.TTAdManager;
+import com.bytedance.sdk.openadsdk.TTAdNative;
+import com.bytedance.sdk.openadsdk.TTFeedAd;
+import com.bytedance.sdk.openadsdk.TTImage;
+import com.bytedance.sdk.openadsdk.TTNativeAd;
 
 
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class TTInfoFlowImgAd extends BaseImgAd<TTInfoFlowImgAd.ImgAdRes> {
     @Override
     protected void onSetupAdResource(FrameLayout adContainer, ImgAdRes imgAdRes) {
 
-        TTVfObject ttFeedAd = imgAdRes.getTtFeedAd();
+        TTFeedAd ttFeedAd = imgAdRes.getTtFeedAd();
         // 3 大图 2小图 4 组图 5 视频 其它：未知类型
         int imageMode = ttFeedAd.getImageMode();
         if (imageMode != 3 && imageMode !=2 && imageMode != 4 && imageMode != 5) {
@@ -48,10 +48,10 @@ public class TTInfoFlowImgAd extends BaseImgAd<TTInfoFlowImgAd.ImgAdRes> {
 
     @Override
     protected void onSetupAdResource(FrameLayout adContainer, ImgAdRes imgAdRes, AdViewHolder adViewHolder) {
-        TTVfObject ttFeedAd = imgAdRes.getTtFeedAd();
+        TTFeedAd ttFeedAd = imgAdRes.getTtFeedAd();
         Context context = adContainer.getContext();
         if (context instanceof Activity) {
-            ttFeedAd.setActivityForDownloadApp((Activity) context);
+//            ttFeedAd.setDownloadListener((Activity) context);
         }
 
         // 可以被点击的view, 也可以把convertView放进来意味整个item可被点击，点击会跳转到落地页
@@ -64,19 +64,19 @@ public class TTInfoFlowImgAd extends BaseImgAd<TTInfoFlowImgAd.ImgAdRes> {
         creativeViewList.add(adViewHolder.ivAdImage);
         creativeViewList.add(adViewHolder.tvAdTitle);
         // 注册普通点击区域，创意点击区域。重要! 这个涉及到广告计费及交互，必须正确调用。convertView必须使用ViewGroup。
-        ttFeedAd.registerViewForInteraction((ViewGroup) adViewHolder.adView, clickViewList, creativeViewList, new TTVfObject.VfInteractionListener() {
+        ttFeedAd.registerViewForInteraction((ViewGroup) adViewHolder.adView, clickViewList, creativeViewList, new TTNativeAd.AdInteractionListener() {
             @Override
-            public void onClicked(View view, TTNtObject ttNtObject) {
+            public void onAdClicked(View view, TTNativeAd ttNtObject) {
                 notifyAdClick();
             }
 
             @Override
-            public void onCreativeClick(View view, TTNtObject ttNtObject) {
+            public void onAdCreativeClick(View view, TTNativeAd ttNtObject) {
                 notifyAdClick();
             }
 
             @Override
-            public void onShow(TTNtObject ttNtObject) {
+            public void onAdShow(TTNativeAd ttNtObject) {
                 notifyAdDisplay();
             }
         });
@@ -95,13 +95,13 @@ public class TTInfoFlowImgAd extends BaseImgAd<TTInfoFlowImgAd.ImgAdRes> {
 
     public static class ImgAdRes implements BaseImgAd.ImgAdRes {
 
-        private TTVfObject ttFeedAd;
+        private TTFeedAd ttFeedAd;
 
-        public ImgAdRes(TTVfObject ttFeedAd) {
+        public ImgAdRes(TTFeedAd ttFeedAd) {
             this.ttFeedAd = ttFeedAd;
         }
 
-        public TTVfObject getTtFeedAd() {
+        public TTFeedAd getTtFeedAd() {
             return ttFeedAd;
         }
 
@@ -137,26 +137,26 @@ public class TTInfoFlowImgAd extends BaseImgAd<TTInfoFlowImgAd.ImgAdRes> {
                 @Override
                 public void run() {
 
-                    TTVfManager ttObManager = TTAdManagerHolder.get();
+                    TTAdManager ttObManager = TTAdManagerHolder.get();
                     //在合适的时机申请权限，如read_phone_state,防止获取不了imei时候，下载类广告没有填充的问题
                     ttObManager.requestPermissionIfNecessary(context);
-                    TTVfNative mTTAdNative = ttObManager.createVfNative(context);
+                    TTAdNative mTTAdNative = ttObManager.createAdNative(context);
                     //step3:创建广告请求参数AdSlot,具体参数含义参考文档
-                    VfSlot adSlot = new VfSlot.Builder()
+                    AdSlot adSlot = new AdSlot.Builder()
                             .setCodeId(adModel.getAdId())
                             .setSupportDeepLink(true)
                             .setImageAcceptedSize(1080, 1920)
                             .setAdCount(1) //请求广告数量为1到3条
                             .build();
                     //step4:请求广告,对请求回调的广告作渲染处理
-                    mTTAdNative.loadVfList(adSlot, new TTVfNative.VfListListener() {
+                    mTTAdNative.loadFeedAd(adSlot, new TTAdNative.FeedAdListener() {
                         @Override
                         public void onError(int code, String message) {
                             notifyFail(new RuntimeException("load tt info flow video ad fail:" + code + ";" + message));
                         }
 
                         @Override
-                        public void onVfListLoad(List<TTVfObject> ads) {
+                        public void onFeedAdLoad(List<TTFeedAd> ads) {
                             if (ads == null || ads.size() <= 0) {
                                 notifyFail(new RuntimeException("null result"));
                                 return;

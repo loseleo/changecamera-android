@@ -8,19 +8,19 @@ import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.bykv.vk.openvk.TTAppDownloadListener;
-import com.bykv.vk.openvk.TTDrawVfObject;
-import com.bykv.vk.openvk.TTNtObject;
-import com.bykv.vk.openvk.TTVfManager;
-import com.bykv.vk.openvk.TTVfNative;
-import com.bykv.vk.openvk.TTVfObject;
-import com.bykv.vk.openvk.VfSlot;
 import com.beige.camera.ringtone.R;
 import com.beige.camera.ringtone.TTAdManagerHolder;
 import com.beige.camera.ringtone.core.infoflow.loader.res.TTInfoFlowVideo;
 import com.beige.camera.ringtone.core.loader.ResourceLoader;
 import com.beige.camera.common.feed.bean.AdModel;
 import com.beige.camera.common.utils.ThreadUtils;
+import com.bytedance.sdk.openadsdk.AdSlot;
+import com.bytedance.sdk.openadsdk.TTAdManager;
+import com.bytedance.sdk.openadsdk.TTAdNative;
+import com.bytedance.sdk.openadsdk.TTAppDownloadListener;
+import com.bytedance.sdk.openadsdk.TTDrawFeedAd;
+import com.bytedance.sdk.openadsdk.TTFeedAd;
+import com.bytedance.sdk.openadsdk.TTNativeAd;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,11 +50,11 @@ public class TTInfoFlowVideoAd extends BaseInfoFlowVideoAd<TTInfoFlowVideo> {
 
         FrameLayout adViewContainer = adViewHolder.findViewById(R.id.fl_tt_ad_view);
 
-        TTDrawVfObject ad = ttInfoFlowVideo.getTTDrawFeedOb();
+        TTDrawFeedAd ad = ttInfoFlowVideo.getTTDrawFeedOb();
         setDownloadState(ad.getButtonText(), -1, adViewHolder.tvDownload, adViewHolder.tvDialogDownload);
         ad.setActivityForDownloadApp(activity);
         //点击监听器必须在getAdView之前调
-        ad.setDrawVideoListener(new TTDrawVfObject.DrawVideoListener() {
+        ad.setDrawVideoListener(new TTDrawFeedAd.DrawVideoListener() {
             @Override
             public void onClickRetry() {
 
@@ -78,26 +78,29 @@ public class TTInfoFlowVideoAd extends BaseInfoFlowVideoAd<TTInfoFlowVideo> {
         creativeViews.add(adViewHolder.btDownload);
         creativeViews.add(adViewHolder.btDialogDownload);
         creativeViews.add(adViewHolder.findViewById(R.id.view_click));
-        ad.registerViewForInteraction(adViewContainer, clickViews, creativeViews, new TTDrawVfObject.VfInteractionListener() {
+        ad.registerViewForInteraction(adViewContainer, clickViews, creativeViews, new TTNativeAd.AdInteractionListener() {
+
             @Override
-            public void onClicked(View view, TTNtObject ttNtObject) {
+            public void onAdClicked(View view, TTNativeAd ad) {
                 notifyAdClick();
             }
 
             @Override
-            public void onCreativeClick(View view, TTNtObject ttNtObject) {
+            public void onAdCreativeClick(View view, TTNativeAd ad) {
                 notifyAdClick();
             }
 
             @Override
-            public void onShow(TTNtObject ttNtObject) {
+            public void onAdShow(TTNativeAd ad) {
                 notifyAdDisplay();
             }
+
         });
-        ad.setVideoListener(new TTDrawVfObject.VideoVfListener() {
+
+        ad.setVideoAdListener(new TTDrawFeedAd.VideoAdListener() {
 
             @Override
-            public void onVideoLoad(TTVfObject ttVfObject) {
+            public void onVideoLoad(TTFeedAd ttVfObject) {
                 Log.i("Test", "==VideoObListener==onVideoLoad=======");
                 notifyVideoLoaded();
             }
@@ -109,19 +112,19 @@ public class TTInfoFlowVideoAd extends BaseInfoFlowVideoAd<TTInfoFlowVideo> {
             }
 
             @Override
-            public void onVideoStartPlay(TTVfObject ttVfObject) {
+            public void onVideoAdStartPlay(TTFeedAd ttVfObject) {
                 Log.i("Test", "==VideoObListener==onVideoObStartPlay=======");
                 notifyVideoStartPlay();
             }
 
             @Override
-            public void onVideoPaused(TTVfObject ttVfObject) {
+            public void onVideoAdPaused(TTFeedAd ttVfObject) {
                 Log.i("Test", "==VideoObListener==onVideoObPaused=======");
                 notifyVideoPaused();
             }
 
             @Override
-            public void onVideoContinuePlay(TTVfObject ttVfObject) {
+            public void onVideoAdContinuePlay(TTFeedAd ttVfObject) {
                 Log.i("Test", "==VideoObListener==onVideoObContinuePlay=======");
                 notifyVideoContinuePlay();
             }
@@ -133,14 +136,14 @@ public class TTInfoFlowVideoAd extends BaseInfoFlowVideoAd<TTInfoFlowVideo> {
             }
 
             @Override
-            public void onVideoComplete(TTVfObject ttVfObject) {
+            public void onVideoAdComplete(TTFeedAd ttVfObject) {
                 Log.i("Test", "==VideoObListener==onVideoObComplete=======");
                 notifyVideoComplete();
             }
 
         });
 
-        View obView = ad.getVfView();
+        View obView = ad.getAdView();
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
         obView.setLayoutParams(layoutParams);
         adViewContainer.addView(obView);
@@ -150,7 +153,7 @@ public class TTInfoFlowVideoAd extends BaseInfoFlowVideoAd<TTInfoFlowVideo> {
     protected void onAdViewAttachedToWindow(TTInfoFlowVideo ttInfoFlowVideo, AdViewHolder adViewHolder) {
         super.onAdViewAttachedToWindow(ttInfoFlowVideo, adViewHolder);
         Activity activity = (Activity) adViewHolder.adView.getContext();
-        TTDrawVfObject ad = ttInfoFlowVideo.getTTDrawFeedOb();
+        TTDrawFeedAd ad = ttInfoFlowVideo.getTTDrawFeedOb();
         ad.setDownloadListener(new TTAppDownloadListener() {
 
             @Override
@@ -215,26 +218,26 @@ public class TTInfoFlowVideoAd extends BaseInfoFlowVideoAd<TTInfoFlowVideo> {
                 @Override
                 public void run() {
 
-                    TTVfManager ttObManager = TTAdManagerHolder.get();
+                    TTAdManager ttObManager = TTAdManagerHolder.get();
                     //在合适的时机申请权限，如read_phone_state,防止获取不了imei时候，下载类广告没有填充的问题
                     ttObManager.requestPermissionIfNecessary(context);
-                    TTVfNative mTTAdNative = ttObManager.createVfNative(context);
+                    TTAdNative mTTAdNative = ttObManager.createAdNative(context);
                     //step3:创建广告请求参数AdSlot,具体参数含义参考文档
-                    VfSlot adSlot = new VfSlot.Builder()
+                    AdSlot adSlot = new AdSlot.Builder()
                             .setCodeId(adModel.getAdId())
                             .setSupportDeepLink(true)
                             .setImageAcceptedSize(1080, 1920)
                             .setAdCount(1) //请求广告数量为1到3条
                             .build();
                     //step4:请求广告,对请求回调的广告作渲染处理
-                    mTTAdNative.loadDrawVfList(adSlot, new TTVfNative.DrawVfListListener() {
+                    mTTAdNative.loadDrawFeedAd(adSlot, new TTAdNative.DrawFeedAdListener() {
                         @Override
                         public void onError(int code, String message) {
                             notifyFail(new RuntimeException("load tt info flow video ad fail:" + code + ";" + message));
                         }
 
                         @Override
-                        public void onDrawFeedAdLoad(List<TTDrawVfObject> ads) {
+                        public void onDrawFeedAdLoad(List<TTDrawFeedAd> ads) {
                             if (ads == null || ads.size() <= 0) {
                                 notifyFail(new RuntimeException("null result"));
                                 return;
