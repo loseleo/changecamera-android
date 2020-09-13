@@ -16,8 +16,7 @@ import com.beige.camera.common.router.AppNavigator;
 import com.beige.camera.common.router.PageIdentity;
 import com.beige.camera.common.utils.LogUtils;
 import com.beige.camera.common.utils.MmkvUtil;
-import com.beige.camera.common.utils.PermissionPageUtils;
-import com.beige.camera.contract.WelcomeView;
+import com.beige.camera.contract.IWelcomeView;
 import com.beige.camera.dagger.MainComponentHolder;
 import com.beige.camera.dialog.PrivacyPoliceDialog;
 import com.beige.camera.presenter.WelcomePresenter;
@@ -35,7 +34,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
 @Route(path = PageIdentity.APP_WELCOME)
-public class WelcomeActivity extends BaseActivity implements WelcomeView {
+public class WelcomeActivity extends BaseActivity implements IWelcomeView {
 
     private static final String TAG = "WelcomeActivity";
     public static final String PRIVACY_VERSION_SERVICE = "privacy_version_service";

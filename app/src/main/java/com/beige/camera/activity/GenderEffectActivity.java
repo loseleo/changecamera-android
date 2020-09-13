@@ -16,15 +16,36 @@ import com.beige.camera.common.base.BaseActivity;
 import com.beige.camera.common.router.AppNavigator;
 import com.beige.camera.common.router.PageIdentity;
 import com.beige.camera.common.utils.LogUtils;
+import com.beige.camera.common.utils.MsgUtils;
+import com.beige.camera.common.utils.RxUtil;
 import com.beige.camera.common.utils.imageloader.BitmapUtil;
+import com.beige.camera.contract.IEffectImageView;
+import com.beige.camera.contract.IWelcomeView;
+import com.beige.camera.dagger.MainComponent;
+import com.beige.camera.dagger.MainComponentHolder;
+import com.beige.camera.presenter.EffectImagePresenter;
 import com.beige.camera.ringtone.api.bean.AdConfigBean;
 import com.beige.camera.ringtone.core.AdManager;
 import com.beige.camera.ringtone.core.infoflow.InfoFlowAd;
 import com.beige.camera.ringtone.core.strategy.Callback;
+import com.beige.camera.ringtone.dagger.AdComponentHolder;
+import com.beige.camera.utils.AdHelper;
+
+import java.util.concurrent.TimeUnit;
+
+import javax.inject.Inject;
+
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+
+import static com.beige.camera.common.utils.RxUtil.io_main;
 
 
 @Route(path = PageIdentity.APP_GENDEREFFECT)
-public class GenderEffectActivity extends BaseActivity {
+public class GenderEffectActivity extends BaseActivity implements IEffectImageView {
+
+    public String bannerAdType = "bannerAdType";
+    public String rewardedAdType = "rewardedAdType";
 
     private ImageView icBack;
     private TextView tvTitle;
@@ -34,10 +55,16 @@ public class GenderEffectActivity extends BaseActivity {
     private TextView btnShare;
     private FrameLayout adContainer;
 
+    @Inject
+    public EffectImagePresenter mPresenter;
+
+    private String effectImage = "";
+
     @Autowired(name = "image_path")
     String imagePath;
     @Autowired(name = "function")
     String function;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +73,35 @@ public class GenderEffectActivity extends BaseActivity {
 
     @Override
     protected void setupActivityComponent() {
+        MainComponentHolder.getInstance().inject(this);
     }
 
     @Override
     public int getLayoutResId() {
         return R.layout.activity_gender_effect;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.attachView(this);
+        AdHelper.playRewardedVideo(this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+            @Override
+            public void onDismissed(int action) {
+
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mPresenter.detachView();
     }
 
     @Override
@@ -62,6 +113,7 @@ public class GenderEffectActivity extends BaseActivity {
         btnSave = findViewById(R.id.btn_save);
         btnShare = findViewById(R.id.btn_share);
         adContainer = findViewById(R.id.fl_ad_container);
+        AdHelper.showBannerAdView(bannerAdType,adContainer);
     }
 
     @Override
@@ -77,7 +129,6 @@ public class GenderEffectActivity extends BaseActivity {
         }
         LogUtils.e("zhangning", "imagePath = " + imagePath);
         BitmapUtil.loadImageCircle(this,imagePath,R.drawable.bg_shape_gender_gray,ivNormal);
-        BitmapUtil.loadImageCircle(this,imagePath,R.drawable.bg_shape_gender_gray,ivEffect);
         icBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,6 +148,13 @@ public class GenderEffectActivity extends BaseActivity {
             }
         });
 
+        String actionType = "TO_FEMALE";
+        if (TextUtils.equals(function,FunctionBean.ID_CHANGE_GENDER)) {
+            actionType = "TO_FEMALE";
+        }else if (TextUtils.equals(function,FunctionBean.ID_CHANGE_CHILD)) {
+            actionType = "TO_KID";
+        }
+        mPresenter.getFaceEditAttr(imagePath,actionType);
     }
 
 
@@ -108,26 +166,19 @@ public class GenderEffectActivity extends BaseActivity {
     }
 
 
-    public void setAdModel(AdConfigBean adModel) {
-        if (adContainer == null || adModel == null) {
-            return;
+    @Override
+    public void onResultEffectImage(String image ,String actionType) {
+        if (TextUtils.isEmpty(image)) {
+            MsgUtils.showToastCenter(GenderEffectActivity.this,"图片处理失败");
+            effectImage = imagePath;
         }
-        adContainer.post(new Runnable() {
-            @Override
-            public void run() {
-                AdManager.loadBigImgAd(adContainer, adModel.getCandidates(), new Callback<InfoFlowAd>() {
-                    @Override
-                    public void onAdLoadStart(InfoFlowAd ad) {
-                    }
-
-                    @Override
-                    public void onFail(Throwable e) {
-
-                    }
-                });
-            }
-        });
+        effectImage = image;
+        BitmapUtil.loadImageCircle(this,effectImage,R.drawable.bg_shape_gender_gray,ivEffect);
     }
 
 
+    @Override
+    public void onResultAge(String age) {
+
+    }
 }

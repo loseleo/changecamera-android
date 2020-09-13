@@ -24,16 +24,19 @@ import android.view.MenuItem;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.beige.camera.common.utils.StatusBarConfig;
+import com.beige.camera.common.utils.StatusBarUtil;
 import com.umeng.analytics.MobclickAgent;
+import com.zhangqiang.mvp.Presenter;
 import com.zhangqiang.visiblehelper.ActivityVisibleHelper;
 import com.zhangqiang.visiblehelper.OnVisibilityChangeListener;
 import com.zhangqiang.visiblehelper.VisibleHelper;
 import com.zhangqiang.visiblehelper.VisibleHelperOwner;
 
+import javax.inject.Inject;
+
 public abstract class BaseActivity extends AppCompatActivity implements VisibleHelperOwner {
 
     private final ActivityVisibleHelper visibleHelper = new ActivityVisibleHelper();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,7 @@ public abstract class BaseActivity extends AppCompatActivity implements VisibleH
         attachView();
         initData();
         configViews();
+        StatusBarUtil.StatusBarLightMode(this);
         getVisibleHelper().addVisibilityChangeListener(new OnVisibilityChangeListener() {
             @Override
             public void onVisibilityChange(boolean isVisible) {
@@ -83,10 +87,6 @@ public abstract class BaseActivity extends AppCompatActivity implements VisibleH
      * 对各种控件进行设置、适配、填充数据
      */
     public abstract void configViews();
-
-    public StatusBarConfig getStatusBarConfig() {
-        return new StatusBarConfig.Builder().build();
-    }
 
     @Override
     protected void onStart() {

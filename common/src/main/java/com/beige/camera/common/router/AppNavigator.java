@@ -102,6 +102,16 @@ public class AppNavigator {
                 .navigation(context);
     }
 
+    public static void goUserCenterActivity(Context context) {
+        ARouter.getInstance().build(PageIdentity.APP_USERCENTER)
+                .navigation(context);
+    }
+
+    public static void goAboutUsActivity(Context context) {
+        ARouter.getInstance().build(PageIdentity.APP_ABOUTUS)
+                .navigation(context);
+    }
+
     public static void goImgUploadActivity(Context context, String imagePath, String function) {
         ARouter.getInstance().build(PageIdentity.APP_IMGUPLOAD)
                 .withString("image_path", imagePath)
@@ -112,9 +122,9 @@ public class AppNavigator {
 
     public static void goWebViewActivity(Context context, String url) {
         if (!TextUtils.isEmpty(url)) {
-//            ApiRequest.WebViewOptions options = new ApiRequest.WebViewOptions();
-//            options.url = url;
-//            AppUtils.openActivity(context, options);
+            ARouter.getInstance().build(PageIdentity.APP_WEBVIEW)
+                    .withString("url", url)
+                    .navigation(context);
         }
     }
 

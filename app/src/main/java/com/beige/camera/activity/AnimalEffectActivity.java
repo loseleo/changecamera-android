@@ -20,20 +20,31 @@ import com.beige.camera.common.base.BaseActivity;
 import com.beige.camera.common.guide.util.LogUtil;
 import com.beige.camera.common.router.PageIdentity;
 import com.beige.camera.common.utils.LogUtils;
+import com.beige.camera.common.utils.RxUtil;
+import com.beige.camera.contract.IEffectImageView;
 import com.beige.camera.ringtone.api.bean.AdConfigBean;
 import com.beige.camera.ringtone.core.AdManager;
 import com.beige.camera.ringtone.core.infoflow.InfoFlowAd;
 import com.beige.camera.ringtone.core.strategy.Callback;
+import com.beige.camera.ringtone.dagger.AdComponentHolder;
+import com.beige.camera.utils.AdHelper;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+
+import static com.beige.camera.common.utils.RxUtil.io_main;
 
 @Route(path = PageIdentity.APP_ANIMALEFFECT)
 public class AnimalEffectActivity extends BaseActivity {
+
+    public String bannerAdType = "bannerAdType";
+    public String rewardedAdType = "rewardedAdType";
 
     private ImageView icBack;
     private ImageView ivAnimal;
@@ -70,6 +81,23 @@ public class AnimalEffectActivity extends BaseActivity {
         btnSave = findViewById(R.id.btn_save);
         btnShare = findViewById(R.id.btn_share);
         adContainer = findViewById(R.id.fl_ad_container);
+        AdHelper.showBannerAdView(bannerAdType,adContainer);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AdHelper.playRewardedVideo(this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+            @Override
+            public void onDismissed(int action) {
+
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
     }
 
     @Override
@@ -116,7 +144,6 @@ public class AnimalEffectActivity extends BaseActivity {
 
             }
         });
-
         showAutoAnimation();
     }
 
@@ -146,28 +173,5 @@ public class AnimalEffectActivity extends BaseActivity {
     public String getPageName() {
         return PageIdentity.APP_ANIMALEFFECT;
     }
-
-
-    public void setAdModel(AdConfigBean adModel) {
-        if (adContainer == null || adModel == null) {
-            return;
-        }
-        adContainer.post(new Runnable() {
-            @Override
-            public void run() {
-                AdManager.loadBigImgAd(adContainer, adModel.getCandidates(), new Callback<InfoFlowAd>() {
-                    @Override
-                    public void onAdLoadStart(InfoFlowAd ad) {
-                    }
-
-                    @Override
-                    public void onFail(Throwable e) {
-
-                    }
-                });
-            }
-        });
-    }
-
 
 }

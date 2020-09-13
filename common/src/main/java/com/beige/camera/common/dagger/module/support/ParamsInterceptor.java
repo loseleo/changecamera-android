@@ -46,15 +46,15 @@ public class ParamsInterceptor implements Interceptor {
 //                byte[] encode = InnoSecureUtils.secureSo(BaseApplication.getsInstance().getApplicationContext(), JsonUtils.mapToJsonString(params));
 //                String qdata = null != encode ? Base64.encodeToString(encode, Base64.NO_WRAP) : "";
 //                String qdata = null != encode ? Base64.encodeToString(encode, Base64.NO_WRAP) : "";
-                String encode = JsonUtils.mapToJsonString(params);
-                String s = TextUtils.isEmpty(encode) ? "" : encode;
-                JSONObject root = new JSONObject();
-                try {
-                    root.put("qdata", s);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), root.toString());
+//                String encode = JsonUtils.mapToJsonString(params);
+//                String s = TextUtils.isEmpty(encode) ? "" : encode;
+//                JSONObject root = new JSONObject();
+//                try {
+//                    root.put("qdata", s);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+                RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"),  JsonUtils.mapToJsonString(params));
                 builder.post(requestBody);
 
             } else if (body == null || body.contentType() == null && body.contentLength() <= 0) {

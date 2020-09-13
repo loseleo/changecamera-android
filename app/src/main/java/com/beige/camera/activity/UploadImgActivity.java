@@ -71,17 +71,15 @@ public class UploadImgActivity extends BaseActivity {
     public void configViews() {
         LogUtils.e("zhangning", "imagePath = " + imagePath);
         BitmapUtil.loadImageCircle(this, imagePath, R.color.black, ivPreview);
-//        if(TextUtils.equals(function,FunctionBean.ID_CHANGE_ANIMAL) || TextUtils.equals(function,FunctionBean.ID_DETECTION_AGE)){
-//            setProgress();
-//        }else{
-//            upLoadImage();
-//        }
-        setProgress();
+        if(TextUtils.equals(function,FunctionBean.ID_CHANGE_ANIMAL)){
+            setProgress();
+        }else{
+            upLoadImage();
+        }
         icBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
-                goNextActivity(imagePath);
             }
         });
 
@@ -100,6 +98,15 @@ public class UploadImgActivity extends BaseActivity {
         UploadFileManager.getInstance().uploadFile("IMG", imagePath, new UploadFileManager.UploadFileCallback() {
             @Override
             public void onProgress(long currentSize, long totalSize) {
+
+                progressbar.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        int progress = (int) (currentSize * 100 / totalSize);
+                        progressbar.setProgress(progress);
+                        tvProgress.setText(progress + "%");
+                    }
+                });
             }
 
             @Override
@@ -112,7 +119,6 @@ public class UploadImgActivity extends BaseActivity {
 
             @Override
             public void onFailure(String requestId, String errorCode, String message) {
-                Log.e("zhangning", "upLoadImage onFailure errorCode :"+errorCode + "message :"  + message);
                 MsgUtils.showToastCenter(UploadImgActivity.this,"图片处理失败");
             }
         });

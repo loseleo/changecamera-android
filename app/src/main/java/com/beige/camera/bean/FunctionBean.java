@@ -15,7 +15,7 @@ public class FunctionBean implements Serializable {
     private String title;
     private String cover;
     private int drawable;
-    private String link;
+    private String imageUrl;
 
     public FunctionBean(String id, String title, int drawable) {
         this.id = id;
@@ -47,12 +47,12 @@ public class FunctionBean implements Serializable {
         this.cover = cover;
     }
 
-    public String getLink() {
-        return link;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public int getDrawable() {

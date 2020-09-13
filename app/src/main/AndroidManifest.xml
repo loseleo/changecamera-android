@@ -104,6 +104,26 @@
             android:name="com.beige.camera.activity.UploadImgActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Main"/>
+
+        <activity
+            android:name="com.beige.camera.activity.WebViewActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Main">
+        </activity>
+
+        <activity
+            android:name="com.beige.camera.activity.UserCenterActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Main">
+        </activity>
+
+        <activity
+            android:name="com.beige.camera.activity.AboutUsActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Main">
         </activity>
         <!-- 对外调起应用入口 -->

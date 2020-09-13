@@ -15,6 +15,8 @@
  */
 package com.beige.camera.api;
 
+import com.beige.camera.bean.EffectAgeBean;
+import com.beige.camera.bean.EffectImageBean;
 import com.beige.camera.common.base.bean.ApiResult;
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -32,7 +34,22 @@ public interface ApiService {
 
 
     @FormUrlEncoded
-    @POST("/collection/batch_follow")
-    Observable<ApiResult> submitFollowCollection(@Field("collection_ids") String collectionIds);
+    @POST("api/v1/face/detect")
+    Observable<ApiResult<EffectAgeBean>> getEffectAge(@Field("image") String image);
+
+
+    @FormUrlEncoded
+    @POST("api/v1/face/edit_attr")
+    Observable<ApiResult<EffectImageBean>> getFaceEditAttr(@Field("image") String image, @Field("action_type") String actionType);
+
+
+    @FormUrlEncoded
+    @POST("api/v1/image_process/style_trans")
+    Observable<ApiResult<EffectImageBean>> getImageStyleTrans(@Field("image") String image, @Field("option") String option);
+
+
+    @FormUrlEncoded
+    @POST("api/v1/image_process/selie_anime")
+    Observable<ApiResult<EffectImageBean>> getImageSelieAnime(@Field("image") String image);
 
 }

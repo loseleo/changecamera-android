@@ -2,6 +2,7 @@ package com.beige.camera.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -13,22 +14,42 @@ import com.beige.camera.R;
 import com.beige.camera.common.base.BaseActivity;
 import com.beige.camera.common.router.PageIdentity;
 import com.beige.camera.common.utils.LogUtils;
+import com.beige.camera.common.utils.RxUtil;
 import com.beige.camera.common.utils.imageloader.BitmapUtil;
+import com.beige.camera.contract.IEffectImageView;
+import com.beige.camera.dagger.MainComponentHolder;
+import com.beige.camera.presenter.EffectImagePresenter;
+import com.beige.camera.presenter.WelcomePresenter;
 import com.beige.camera.ringtone.api.bean.AdConfigBean;
 import com.beige.camera.ringtone.core.AdManager;
 import com.beige.camera.ringtone.core.infoflow.InfoFlowAd;
 import com.beige.camera.ringtone.core.strategy.Callback;
+import com.beige.camera.ringtone.dagger.AdComponentHolder;
+import com.beige.camera.utils.AdHelper;
+
+import java.util.concurrent.TimeUnit;
+
+import javax.inject.Inject;
+
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+
+import static com.beige.camera.common.utils.RxUtil.io_main;
 
 
 @Route(path = PageIdentity.APP_AGEEFFECT)
-public class AgeEffectActivity extends BaseActivity {
+public class AgeEffectActivity extends BaseActivity implements IEffectImageView {
 
+    public String bannerAdType = "bannerAdType";
+    public String rewardedAdType = "rewardedAdType";
     private ImageView icBack;
     private ImageView ivPreview;
     private TextView tvAge;
     private TextView btnSave;
     private TextView btnShare;
     private FrameLayout adContainer;
+    @Inject
+    public EffectImagePresenter mPresenter;
 
     @Autowired(name = "image_path")
     String imagePath;
@@ -40,6 +61,30 @@ public class AgeEffectActivity extends BaseActivity {
 
     @Override
     protected void setupActivityComponent() {
+        MainComponentHolder.getInstance().inject(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.attachView(this);
+        AdHelper.playRewardedVideo(this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+            @Override
+            public void onDismissed(int action) {
+
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mPresenter.detachView();
     }
 
     @Override
@@ -54,7 +99,9 @@ public class AgeEffectActivity extends BaseActivity {
         tvAge = findViewById(R.id.tv_age);
         btnSave = findViewById(R.id.btn_save);
         btnShare = findViewById(R.id.btn_share);
-        adContainer = findViewById(R.id.fl_ad_container);
+        btnShare = findViewById(R.id.btn_share);
+        adContainer =findViewById(R.id.fl_ad_container);
+        AdHelper.showBannerAdView(bannerAdType,adContainer);
     }
 
     @Override
@@ -64,9 +111,7 @@ public class AgeEffectActivity extends BaseActivity {
     @Override
     public void configViews() {
         LogUtils.e("zhangning", "imagePath = " + imagePath);
-        BitmapUtil.loadImageRound(this,imagePath,ivPreview,R.drawable.bg_shape_gender_gray,20);
-        int age = (int) (10 + Math.random() * (1000 - 10 + 1));
-        tvAge.setText(age + " 岁");
+        BitmapUtil.loadImageRound(this, imagePath, ivPreview, R.color.gray777, 20);
         icBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,8 +131,9 @@ public class AgeEffectActivity extends BaseActivity {
             }
         });
 
-    }
+        mPresenter.getEffectAge(imagePath);
 
+    }
 
 
     @Nullable
@@ -96,27 +142,16 @@ public class AgeEffectActivity extends BaseActivity {
         return PageIdentity.APP_AGEEFFECT;
     }
 
-
-    public void setAdModel(AdConfigBean adModel) {
-        if (adContainer == null || adModel == null) {
-            return;
-        }
-        adContainer.post(new Runnable() {
-            @Override
-            public void run() {
-                AdManager.loadBigImgAd(adContainer, adModel.getCandidates(), new Callback<InfoFlowAd>() {
-                    @Override
-                    public void onAdLoadStart(InfoFlowAd ad) {
-                    }
-
-                    @Override
-                    public void onFail(Throwable e) {
-
-                    }
-                });
-            }
-        });
+    @Override
+    public void onResultEffectImage(String image,String actionType) {
     }
 
-
+    @Override
+    public void onResultAge(String age) {
+        LogUtils.e("zhangning","age = " + age);
+        if (TextUtils.isEmpty(age)) {
+             age = (int) (10 + Math.random() * (1000 - 10 + 1)) + "";
+        }
+        tvAge.setText(age + " 岁");
+    }
 }

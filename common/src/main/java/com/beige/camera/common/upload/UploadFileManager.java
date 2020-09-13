@@ -172,7 +172,9 @@ public class UploadFileManager {
             public void onSuccess(PutObjectRequest request, PutObjectResult result) {
                 LogUtils.e("zhangning", "PutObject:UploadSuccess" + "  ETag:" + result.getETag() + "  RequestId:" + result.getRequestId());
                 if(uploadFileCallback != null) {
-                    uploadFileCallback.onSuccess(fileName,result.getETag(), result.getRequestId());
+                   String imageUrl =  "http://" +mUploadTokenModel.getBucketName() + "." + mUploadTokenModel.getEndPoint() + "/"+ fileName;
+                    LogUtils.e("zhangning", "imageUrl = " + imageUrl);
+                    uploadFileCallback.onSuccess(imageUrl,result.getETag(), result.getRequestId());
                 }
             }
 

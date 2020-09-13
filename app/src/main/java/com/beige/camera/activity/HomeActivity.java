@@ -23,14 +23,14 @@ import com.beige.camera.common.router.PageIdentity;
 import com.beige.camera.common.utils.BundleUtil;
 import com.beige.camera.common.utils.MsgUtils;
 import com.beige.camera.common.utils.PackageUtils;
-import com.beige.camera.common.utils.StatusBarConfig;
 import com.beige.camera.common.utils.imageloader.BitmapUtil;
-import com.beige.camera.contract.HomeView;
+import com.beige.camera.contract.IHomeView;
 import com.beige.camera.dagger.MainComponentHolder;
 import com.beige.camera.presenter.HomePresenter;
 import com.beige.camera.utils.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerListener;
 import com.zhangqiang.celladapter.CellRVAdapter;
 import com.zhangqiang.celladapter.cell.Cell;
 import com.zhangqiang.celladapter.cell.MultiCell;
@@ -45,7 +45,7 @@ import javax.inject.Inject;
 
 
 @Route(path = PageIdentity.APP_HOME)
-public class HomeActivity extends BaseActivity implements HomeView {
+public class HomeActivity extends BaseActivity implements IHomeView {
 
 
     private static final String INTENT_KEY_SCHEMA_URI = "schemaUri";
@@ -53,6 +53,7 @@ public class HomeActivity extends BaseActivity implements HomeView {
     private long mExitTime;
 
     private  Banner banner;
+    private  ImageView ivMe;
     private RecyclerView rvRecommend;
     private RecyclerView rvHotFunction;
 
@@ -82,15 +83,6 @@ public class HomeActivity extends BaseActivity implements HomeView {
         super.onResume();
     }
 
-
-    @Override
-    public StatusBarConfig getStatusBarConfig() {
-        return new StatusBarConfig.Builder()
-                .setFitsSystemWindows(false)
-                .setDarkTheme(false)
-                .build();
-    }
-
     @Override
     protected void setupActivityComponent() {
         MainComponentHolder.getInstance()
@@ -109,6 +101,7 @@ public class HomeActivity extends BaseActivity implements HomeView {
 
     @Override
     public void initViews() {
+        ivMe = findViewById(R.id.iv_me);
         banner = findViewById(R.id.banner);
         rvRecommend = findViewById(R.id.rv_recommend);
         rvHotFunction = findViewById(R.id.rv_hot_function);
@@ -116,14 +109,19 @@ public class HomeActivity extends BaseActivity implements HomeView {
 
     @Override
     public void configViews() {
+        ivMe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppNavigator.goUserCenterActivity(HomeActivity.this);
+            }
+        });
 
         setBanner();
-
         ArrayList<RecommendBean> recommendList = new ArrayList<>();
         recommendList.add( new RecommendBean("1","相机","",R.mipmap.icon_home_kks,""));
-        recommendList.add( new RecommendBean("1","广告","https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2058213453,278814451&fm=26&gp=0.jpg",0,""));
-        recommendList.add( new RecommendBean("1","广告","https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2058213453,278814451&fm=26&gp=0.jpg",0,""));
-        recommendList.add( new RecommendBean("1","广告","https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2058213453,278814451&fm=26&gp=0.jpg",0,""));
+//        recommendList.add( new RecommendBean("1","广告","http://mirage-test.oss-cn-hongkong.aliyuncs.com/01EJ399A0E0000000000000000.jpg",0,""));
+//        recommendList.add( new RecommendBean("1","广告","https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2058213453,278814451&fm=26&gp=0.jpg",0,""));
+//        recommendList.add( new RecommendBean("1","广告","https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2058213453,278814451&fm=26&gp=0.jpg",0,""));
         rvRecommend.setLayoutManager(new GridLayoutManager(this, 4));
         rvRecommend.setAdapter(recommendAdapter);
         List<Cell> recommendCellList = new ArrayList<>();
@@ -245,7 +243,6 @@ public class HomeActivity extends BaseActivity implements HomeView {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-
             if (System.currentTimeMillis() - mExitTime > 2000) {
                 MsgUtils.showToastCenter(HomeActivity.this, getString(R.string.double_back_tips, PackageUtils.getAppName(this)));
                 mExitTime = System.currentTimeMillis();
@@ -263,11 +260,14 @@ public class HomeActivity extends BaseActivity implements HomeView {
 
     public void setBanner(){
 
-        ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1940116422,2073392104&fm=26&gp=0.jpg");
-        arrayList.add("https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3660668578,2059694256&fm=26&gp=0.jpg");
-        arrayList.add("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1775378136,5105235&fm=26&gp=0.jpg");
-        // 绑定数据
+        ArrayList<FunctionBean> arrayList = new ArrayList<>();
+//        arrayList.add( new FunctionBean(FunctionBean.ID_CHANGE_OLD,"变老相机",R.mipmap.img_home_pic_old));
+//        arrayList.add( new FunctionBean(FunctionBean.ID_CHANGE_GENDER,"性别转换",R.mipmap.img_home_pic_change));
+//        arrayList.add( new FunctionBean(FunctionBean.ID_CHANGE_CHILD,"童颜相机",R.mipmap.img_home_pic_keds));
+//        arrayList.add( new FunctionBean(FunctionBean.ID_CHANGE_CARTOON,"漫画脸",R.mipmap.img_home_pic_anime));
+        arrayList.add( new FunctionBean(FunctionBean.ID_CHANGE_ANIMAL,"动物预测",R.mipmap.banner_animal));
+//        arrayList.add( new FunctionBean(FunctionBean.ID_DETECTION_AGE,"年龄检测",R.mipmap.img_home_pic_age));
+
         //设置banner样式
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         //设置图片加载器
@@ -286,6 +286,16 @@ public class HomeActivity extends BaseActivity implements HomeView {
         banner.setIndicatorGravity(BannerConfig.CENTER);
         //banner设置方法全部调用完毕时最后调用
         banner.start();
+        banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+
+                AppNavigator.goWebViewActivity(HomeActivity.this,"https://www.baidu.com/");
+//                FunctionBean functionBean = arrayList.get(position);
+//                AppNavigator.goCameraActivity(HomeActivity.this,functionBean.getId());
+            }
+        });
+
     }
 
 }

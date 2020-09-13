@@ -23,6 +23,9 @@ public class PageIdentity {
     public static final String APP_GENDEREFFECT = "/app/gendereffect";
     public static final String APP_AGEEFFECT = "/app/ageeffect";
     public static final String APP_CARTOONEFFECT = "/app/cartooneffect";
+    public static final String APP_WEBVIEW = "/app/webview";
+    public static final String APP_USERCENTER= "/app/usercenter";
+    public static final String APP_ABOUTUS= "/app/aboutus";
     public static final String APP_IMGUPLOAD = "/app/imgupload";
 
 

@@ -1,5 +1,6 @@
 package com.beige.camera.activity;
 
+import android.app.Activity;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,13 +17,34 @@ import com.beige.camera.R;
 import com.beige.camera.common.base.BaseActivity;
 import com.beige.camera.common.router.PageIdentity;
 import com.beige.camera.common.utils.LogUtils;
+import com.beige.camera.common.utils.MsgUtils;
+import com.beige.camera.common.utils.RxUtil;
+import com.beige.camera.common.utils.imageloader.BitmapUtil;
+import com.beige.camera.contract.IEffectImageView;
+import com.beige.camera.dagger.MainComponentHolder;
+import com.beige.camera.presenter.EffectImagePresenter;
 import com.beige.camera.ringtone.api.bean.AdConfigBean;
 import com.beige.camera.ringtone.core.AdManager;
 import com.beige.camera.ringtone.core.infoflow.InfoFlowAd;
 import com.beige.camera.ringtone.core.strategy.Callback;
+import com.beige.camera.ringtone.dagger.AdComponentHolder;
+import com.beige.camera.utils.AdHelper;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import javax.inject.Inject;
+
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+
+import static com.beige.camera.common.utils.RxUtil.io_main;
 
 @Route(path = PageIdentity.APP_OLDEFFECT)
-public class OldEffectActivity extends BaseActivity {
+public class OldEffectActivity extends BaseActivity implements IEffectImageView {
+
+    public String bannerAdType = "bannerAdType";
+    public String rewardedAdType = "rewardedAdType";
 
     private ImageView ivPreview;
     private ImageView icBack;
@@ -43,7 +65,11 @@ public class OldEffectActivity extends BaseActivity {
     private TextView tvSelectAge40;
     private TextView tvSelectAge50;
 
+    @Inject
+    public EffectImagePresenter mPresenter;
+
     private String selectAge = "now";
+    private String effectImage = "";
 
     @Autowired(name = "image_path")
     String imagePath;
@@ -55,11 +81,35 @@ public class OldEffectActivity extends BaseActivity {
 
     @Override
     protected void setupActivityComponent() {
+        MainComponentHolder.getInstance().inject(this);
     }
 
     @Override
     public int getLayoutResId() {
         return R.layout.activity_oldeffect;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.attachView(this);
+        AdHelper.playRewardedVideo(this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+            @Override
+            public void onDismissed(int action) {
+
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mPresenter.detachView();
     }
 
     @Override
@@ -81,6 +131,7 @@ public class OldEffectActivity extends BaseActivity {
         tvSelectAge30 = findViewById(R.id.tv_select_age_30);
         tvSelectAge40 = findViewById(R.id.tv_select_age_40);
         tvSelectAge50 = findViewById(R.id.tv_select_age_50);
+        AdHelper.showBannerAdView(bannerAdType,adContainer);
     }
 
     @Override
@@ -90,7 +141,7 @@ public class OldEffectActivity extends BaseActivity {
     @Override
     public void configViews() {
         LogUtils.e("zhangning", "imagePath = " + imagePath);
-        ivPreview.setImageBitmap(BitmapFactory.decodeFile(imagePath));
+        setEffectImage();
         icBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -139,6 +190,8 @@ public class OldEffectActivity extends BaseActivity {
             }
         });
 
+        mPresenter.getFaceEditAttr(imagePath, "TO_OLD");
+
     }
 
     @Nullable
@@ -148,7 +201,7 @@ public class OldEffectActivity extends BaseActivity {
     }
 
 
-    private void setSelectAge(){
+    private void setSelectAge() {
         selectAgeNow.setVisibility(View.INVISIBLE);
         selectAge30.setVisibility(View.INVISIBLE);
         selectAge40.setVisibility(View.INVISIBLE);
@@ -157,41 +210,42 @@ public class OldEffectActivity extends BaseActivity {
         tvSelectAge30.setTextColor(getResources().getColor(R.color.black));
         tvSelectAge40.setTextColor(getResources().getColor(R.color.black));
         tvSelectAge50.setTextColor(getResources().getColor(R.color.black));
-        if (TextUtils.equals(selectAge ,"now")) {
+        if (TextUtils.equals(selectAge, "now")) {
             selectAgeNow.setVisibility(View.VISIBLE);
             tvSelectAgeNow.setTextColor(getResources().getColor(R.color.common_color_FF390B));
-        }else if(TextUtils.equals(selectAge ,"30")){
+        } else if (TextUtils.equals(selectAge, "30")) {
             selectAge30.setVisibility(View.VISIBLE);
             tvSelectAge30.setTextColor(getResources().getColor(R.color.common_color_FF390B));
-        }else if(TextUtils.equals(selectAge ,"40")){
+        } else if (TextUtils.equals(selectAge, "40")) {
             selectAge40.setVisibility(View.VISIBLE);
             tvSelectAge40.setTextColor(getResources().getColor(R.color.common_color_FF390B));
-        }else if(TextUtils.equals(selectAge ,"50")){
+        } else if (TextUtils.equals(selectAge, "50")) {
             selectAge50.setVisibility(View.VISIBLE);
             tvSelectAge50.setTextColor(getResources().getColor(R.color.common_color_FF390B));
         }
+        setEffectImage();
     }
 
-
-    public void setAdModel(AdConfigBean adModel) {
-        if (adContainer == null || adModel == null) {
-            return;
+    private void setEffectImage(){
+        if (TextUtils.equals(selectAge, "now")) {
+            BitmapUtil.loadImage(imagePath,ivPreview);
+        }else{
+            BitmapUtil.loadImage(effectImage,ivPreview);
         }
-        adContainer.post(new Runnable() {
-            @Override
-            public void run() {
-                AdManager.loadBigImgAd(adContainer, adModel.getCandidates(), new Callback<InfoFlowAd>() {
-                    @Override
-                    public void onAdLoadStart(InfoFlowAd ad) {
-                    }
+    }
 
-                    @Override
-                    public void onFail(Throwable e) {
+    @Override
+    public void onResultEffectImage(String image, String actionType) {
+        if (TextUtils.isEmpty(image)) {
+            MsgUtils.showToastCenter(OldEffectActivity.this,"图片处理失败");
+            effectImage = imagePath;
+        }
+        effectImage = image;
+        setEffectImage();
+    }
 
-                    }
-                });
-            }
-        });
+    @Override
+    public void onResultAge(String age) {
     }
 
 

@@ -87,7 +87,8 @@
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintLeft_toLeftOf="@+id/ring_out"
                 app:layout_constraintRight_toRightOf="@+id/ring_out"
-                app:layout_constraintTop_toTopOf="@+id/ring_out" />
+                app:layout_constraintTop_toTopOf="@+id/ring_out"
+                android:scaleType="centerCrop"/>
 
             <ImageView
                 android:id="@+id/ring_small"

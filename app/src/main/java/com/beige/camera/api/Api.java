@@ -15,6 +15,8 @@
  */
 package com.beige.camera.api;
 
+import com.beige.camera.bean.EffectAgeBean;
+import com.beige.camera.bean.EffectImageBean;
 import com.beige.camera.common.base.bean.ApiResult;
 
 import io.reactivex.Observable;
@@ -36,8 +38,20 @@ public class Api {
         service = retrofit.create(ApiService.class);
     }
 
-    public Observable<ApiResult> submitFollowCollection(String collectionIds) {
-        return service.submitFollowCollection(collectionIds);
+    public Observable<ApiResult<EffectAgeBean>> getEffectAge(String imageUrl) {
+        return service.getEffectAge(imageUrl);
+    }
+
+    public Observable<ApiResult<EffectImageBean>> getFaceEditAttr(String imageUrl, String actionType) {
+        return service.getFaceEditAttr(imageUrl, actionType);
+    }
+
+    public Observable<ApiResult<EffectImageBean>> getImageStyleTrans(String imageUrl, String option) {
+        return service.getImageStyleTrans(imageUrl, option);
+    }
+
+    public Observable<ApiResult<EffectImageBean>> getImageSelieAnime(String imageUrl) {
+        return service.getImageSelieAnime(imageUrl);
     }
 
 }

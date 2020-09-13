@@ -2,7 +2,7 @@ package com.beige.camera.presenter;
 
 import android.content.Context;
 import com.beige.camera.api.Api;
-import com.beige.camera.contract.HomeView;
+import com.beige.camera.contract.IHomeView;
 import com.zhangqiang.mvp.Presenter;
 
 
@@ -14,7 +14,7 @@ import javax.inject.Inject;
  * @version 1.0
  * @date 06/14/2019
  */
-public class HomePresenter extends Presenter<HomeView> {
+public class HomePresenter extends Presenter<IHomeView> {
 
     private Api api;
     private Context mContext;

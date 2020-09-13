@@ -14,7 +14,7 @@ import com.beige.camera.ringtone.dagger.AdComponentHolder;
 import com.beige.camera.api.Api;
 import com.beige.camera.common.utils.LogUtils;
 import com.beige.camera.common.utils.RxUtil;
-import com.beige.camera.contract.WelcomeView;
+import com.beige.camera.contract.IWelcomeView;
 import com.zhangqiang.mvp.Presenter;
 
 import java.util.concurrent.TimeUnit;
@@ -31,7 +31,7 @@ import static com.beige.camera.common.utils.RxUtil.io_main;
  * @version 1.0
  * @date 06/14/2019
  */
-public class WelcomePresenter extends Presenter<WelcomeView> {
+public class WelcomePresenter extends Presenter<IWelcomeView> {
 
 
     private Api api;
@@ -63,7 +63,7 @@ public class WelcomePresenter extends Presenter<WelcomeView> {
 
                     @Override
                     public void onError(Throwable e) {
-                        WelcomeView view = getAttachedView();
+                        IWelcomeView view = getAttachedView();
                         if(view != null){
                             view.goHome();
                         }
@@ -78,7 +78,7 @@ public class WelcomePresenter extends Presenter<WelcomeView> {
 
     public void loadSplashAd(AdConfigBean adModel) {
 
-        WelcomeView view = getAttachedView();
+        IWelcomeView view = getAttachedView();
         FrameLayout adContainer = view.getAdContainer();
         AdLoader<SplashAd> splashAdAdLoader = AdManager.loadSplashAd(adContainer, adModel.getCandidates(), new Callback<SplashAd>() {
             @Override
