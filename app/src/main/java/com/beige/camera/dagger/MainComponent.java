@@ -1,10 +1,12 @@
 package com.beige.camera.dagger;
 
 import com.beige.camera.activity.AgeEffectActivity;
+import com.beige.camera.activity.BackgroundEffectActivity;
 import com.beige.camera.activity.CartoonEffectActivity;
 import com.beige.camera.activity.GenderEffectActivity;
 import com.beige.camera.activity.HomeActivity;
 import com.beige.camera.activity.OldEffectActivity;
+import com.beige.camera.activity.PastEffectActivity;
 import com.beige.camera.activity.WelcomeActivity;
 import com.beige.camera.ringtone.dagger.ADApiModule;
 import com.beige.camera.api.Api;
@@ -24,5 +26,7 @@ public interface MainComponent {
     void inject(CartoonEffectActivity activity);
     void inject(GenderEffectActivity activity);
     void inject(OldEffectActivity activity);
+    void inject(PastEffectActivity activity);
+    void inject(BackgroundEffectActivity activity);
 
 }

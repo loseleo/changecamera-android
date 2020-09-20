@@ -71,11 +71,12 @@ public class UploadImgActivity extends BaseActivity {
     public void configViews() {
         LogUtils.e("zhangning", "imagePath = " + imagePath);
         BitmapUtil.loadImageCircle(this, imagePath, R.color.black, ivPreview);
-        if(TextUtils.equals(function,FunctionBean.ID_CHANGE_ANIMAL)){
-            setProgress();
-        }else{
-            upLoadImage();
-        }
+        setProgress();
+//        if(TextUtils.equals(function,FunctionBean.ID_CHANGE_ANIMAL)){
+//            setProgress();
+//        }else{
+//            upLoadImage();
+//        }
         icBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -158,6 +159,18 @@ public class UploadImgActivity extends BaseActivity {
             AppNavigator.goAnimalEffectActivity(UploadImgActivity.this,imagePath);
         }else if (TextUtils.equals(function,FunctionBean.ID_DETECTION_AGE)) {
             AppNavigator.goAgeffectActivity(UploadImgActivity.this,imagePath);
+        }else if (TextUtils.equals(function,FunctionBean.ID_DETECTION_PAST)) {
+            AppNavigator.goPastEffectActivity(UploadImgActivity.this,imagePath);
+        }else if (TextUtils.equals(function,FunctionBean.ID_DETECTION_BABY)) {
+//            AppNavigator.goAgeffectActivity(UploadImgActivity.this,imagePath);
+        }else if (TextUtils.equals(function,FunctionBean.ID_CHANGE_BACKGROUND)) {
+//            AppNavigator.goAgeffectActivity(UploadImgActivity.this,imagePath);
+        }else if (TextUtils.equals(function,FunctionBean.ID_CHANGE_HAIR)) {
+//            AppNavigator.goAgeffectActivity(UploadImgActivity.this,imagePath);
+        }else if (TextUtils.equals(function,FunctionBean.ID_CHANGE_CUSTOMS)) {
+//            AppNavigator.goAgeffectActivity(UploadImgActivity.this,imagePath);
+        }else if (TextUtils.equals(function,FunctionBean.ID_CHANGE_ANIMALFACE)) {
+//            AppNavigator.goAgeffectActivity(UploadImgActivity.this,imagePath);
         }
         finish();
     }

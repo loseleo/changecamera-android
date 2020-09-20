@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.beige.camera.R;
 import com.beige.camera.common.base.BaseDialogFragment;
+import com.beige.camera.common.constant.Constant;
 import com.beige.camera.common.utils.ScreenUtils;
 import com.beige.camera.common.utils.span.SpanUtils;
 import com.beige.camera.common.utils.span.URLSpanWrapper;
@@ -25,7 +26,7 @@ public class PrivacyPoliceDialog extends BaseDialogFragment {
     private TextView tvContent;
     private String pageName;
 
-    private String defContent = "感谢您选择彩蛋视频纯净版产品和服务!<p>我们非常重视您的个人信息和隐私保护。为了更好地保障您的个人权益，在您使用我们产品前，请务必审慎阅读 <font color=\"#2395FF\"> <a href=\"quvideoopen://m.quvideo.com/WebView/WebViewActivity?webview_url=https://dd-video-h5.qtt3.cn/_quvideo/user-agreement.html\" >《用户协议》</a> </font>及<font color=\"#2395FF\"> <a  href=\"quvideoopen://m.quvideo.com/WebView/WebViewActivity?webview_url=https://dd-video-h5.qtt3.cn/_quvideo/privacy-police.html\" >《隐私政策》</a> </font> 内的所有条款，尤其是：<br/>1. 我们对您的个人信息的收集/保存/使用/对外提供/保护等规则条款，以及您的用户权利等条款；<br/>2. 约定我们的限制责任、免责条款；<br/>3. 其他以加粗或下划线进行标识的重要条款。</p><p>您点击“同意”的行为即表示您已阅读完毕并同意以上协议的全部内容。</p>";
+    private String defContent = "感谢您选择魔幻相机产品和服务!<p>我们非常重视您的个人信息和隐私保护。为了更好地保障您的个人权益，在您使用我们产品前，请务必审慎阅读 <font color=\"#2395FF\"><a href=\"ccopen://m.changecamera.com/app/webview?url=" + Constant.URL_USER_AGREEMENT + "\">《用户协议》</a> </font>及<font color=\"#2395FF\"> <a href=\"ccopen://m.changecamera.com/app/webview?url=" + Constant.URL_PRIVACY_POLICE + "\">《隐私政策》</a> </font> 内的所有条款，尤其是：<br/>1. 我们对您的个人信息的收集/保存/使用/对外提供/保护等规则条款，以及您的用户权利等条款；<br/>2. 约定我们的限制责任、免责条款；<br/>3. 其他以加粗或下划线进行标识的重要条款。</p><p>您点击“同意”的行为即表示您已阅读完毕并同意以上协议的全部内容。</p>";
 
     public static PrivacyPoliceDialog newInstance(String pageName) {
         Bundle bundle = new Bundle();

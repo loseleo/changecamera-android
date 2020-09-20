@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.beige.camera.R;
 import com.beige.camera.common.base.BaseActivity;
+import com.beige.camera.common.constant.Constant;
+import com.beige.camera.common.router.AppNavigator;
 import com.beige.camera.common.router.PageIdentity;
 import com.beige.camera.common.utils.PackageUtils;
 import com.beige.camera.common.view.loadding.CustomDialog;
@@ -76,6 +78,19 @@ public class AboutUsActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+        clPrivacyAgreement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppNavigator.goWebViewActivity(AboutUsActivity.this,Constant.URL_PRIVACY_POLICE);
+            }
+        });
+
+        clUserAgreement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppNavigator.goWebViewActivity(AboutUsActivity.this,Constant.URL_USER_AGREEMENT);
             }
         });
     }

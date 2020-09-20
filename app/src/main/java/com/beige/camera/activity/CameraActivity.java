@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.beige.camera.R;
+import com.beige.camera.bean.FunctionBean;
 import com.beige.camera.common.base.BaseActivity;
 import com.beige.camera.common.router.AppNavigator;
 import com.beige.camera.common.router.PageIdentity;
@@ -31,6 +32,7 @@ import com.beige.camera.view.CustomCameraPreview;
 public class CameraActivity extends BaseActivity implements View.OnClickListener {
 
 
+    public static final  String FUNCTION_IMG_TOOL = "function_img_tool";
     public static final int RESULT_LOAD_CODE = 10001;
     private CustomCameraPreview customCameraPreview;
     private ImageView cameraFlash;
@@ -75,9 +77,11 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
         customCameraPreview.postDelayed(new Runnable() {
             @Override
             public void run() {
-                customCameraPreview.focus();
+                if(!isFinishing()){
+                    customCameraPreview.focus();
+                }
             }
-        }, 1000);
+        }, 500);
 
 
     }
@@ -180,6 +184,12 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
     private void goNextActivity(String imgPath) {
         if(TextUtils.isEmpty(function)){
             AppNavigator.goImgPreviewActivity(CameraActivity.this, imgPath);
+        }else if(TextUtils.equals(FUNCTION_IMG_TOOL,function)){
+            Intent intent = new Intent();
+            intent.putExtra("imagePathVS", imgPath);
+            setResult(RESULT_OK, intent);
+        }else if(TextUtils.equals(FunctionBean.ID_DETECTION_BABY,function) ||TextUtils.equals(FunctionBean.ID_DETECTION_VS,function)){
+            AppNavigator.goTwoImgUploadActivity(CameraActivity.this, imgPath,function);
         }else{
             AppNavigator.goImgUploadActivity(CameraActivity.this, imgPath,function);
         }

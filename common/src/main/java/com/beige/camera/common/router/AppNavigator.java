@@ -26,11 +26,9 @@ import io.reactivex.disposables.Disposable;
 public class AppNavigator {
 
 
-    public static void goMainActivity(Context context, String uriString, String tabName) {
+    public static void goMainActivity(Context context, String uriString) {
         Postcard postcard = ARouter.getInstance().build(PageIdentity.APP_HOME);
-//        postcard.setGroup(PageIdentity.GROUP_APP);
         postcard.withString("schemaUri", uriString)
-                .withString("tabName", tabName)
                 .navigation(context);
     }
 
@@ -51,10 +49,45 @@ public class AppNavigator {
                     ARouter.getInstance().build(PageIdentity.APP_CAMERA)
                             .withString("function", function)
                             .navigation(context);
+
                 } else if (!permission.shouldShowRequestPermissionRationale) {
                     new PermissionPageUtils(context).jumpPermissionPage();
                 }
             }
+
+            @Override
+            public void onError(Throwable e) {
+            }
+
+            @Override
+            public void onComplete() {
+            }
+        });
+    }
+
+    public static void goCameraActivity(BaseActivity context, String function, int requestCode) {
+
+        RxPermissions rxPermissions = new RxPermissions(context);
+        rxPermissions.setLogging(BuildConfig.DEBUG);
+        rxPermissions.requestEachCombined(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA).subscribe(new Observer<Permission>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                LogUtils.e("getPermissions onSubscribe");
+            }
+
+            @Override
+            public void onNext(Permission permission) {
+                LogUtils.e("zhangning", "Permission = " + permission.toString());
+                if (permission.granted) {
+                    ARouter.getInstance().build(PageIdentity.APP_CAMERA)
+                            .withString("function", function)
+                            .navigation(context, requestCode);
+
+                } else if (!permission.shouldShowRequestPermissionRationale) {
+                    new PermissionPageUtils(context).jumpPermissionPage();
+                }
+            }
+
             @Override
             public void onError(Throwable e) {
             }
@@ -77,6 +110,19 @@ public class AppNavigator {
                 .navigation(context);
     }
 
+    public static void goBabyEfectActivity(Context context, String imagePath) {
+        ARouter.getInstance().build(PageIdentity.APP_BABYEFFECT)
+                .withString("image_path", imagePath)
+                .navigation(context);
+    }
+
+    public static void goBeautyVsEfectActivity(Context context, String imagePath,String imagePathVS) {
+        ARouter.getInstance().build(PageIdentity.APP_BEAUTYVSEFFECT)
+                .withString("image_path", imagePath)
+                .withString("image_path_vs", imagePathVS)
+                .navigation(context);
+    }
+
     public static void goAnimalEffectActivity(Context context, String imagePath) {
         ARouter.getInstance().build(PageIdentity.APP_ANIMALEFFECT)
                 .withString("image_path", imagePath)
@@ -89,7 +135,7 @@ public class AppNavigator {
                 .navigation(context);
     }
 
-    public static void goGenderEffectActivity(Context context, String imagePath,String function) {
+    public static void goGenderEffectActivity(Context context, String imagePath, String function) {
         ARouter.getInstance().build(PageIdentity.APP_GENDEREFFECT)
                 .withString("image_path", imagePath)
                 .withString("function", function)
@@ -119,6 +165,19 @@ public class AppNavigator {
                 .navigation(context);
     }
 
+    public static void goTwoImgUploadActivity(Context context, String imagePath, String function) {
+        ARouter.getInstance().build(PageIdentity.APP_TWOIMGUPLOAD)
+                .withString("image_path", imagePath)
+                .withString("function", function)
+                .navigation(context);
+    }
+
+    public static void goPastEffectActivity(Context context, String imagePath) {
+        ARouter.getInstance().build(PageIdentity.APP_PASTEFFECT)
+                .withString("image_path", imagePath)
+                .navigation(context);
+    }
+
 
     public static void goWebViewActivity(Context context, String url) {
         if (!TextUtils.isEmpty(url)) {
@@ -142,7 +201,7 @@ public class AppNavigator {
 
         String path = uriString;
         String ddAppSchemeHost = PageIdentity.APP_SCHEME_HOST;
-        // 需要中转的蛋蛋视频uri
+        // 需要中转的uri
         path = uriString.substring(ddAppSchemeHost.length(), uriString.contains("?") ? uriString.indexOf("?") : uriString.length());
         Postcard build = ARouter.getInstance().build(path);
         if (uriString.contains("?")) {

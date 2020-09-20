@@ -12,20 +12,24 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.beige.camera.MyApplication;
 import com.beige.camera.R;
 import com.beige.camera.bean.FunctionBean;
 import com.beige.camera.bean.RecommendBean;
+import com.beige.camera.bean.VersionInfoBean;
 import com.beige.camera.common.base.BaseActivity;
 import com.beige.camera.common.router.AppNavigator;
 import com.beige.camera.common.router.PageIdentity;
 import com.beige.camera.common.utils.BundleUtil;
+import com.beige.camera.common.utils.LogUtils;
 import com.beige.camera.common.utils.MsgUtils;
 import com.beige.camera.common.utils.PackageUtils;
 import com.beige.camera.common.utils.imageloader.BitmapUtil;
 import com.beige.camera.contract.IHomeView;
 import com.beige.camera.dagger.MainComponentHolder;
+import com.beige.camera.dialog.UpdataVersionDialog;
 import com.beige.camera.presenter.HomePresenter;
 import com.beige.camera.utils.GlideImageLoader;
 import com.youth.banner.Banner;
@@ -48,15 +52,14 @@ import javax.inject.Inject;
 public class HomeActivity extends BaseActivity implements IHomeView {
 
 
-    private static final String INTENT_KEY_SCHEMA_URI = "schemaUri";
+    @Autowired(name = "schemaUri")
+    String schemaUri;
 
     private long mExitTime;
-
     private  Banner banner;
     private  ImageView ivMe;
     private RecyclerView rvRecommend;
     private RecyclerView rvHotFunction;
-
 
     private CellRVAdapter recommendAdapter = new CellRVAdapter();
     private CellRVAdapter hotFunctionAdapter = new CellRVAdapter();
@@ -105,6 +108,7 @@ public class HomeActivity extends BaseActivity implements IHomeView {
         banner = findViewById(R.id.banner);
         rvRecommend = findViewById(R.id.rv_recommend);
         rvHotFunction = findViewById(R.id.rv_hot_function);
+        autoLinkSchemeUri(schemaUri);
     }
 
     @Override
@@ -165,6 +169,13 @@ public class HomeActivity extends BaseActivity implements IHomeView {
         functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_CARTOON,"漫画脸",R.mipmap.img_home_pic_anime));
         functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_ANIMAL,"动物预测",R.mipmap.img_home_pic_animal));
         functionBeanList.add( new FunctionBean(FunctionBean.ID_DETECTION_AGE,"年龄检测",R.mipmap.img_home_pic_age));
+        functionBeanList.add( new FunctionBean(FunctionBean.ID_DETECTION_PAST,"前世今生",R.mipmap.img_home_pic_past));
+        functionBeanList.add( new FunctionBean(FunctionBean.ID_DETECTION_BABY,"宝宝预测",R.mipmap.img_home_pic_baby));
+        functionBeanList.add( new FunctionBean(FunctionBean.ID_DETECTION_VS,"比比谁美",R.mipmap.img_home_pic_baby));
+        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_BACKGROUND,"换背景",R.mipmap.img_home_pic_background));
+        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_HAIR,"换发型",R.mipmap.img_home_pic_hair));
+        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_CUSTOMS,"异国风情",R.mipmap.img_home_pic_custom));
+        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_ANIMALFACE,"动物人脸",R.mipmap.img_home_pic_animalface));
 
 
         rvHotFunction.setLayoutManager(new GridLayoutManager(this, 2));
@@ -202,9 +213,6 @@ public class HomeActivity extends BaseActivity implements IHomeView {
     }
 
 
-    private String getSchemaUri(@Nullable Bundle extras) {
-        return BundleUtil.getString(extras, INTENT_KEY_SCHEMA_URI, "");
-    }
 
     @Override
     protected void onStart() {
@@ -264,7 +272,7 @@ public class HomeActivity extends BaseActivity implements IHomeView {
 //        arrayList.add( new FunctionBean(FunctionBean.ID_CHANGE_OLD,"变老相机",R.mipmap.img_home_pic_old));
 //        arrayList.add( new FunctionBean(FunctionBean.ID_CHANGE_GENDER,"性别转换",R.mipmap.img_home_pic_change));
 //        arrayList.add( new FunctionBean(FunctionBean.ID_CHANGE_CHILD,"童颜相机",R.mipmap.img_home_pic_keds));
-//        arrayList.add( new FunctionBean(FunctionBean.ID_CHANGE_CARTOON,"漫画脸",R.mipmap.img_home_pic_anime));
+        arrayList.add( new FunctionBean(FunctionBean.ID_CHANGE_CARTOON,"漫画脸",R.mipmap.banner_anime));
         arrayList.add( new FunctionBean(FunctionBean.ID_CHANGE_ANIMAL,"动物预测",R.mipmap.banner_animal));
 //        arrayList.add( new FunctionBean(FunctionBean.ID_DETECTION_AGE,"年龄检测",R.mipmap.img_home_pic_age));
 
@@ -289,10 +297,15 @@ public class HomeActivity extends BaseActivity implements IHomeView {
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-
-                AppNavigator.goWebViewActivity(HomeActivity.this,"https://www.baidu.com/");
 //                FunctionBean functionBean = arrayList.get(position);
 //                AppNavigator.goCameraActivity(HomeActivity.this,functionBean.getId());
+
+                VersionInfoBean versionInfoBean = new VersionInfoBean();
+                versionInfoBean.setTitle("发现新版本");
+                versionInfoBean.setForceUpdate("0");
+                versionInfoBean.setVersionMemo("1,发现新版本\n2,发现新版本\n3,发现新版本\n2,发现新版本\n3,发现新版本\n2,发现新版本\n3,发现新版本");
+                UpdataVersionDialog updataVersionDialog = UpdataVersionDialog.newInstance(versionInfoBean);
+                updataVersionDialog.show(getSupportFragmentManager(), "updata_version_dialog");
             }
         });
 

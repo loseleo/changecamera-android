@@ -31,7 +31,7 @@ public class DepthLinkActivity extends AppCompatActivity {
                     AppNavigator.goActivityByUri(this,uriString);
                 }
             } else {
-                AppNavigator.goMainActivity(this,uriString,"");
+                AppNavigator.goMainActivity(this,uriString);
             }
         } catch (Throwable e) {
             CrashReport.postCatchedException(e);

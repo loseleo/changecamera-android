@@ -91,6 +91,16 @@
             android:name="com.beige.camera.activity.AgeEffectActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Main"/>
+        <activity
+            android:name="com.beige.camera.activity.BabyEffectActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Main">
+        </activity> <activity
+            android:name="com.beige.camera.activity.BeautyVsEffectActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Main">
         </activity>
         <activity
@@ -102,6 +112,12 @@
 
         <activity
             android:name="com.beige.camera.activity.UploadImgActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Main"/>
+
+        <activity
+            android:name="com.beige.camera.activity.UploadTwoImgActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Main"/>
@@ -126,6 +142,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Main">
         </activity>
+
+        <activity
+            android:name="com.beige.camera.activity.PastEffectActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Main">
+        </activity>
+
         <!-- 对外调起应用入口 -->
         <activity
             android:name="com.beige.camera.activity.DepthLinkActivity"

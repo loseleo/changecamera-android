@@ -99,7 +99,6 @@ public class AgeEffectActivity extends BaseActivity implements IEffectImageView 
         tvAge = findViewById(R.id.tv_age);
         btnSave = findViewById(R.id.btn_save);
         btnShare = findViewById(R.id.btn_share);
-        btnShare = findViewById(R.id.btn_share);
         adContainer =findViewById(R.id.fl_ad_container);
         AdHelper.showBannerAdView(bannerAdType,adContainer);
     }

@@ -21,12 +21,16 @@ public class PageIdentity {
     public static final String APP_OLDEFFECT = "/app/oldeffect";
     public static final String APP_ANIMALEFFECT = "/app/animaleffect";
     public static final String APP_GENDEREFFECT = "/app/gendereffect";
+    public static final String APP_PASTEFFECT = "/app/pastreffect";
     public static final String APP_AGEEFFECT = "/app/ageeffect";
     public static final String APP_CARTOONEFFECT = "/app/cartooneffect";
     public static final String APP_WEBVIEW = "/app/webview";
     public static final String APP_USERCENTER= "/app/usercenter";
     public static final String APP_ABOUTUS= "/app/aboutus";
     public static final String APP_IMGUPLOAD = "/app/imgupload";
+    public static final String APP_TWOIMGUPLOAD = "/app/twoimgupload";
+    public static final String APP_BABYEFFECT = "/app/babyeffect";
+    public static final String APP_BEAUTYVSEFFECT = "/app/beautyvseffect";
 
 
 

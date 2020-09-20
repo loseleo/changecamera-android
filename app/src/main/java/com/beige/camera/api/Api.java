@@ -17,6 +17,7 @@ package com.beige.camera.api;
 
 import com.beige.camera.bean.EffectAgeBean;
 import com.beige.camera.bean.EffectImageBean;
+import com.beige.camera.bean.VersionInfoBean;
 import com.beige.camera.common.base.bean.ApiResult;
 
 import io.reactivex.Observable;
@@ -52,6 +53,10 @@ public class Api {
 
     public Observable<ApiResult<EffectImageBean>> getImageSelieAnime(String imageUrl) {
         return service.getImageSelieAnime(imageUrl);
+    }
+
+    public Observable<ApiResult<VersionInfoBean>> checkVersion() {
+        return service.checkVersion();
     }
 
 }

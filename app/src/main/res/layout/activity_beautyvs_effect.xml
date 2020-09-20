@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EFEEF3"
+    android:fitsSystemWindows="false"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="146dp"
+        android:background="@mipmap/bg_page_top" />
+
+
+    <ImageView
+        android:id="@+id/ic_back"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:padding="3dp"
+        android:src="@mipmap/icon_back_white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="比比谁美"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ic_back"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ic_back" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ic_back">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:background="@drawable/bg_perview_white">
+
+            <ImageView
+                android:id="@+id/ring_left"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/bg_shape_gender_one"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/iv_vs"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_perview_left"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="6dp"
+                android:background="@drawable/bg_shape_gender_gray"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="@+id/ring_left"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintLeft_toLeftOf="@+id/ring_left"
+                app:layout_constraintRight_toRightOf="@+id/ring_left"
+                app:layout_constraintTop_toTopOf="@+id/ring_left" />
+
+            <ImageView
+                android:id="@+id/iv_champion_left"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:background="@mipmap/icon_champion"
+                android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="@+id/ring_left"
+                app:layout_constraintRight_toRightOf="@+id/ring_left" />
+
+
+            <ImageView
+                android:id="@+id/iv_vs"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@mipmap/icon_vs"
+                app:layout_constraintBottom_toBottomOf="@+id/ring_left"
+                app:layout_constraintLeft_toRightOf="@+id/ring_left"
+                app:layout_constraintRight_toLeftOf="@+id/ring_right"
+                app:layout_constraintTop_toTopOf="@+id/ring_left" />
+
+
+            <ImageView
+                android:id="@+id/ring_right"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/bg_shape_gender_tow"
+                app:layout_constraintBottom_toBottomOf="@+id/ring_left"
+                app:layout_constraintLeft_toRightOf="@+id/iv_vs"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/ring_left" />
+
+            <ImageView
+                android:id="@+id/iv_perview_right"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="6dp"
+                android:background="@drawable/bg_shape_gender_gray"
+                app:layout_constraintBottom_toBottomOf="@+id/ring_right"
+                app:layout_constraintLeft_toLeftOf="@+id/ring_right"
+                app:layout_constraintRight_toRightOf="@+id/ring_right"
+                app:layout_constraintTop_toTopOf="@+id/ring_right" />
+
+            <ImageView
+                android:id="@+id/iv_champion_right"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:background="@mipmap/icon_champion"
+                android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="@+id/ring_right"
+                app:layout_constraintRight_toRightOf="@+id/ring_right" />
+
+            <TextView
+                android:id="@+id/tv_name_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="你"
+                android:textSize="14dp"
+                app:layout_constraintLeft_toLeftOf="@+id/ring_left"
+                app:layout_constraintRight_toRightOf="@+id/ring_left"
+                app:layout_constraintTop_toBottomOf="@+id/ring_left" />
+
+            <TextView
+                android:id="@+id/tv_score_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="80"
+                android:textColor="#FF3487"
+                android:textSize="24dp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="@+id/ring_left"
+                app:layout_constraintRight_toRightOf="@+id/ring_left"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name_left" />
+
+            <TextView
+                android:id="@+id/tv_name_rigth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="你的比美对手"
+                android:textSize="14dp"
+                app:layout_constraintLeft_toLeftOf="@+id/ring_right"
+                app:layout_constraintRight_toRightOf="@+id/ring_right"
+                app:layout_constraintTop_toBottomOf="@+id/ring_right" />
+
+            <TextView
+                android:id="@+id/tv_score_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="90"
+                android:textColor="#70B0FF"
+                android:textSize="24dp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="@+id/ring_right"
+                app:layout_constraintRight_toRightOf="@+id/ring_right"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name_rigth" />
+
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cl_eye"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/tv_score_right">
+
+                <ImageView
+                    android:id="@+id/iv_center_eye"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bg_shape_gender_one"
+                    android:src="@mipmap/icon_eye"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_score_left_eye"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="14dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tool:text="100" />
+
+                <ProgressBar
+                    android:id="@+id/progressbar_left_eye"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_margin="5dp"
+                    android:max="100"
+                    android:progressDrawable="@drawable/bg_progressbar_upload"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/tv_score_left_eye"
+                    app:layout_constraintRight_toLeftOf="@+id/iv_center_eye"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_score_right_eye"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:textSize="14dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tool:text="100" />
+
+                <ProgressBar
+                    android:id="@+id/progressbar_right_eye"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_margin="5dp"
+                    android:max="100"
+                    android:progressDrawable="@drawable/bg_progressbar_bule"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/iv_center_eye"
+                    app:layout_constraintRight_toLeftOf="@+id/tv_score_right_eye"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cl_nose"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/cl_eye">
+
+                <ImageView
+                    android:id="@+id/iv_center_nose"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bg_shape_gender_one"
+                    android:src="@mipmap/icon_nose"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_score_left_nose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="14dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tool:text="100" />
+
+                <ProgressBar
+                    android:id="@+id/progressbar_left_nose"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_margin="5dp"
+                    android:max="100"
+                    android:progressDrawable="@drawable/bg_progressbar_upload"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/tv_score_left_nose"
+                    app:layout_constraintRight_toLeftOf="@+id/iv_center_nose"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_score_right_nose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:textSize="14dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tool:text="100" />
+
+                <ProgressBar
+                    android:id="@+id/progressbar_right_nose"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_margin="5dp"
+                    android:max="100"
+                    android:progressDrawable="@drawable/bg_progressbar_bule"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/iv_center_nose"
+                    app:layout_constraintRight_toLeftOf="@+id/tv_score_right_nose"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cl_mouth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/cl_nose">
+
+                <ImageView
+                    android:id="@+id/iv_center_mouth"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bg_shape_gender_one"
+                    android:src="@mipmap/icon_mouth"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_score_left_mouth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="14dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tool:text="100" />
+
+                <ProgressBar
+                    android:id="@+id/progressbar_left_mouth"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_margin="5dp"
+                    android:max="100"
+                    android:progressDrawable="@drawable/bg_progressbar_upload"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/tv_score_left_mouth"
+                    app:layout_constraintRight_toLeftOf="@+id/iv_center_mouth"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_score_right_mouth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:textSize="14dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tool:text="100" />
+
+                <ProgressBar
+                    android:id="@+id/progressbar_right_mouth"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_margin="5dp"
+                    android:max="100"
+                    android:progressDrawable="@drawable/bg_progressbar_bule"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/iv_center_mouth"
+                    app:layout_constraintRight_toLeftOf="@+id/tv_score_right_mouth"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cl_laugh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/cl_mouth">
+
+                <ImageView
+                    android:id="@+id/iv_center_laugh"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bg_shape_gender_one"
+                    android:src="@mipmap/icon_laugh"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_score_left_laugh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="14dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tool:text="100" />
+
+                <ProgressBar
+                    android:id="@+id/progressbar_left_laugh"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_margin="5dp"
+                    android:max="100"
+                    android:progressDrawable="@drawable/bg_progressbar_upload"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/tv_score_left_laugh"
+                    app:layout_constraintRight_toLeftOf="@+id/iv_center_laugh"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_score_right_laugh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:textSize="14dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tool:text="100" />
+
+                <ProgressBar
+                    android:id="@+id/progressbar_right_laugh"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_margin="5dp"
+                    android:max="100"
+                    android:progressDrawable="@drawable/bg_progressbar_bule"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/iv_center_laugh"
+                    app:layout_constraintRight_toLeftOf="@+id/tv_score_right_laugh"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cl_skin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/cl_laugh">
+
+                <ImageView
+                    android:id="@+id/iv_center_skin"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bg_shape_gender_one"
+                    android:src="@mipmap/icon_skin"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_score_left_skin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="14dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tool:text="100" />
+
+                <ProgressBar
+                    android:id="@+id/progressbar_left_skin"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_margin="5dp"
+                    android:max="100"
+                    android:progressDrawable="@drawable/bg_progressbar_upload"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/tv_score_left_skin"
+                    app:layout_constraintRight_toLeftOf="@+id/iv_center_skin"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_score_right_skin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:textSize="14dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tool:text="100" />
+
+                <ProgressBar
+                    android:id="@+id/progressbar_right_skin"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_margin="5dp"
+                    android:max="100"
+                    android:progressDrawable="@drawable/bg_progressbar_bule"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/iv_center_skin"
+                    app:layout_constraintRight_toLeftOf="@+id/tv_score_right_skin"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <FrameLayout
+                android:id="@+id/fl_ad_container"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:paddingBottom="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <TextView
+            android:id="@+id/btn_save"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_common_dialog_btn_confirm"
+            android:gravity="center"
+            android:text="保存"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/btn_share" />
+
+        <TextView
+            android:id="@+id/btn_share"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_common_dialog_btn_confirm"
+            android:gravity="center"
+            android:text="分享"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            app:layout_constraintLeft_toRightOf="@+id/btn_save"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.constraint.ConstraintLayout>

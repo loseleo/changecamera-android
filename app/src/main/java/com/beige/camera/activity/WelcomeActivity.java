@@ -177,7 +177,7 @@ public class WelcomeActivity extends BaseActivity implements IWelcomeView {
         if (isFinishing()) {
             return;
         }
-        AppNavigator.goMainActivity(WelcomeActivity.this, "", "");
+        AppNavigator.goMainActivity(WelcomeActivity.this, "");
         finish();
     }
 

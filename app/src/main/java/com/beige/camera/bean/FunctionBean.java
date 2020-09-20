@@ -4,12 +4,19 @@ import java.io.Serializable;
 
 public class FunctionBean implements Serializable {
 
-    public static String ID_CHANGE_OLD = "id_change_old";
-    public static String ID_CHANGE_GENDER = "id_change_gender";
-    public static String ID_CHANGE_CHILD = "id_change_child";
-    public static String ID_CHANGE_CARTOON = "id_change_cartoon";
-    public static String ID_CHANGE_ANIMAL = "id_changec_animal";
-    public static String ID_DETECTION_AGE = "id_detection_age";
+    public static String ID_CHANGE_OLD = "id_change_old";//变老
+    public static String ID_CHANGE_GENDER = "id_change_gender";//性别转换
+    public static String ID_CHANGE_CHILD = "id_change_child";//变小孩
+    public static String ID_CHANGE_CARTOON = "id_change_cartoon";//漫画脸
+    public static String ID_CHANGE_ANIMAL = "id_change_animal";//动物检测
+    public static String ID_DETECTION_AGE = "id_detection_age";//年龄检测
+    public static String ID_DETECTION_BABY = "id_detection_baby";//宝宝检测
+    public static String ID_DETECTION_VS = "id_detection_vs";//宝宝检测
+    public static String ID_CHANGE_BACKGROUND = "id_change_background";//换背景
+    public static String ID_DETECTION_PAST = "id_detection_past";//前世今生
+    public static String ID_CHANGE_HAIR = "id_change_hair";//换发型
+    public static String ID_CHANGE_CUSTOMS = "id_change_customs";//异国风情
+    public static String ID_CHANGE_ANIMALFACE = "id_change_animalface";//动物脸
 
     private String id;
     private String title;

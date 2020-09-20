@@ -31,11 +31,13 @@ public class Constant {
     public static String API_BASE_URL = BuildConfig.SERVER_URL;
     public static  String UMENG_APPKEY = BuildConfig.KEY_UMENG;
     public static  String BUGLY_APPID = BuildConfig.KEY_BUGLY;
+    //《隐私政策》
+    public static String URL_PRIVACY_POLICE = "http://magic-camera-h5.superbigger.cn/privacy-police.html";
+    //《用户协议》
+    public static String URL_USER_AGREEMENT = " http://magic-camera-h5.superbigger.cn/user-agreement.html";
 
     public static String PATH_DATA = FileUtils.createRootPath(AppUtils.getAppContext()) + "/cache";
-
-
-
+    public static String FILE_PATH_DOWNLOAD = FileUtils.createRootPath(AppUtils.getAppContext()) + "/download";
 
 
     public static final String SUFFIX_ZIP = ".zip";

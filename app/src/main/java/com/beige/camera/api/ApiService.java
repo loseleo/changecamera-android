@@ -17,6 +17,7 @@ package com.beige.camera.api;
 
 import com.beige.camera.bean.EffectAgeBean;
 import com.beige.camera.bean.EffectImageBean;
+import com.beige.camera.bean.VersionInfoBean;
 import com.beige.camera.common.base.bean.ApiResult;
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -51,5 +52,9 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("api/v1/image_process/selie_anime")
     Observable<ApiResult<EffectImageBean>> getImageSelieAnime(@Field("image") String image);
+
+    @FormUrlEncoded
+    @POST("api/v1/image_process/check_version")
+    Observable<ApiResult<VersionInfoBean>> checkVersion();
 
 }

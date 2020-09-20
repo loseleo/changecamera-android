@@ -20,16 +20,16 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file('../dandan.keystore')
-            storePassword 'qtt1234567'
-            keyAlias 'dandan'
-            keyPassword 'qtt1234567'
+            storeFile file('../beige.keystore')
+            storePassword 'bg1234567'
+            keyAlias 'camera'
+            keyPassword 'bg1234567'
         }
         release {
-            storeFile file('../dandan.keystore')
-            storePassword 'qtt1234567'
-            keyAlias 'dandan'
-            keyPassword 'qtt1234567'
+            storeFile file('../beige.keystore')
+            storePassword 'bg1234567'
+            keyAlias 'camera'
+            keyPassword 'bg1234567'
         }
     }
 
