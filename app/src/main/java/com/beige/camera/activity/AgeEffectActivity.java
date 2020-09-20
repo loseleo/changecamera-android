@@ -1,9 +1,12 @@
 package com.beige.camera.activity;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,29 +15,19 @@ import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.beige.camera.R;
 import com.beige.camera.common.base.BaseActivity;
+import com.beige.camera.common.constant.Constant;
 import com.beige.camera.common.router.PageIdentity;
+import com.beige.camera.common.utils.ImageUtils;
 import com.beige.camera.common.utils.LogUtils;
-import com.beige.camera.common.utils.RxUtil;
+import com.beige.camera.common.utils.MsgUtils;
 import com.beige.camera.common.utils.imageloader.BitmapUtil;
+import com.beige.camera.common.view.loadding.CustomDialog;
 import com.beige.camera.contract.IEffectImageView;
 import com.beige.camera.dagger.MainComponentHolder;
 import com.beige.camera.presenter.EffectImagePresenter;
-import com.beige.camera.presenter.WelcomePresenter;
-import com.beige.camera.ringtone.api.bean.AdConfigBean;
-import com.beige.camera.ringtone.core.AdManager;
-import com.beige.camera.ringtone.core.infoflow.InfoFlowAd;
-import com.beige.camera.ringtone.core.strategy.Callback;
-import com.beige.camera.ringtone.dagger.AdComponentHolder;
 import com.beige.camera.utils.AdHelper;
 
-import java.util.concurrent.TimeUnit;
-
 import javax.inject.Inject;
-
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
-
-import static com.beige.camera.common.utils.RxUtil.io_main;
 
 
 @Route(path = PageIdentity.APP_AGEEFFECT)
@@ -44,6 +37,7 @@ public class AgeEffectActivity extends BaseActivity implements IEffectImageView 
     public String rewardedAdType = "rewardedAdType";
     private ImageView icBack;
     private ImageView ivPreview;
+    private ConstraintLayout clSaveImage;
     private TextView tvAge;
     private TextView btnSave;
     private TextView btnShare;
@@ -54,6 +48,7 @@ public class AgeEffectActivity extends BaseActivity implements IEffectImageView 
     @Autowired(name = "image_path")
     String imagePath;
 
+    CustomDialog mCustomDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,7 +90,8 @@ public class AgeEffectActivity extends BaseActivity implements IEffectImageView 
     @Override
     public void initViews() {
         icBack = findViewById(R.id.ic_back);
-        ivPreview = findViewById(R.id.iv_preview);
+        ivPreview = findViewById(R.id.iv_preview_bg);
+        clSaveImage = findViewById(R.id.cl_save_image);
         tvAge = findViewById(R.id.tv_age);
         btnSave = findViewById(R.id.btn_save);
         btnShare = findViewById(R.id.btn_share);
@@ -120,13 +116,15 @@ public class AgeEffectActivity extends BaseActivity implements IEffectImageView 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                saveImage(clSaveImage);
+//                finish();
             }
         });
 
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                saveImage(clSaveImage);
             }
         });
 
@@ -134,6 +132,32 @@ public class AgeEffectActivity extends BaseActivity implements IEffectImageView 
 
     }
 
+    private void saveImage(ViewGroup view){
+            Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件
+            ImageUtils.saveImageToGallery(AgeEffectActivity.this, bitmap, System.currentTimeMillis() + ".jpg", new ImageUtils.CallBack() {
+                @Override
+                public void onStart() {
+                    mCustomDialog = CustomDialog.instance(AgeEffectActivity.this);
+                    mCustomDialog.show();
+                }
+
+                @Override
+                public void onSuccess() {
+                    MsgUtils.showToastCenter(AgeEffectActivity.this,"图片保存成功，请在相册中点击分享");
+                    if (mCustomDialog != null) {
+                        mCustomDialog.dismiss();
+                    }
+                }
+
+                @Override
+                public void onFail() {
+                    MsgUtils.showToastCenter(AgeEffectActivity.this,"图片保存失败");
+                    if (mCustomDialog != null) {
+                        mCustomDialog.dismiss();
+                    }
+                }
+            });
+    }
 
     @Nullable
     @Override
@@ -152,5 +176,14 @@ public class AgeEffectActivity extends BaseActivity implements IEffectImageView 
              age = (int) (10 + Math.random() * (1000 - 10 + 1)) + "";
         }
         tvAge.setText(age + " 岁");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mCustomDialog != null) {
+            mCustomDialog.dismiss();
+            mCustomDialog = null;
+        }
     }
 }

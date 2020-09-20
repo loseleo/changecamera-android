@@ -1,7 +1,9 @@
 package com.beige.camera.activity;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -13,32 +15,17 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.beige.camera.R;
 import com.beige.camera.bean.FunctionBean;
 import com.beige.camera.common.base.BaseActivity;
-import com.beige.camera.common.router.AppNavigator;
 import com.beige.camera.common.router.PageIdentity;
+import com.beige.camera.common.utils.ImageUtils;
 import com.beige.camera.common.utils.LogUtils;
 import com.beige.camera.common.utils.MsgUtils;
-import com.beige.camera.common.utils.RxUtil;
 import com.beige.camera.common.utils.imageloader.BitmapUtil;
 import com.beige.camera.contract.IEffectImageView;
-import com.beige.camera.contract.IWelcomeView;
-import com.beige.camera.dagger.MainComponent;
 import com.beige.camera.dagger.MainComponentHolder;
 import com.beige.camera.presenter.EffectImagePresenter;
-import com.beige.camera.ringtone.api.bean.AdConfigBean;
-import com.beige.camera.ringtone.core.AdManager;
-import com.beige.camera.ringtone.core.infoflow.InfoFlowAd;
-import com.beige.camera.ringtone.core.strategy.Callback;
-import com.beige.camera.ringtone.dagger.AdComponentHolder;
 import com.beige.camera.utils.AdHelper;
 
-import java.util.concurrent.TimeUnit;
-
 import javax.inject.Inject;
-
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
-
-import static com.beige.camera.common.utils.RxUtil.io_main;
 
 
 @Route(path = PageIdentity.APP_GENDEREFFECT)
@@ -47,6 +34,7 @@ public class GenderEffectActivity extends BaseActivity implements IEffectImageVi
     public String bannerAdType = "bannerAdType";
     public String rewardedAdType = "rewardedAdType";
 
+    private ConstraintLayout clSaveImage;
     private ImageView icBack;
     private TextView tvTitle;
     private ImageView ivEffect;
@@ -110,6 +98,7 @@ public class GenderEffectActivity extends BaseActivity implements IEffectImageVi
         tvTitle = findViewById(R.id.tv_title);
         ivEffect = findViewById(R.id.iv_effect);
         ivNormal = findViewById(R.id.iv_normal);
+        clSaveImage = findViewById(R.id.cl_save_image);
         btnSave = findViewById(R.id.btn_save);
         btnShare = findViewById(R.id.btn_share);
         adContainer = findViewById(R.id.fl_ad_container);
@@ -138,13 +127,14 @@ public class GenderEffectActivity extends BaseActivity implements IEffectImageVi
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                saveImage(clSaveImage);
             }
         });
 
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                saveImage(clSaveImage);
             }
         });
 
@@ -180,5 +170,25 @@ public class GenderEffectActivity extends BaseActivity implements IEffectImageVi
     @Override
     public void onResultAge(String age) {
 
+    }
+
+
+    private void saveImage(View view){
+        Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件
+        ImageUtils.saveImageToGallery(GenderEffectActivity.this, bitmap, System.currentTimeMillis() + ".jpg", new ImageUtils.CallBack() {
+            @Override
+            public void onStart() {
+            }
+
+            @Override
+            public void onSuccess() {
+                MsgUtils.showToastCenter(GenderEffectActivity.this,"图片保存成功，请在相册中点击分享");
+            }
+
+            @Override
+            public void onFail() {
+                MsgUtils.showToastCenter(GenderEffectActivity.this,"图片保存失败");
+            }
+        });
     }
 }

@@ -1,7 +1,6 @@
 package com.beige.camera.activity;
 
-import android.app.Activity;
-import android.graphics.BitmapFactory;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -16,29 +15,16 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.beige.camera.R;
 import com.beige.camera.common.base.BaseActivity;
 import com.beige.camera.common.router.PageIdentity;
+import com.beige.camera.common.utils.ImageUtils;
 import com.beige.camera.common.utils.LogUtils;
 import com.beige.camera.common.utils.MsgUtils;
-import com.beige.camera.common.utils.RxUtil;
 import com.beige.camera.common.utils.imageloader.BitmapUtil;
 import com.beige.camera.contract.IEffectImageView;
 import com.beige.camera.dagger.MainComponentHolder;
 import com.beige.camera.presenter.EffectImagePresenter;
-import com.beige.camera.ringtone.api.bean.AdConfigBean;
-import com.beige.camera.ringtone.core.AdManager;
-import com.beige.camera.ringtone.core.infoflow.InfoFlowAd;
-import com.beige.camera.ringtone.core.strategy.Callback;
-import com.beige.camera.ringtone.dagger.AdComponentHolder;
 import com.beige.camera.utils.AdHelper;
 
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import javax.inject.Inject;
-
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
-
-import static com.beige.camera.common.utils.RxUtil.io_main;
 
 @Route(path = PageIdentity.APP_OLDEFFECT)
 public class OldEffectActivity extends BaseActivity implements IEffectImageView {
@@ -115,7 +101,7 @@ public class OldEffectActivity extends BaseActivity implements IEffectImageView 
     @Override
     public void initViews() {
         icBack = findViewById(R.id.ic_back);
-        ivPreview = findViewById(R.id.iv_preview);
+        ivPreview = findViewById(R.id.iv_preview_bg);
         btnSave = findViewById(R.id.btn_save);
         btnShare = findViewById(R.id.btn_share);
         adContainer = findViewById(R.id.fl_ad_container);
@@ -151,13 +137,14 @@ public class OldEffectActivity extends BaseActivity implements IEffectImageView 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                saveImage(ivPreview);
             }
         });
 
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                saveImage(ivPreview);
             }
         });
 
@@ -249,4 +236,22 @@ public class OldEffectActivity extends BaseActivity implements IEffectImageView 
     }
 
 
+    private void saveImage(View view){
+        Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件
+        ImageUtils.saveImageToGallery(OldEffectActivity.this, bitmap, System.currentTimeMillis() + ".jpg", new ImageUtils.CallBack() {
+            @Override
+            public void onStart() {
+            }
+
+            @Override
+            public void onSuccess() {
+                MsgUtils.showToastCenter(OldEffectActivity.this,"图片保存成功，请在相册中点击分享");
+            }
+
+            @Override
+            public void onFail() {
+                MsgUtils.showToastCenter(OldEffectActivity.this,"图片保存失败");
+            }
+        });
+    }
 }

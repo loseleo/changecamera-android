@@ -54,6 +54,7 @@ public class BaseDragZoomImageView extends ImageView implements View.OnTouchList
         this(context, null);
         setOnTouchListener(this);
     }
+
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         /** 通过与运算保留最后八位 MotionEvent.ACTION_MASK = 255 */

@@ -1,9 +1,12 @@
 package com.beige.camera.activity;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,9 +14,9 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.beige.camera.R;
-import com.beige.camera.bean.FunctionBean;
 import com.beige.camera.common.base.BaseActivity;
 import com.beige.camera.common.router.PageIdentity;
+import com.beige.camera.common.utils.ImageUtils;
 import com.beige.camera.common.utils.LogUtils;
 import com.beige.camera.common.utils.MsgUtils;
 import com.beige.camera.common.utils.imageloader.BitmapUtil;
@@ -33,6 +36,7 @@ public class PastEffectActivity extends BaseActivity implements IEffectImageView
 
     private ImageView icBack;
     private TextView tvTitle;
+    private ConstraintLayout clPreview;
     private ImageView ivPreview;
     private TextView btnSave;
     private TextView btnShare;
@@ -91,7 +95,8 @@ public class PastEffectActivity extends BaseActivity implements IEffectImageView
     public void initViews() {
         icBack = findViewById(R.id.ic_back);
         tvTitle = findViewById(R.id.tv_title);
-        ivPreview = findViewById(R.id.iv_preview);
+        clPreview = findViewById(R.id.cl_preview);
+        ivPreview = findViewById(R.id.iv_preview_bg);
         tvBirth = findViewById(R.id.tv_birth_content);
         tvDieage = findViewById(R.id.tv_dieage_content);
         tvProfession = findViewById(R.id.tv_profession_content);
@@ -120,13 +125,14 @@ public class PastEffectActivity extends BaseActivity implements IEffectImageView
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                saveImage(clPreview);
             }
         });
 
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                saveImage(clPreview);
             }
         });
 
@@ -156,5 +162,24 @@ public class PastEffectActivity extends BaseActivity implements IEffectImageView
     @Override
     public void onResultAge(String age) {
 
+    }
+
+    private void saveImage(ViewGroup view){
+        Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件
+        ImageUtils.saveImageToGallery(PastEffectActivity.this, bitmap, System.currentTimeMillis() + ".jpg", new ImageUtils.CallBack() {
+            @Override
+            public void onStart() {
+            }
+
+            @Override
+            public void onSuccess() {
+                MsgUtils.showToastCenter(PastEffectActivity.this,"图片保存成功，请在相册中点击分享");
+            }
+
+            @Override
+            public void onFail() {
+                MsgUtils.showToastCenter(PastEffectActivity.this,"图片保存失败");
+            }
+        });
     }
 }

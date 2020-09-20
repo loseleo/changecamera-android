@@ -135,6 +135,12 @@ public class AppNavigator {
                 .navigation(context);
     }
 
+    public static void goBackgroundffectActivity(Context context, String imagePath) {
+        ARouter.getInstance().build(PageIdentity.APP_BACKGROUNDEFFECT)
+                .withString("image_path", imagePath)
+                .navigation(context);
+    }
+
     public static void goGenderEffectActivity(Context context, String imagePath, String function) {
         ARouter.getInstance().build(PageIdentity.APP_GENDEREFFECT)
                 .withString("image_path", imagePath)

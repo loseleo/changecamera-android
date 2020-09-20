@@ -31,6 +31,7 @@ public class PageIdentity {
     public static final String APP_TWOIMGUPLOAD = "/app/twoimgupload";
     public static final String APP_BABYEFFECT = "/app/babyeffect";
     public static final String APP_BEAUTYVSEFFECT = "/app/beautyvseffect";
+    public static final String APP_BACKGROUNDEFFECT = "/app/backgroundeffect";
 
 
 

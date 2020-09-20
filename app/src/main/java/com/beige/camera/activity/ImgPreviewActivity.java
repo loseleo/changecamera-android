@@ -65,7 +65,7 @@ public class ImgPreviewActivity extends BaseActivity {
     @Override
     public void initViews() {
         icBack = findViewById(R.id.ic_back);
-        ivPreview = findViewById(R.id.iv_preview);
+        ivPreview = findViewById(R.id.iv_preview_bg);
         rvfunction = findViewById(R.id.rv_function);
         ivConfirm = findViewById(R.id.iv_confirm);
         ivRotate = findViewById(R.id.iv_rotate);

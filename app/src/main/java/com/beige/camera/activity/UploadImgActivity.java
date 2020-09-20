@@ -1,6 +1,5 @@
 package com.beige.camera.activity;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -58,7 +57,7 @@ public class UploadImgActivity extends BaseActivity {
     @Override
     public void initViews() {
         icBack = findViewById(R.id.ic_back);
-        ivPreview = findViewById(R.id.iv_preview);
+        ivPreview = findViewById(R.id.iv_preview_bg);
         progressbar = findViewById(R.id.progressbar);
         tvProgress = findViewById(R.id.tv_progress);
     }
@@ -161,10 +160,8 @@ public class UploadImgActivity extends BaseActivity {
             AppNavigator.goAgeffectActivity(UploadImgActivity.this,imagePath);
         }else if (TextUtils.equals(function,FunctionBean.ID_DETECTION_PAST)) {
             AppNavigator.goPastEffectActivity(UploadImgActivity.this,imagePath);
-        }else if (TextUtils.equals(function,FunctionBean.ID_DETECTION_BABY)) {
-//            AppNavigator.goAgeffectActivity(UploadImgActivity.this,imagePath);
-        }else if (TextUtils.equals(function,FunctionBean.ID_CHANGE_BACKGROUND)) {
-//            AppNavigator.goAgeffectActivity(UploadImgActivity.this,imagePath);
+        }else  if (TextUtils.equals(function,FunctionBean.ID_CHANGE_BACKGROUND)) {
+            AppNavigator.goBackgroundffectActivity(UploadImgActivity.this,imagePath);
         }else if (TextUtils.equals(function,FunctionBean.ID_CHANGE_HAIR)) {
 //            AppNavigator.goAgeffectActivity(UploadImgActivity.this,imagePath);
         }else if (TextUtils.equals(function,FunctionBean.ID_CHANGE_CUSTOMS)) {

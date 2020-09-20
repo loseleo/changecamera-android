@@ -123,6 +123,12 @@
             android:theme="@style/AppTheme.Main"/>
 
         <activity
+            android:name="com.beige.camera.activity.BackgroundEffectActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Main"/>
+
+        <activity
             android:name="com.beige.camera.activity.WebViewActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"

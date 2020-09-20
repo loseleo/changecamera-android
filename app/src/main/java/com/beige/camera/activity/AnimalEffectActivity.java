@@ -1,11 +1,14 @@
 package com.beige.camera.activity;
 
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.FrameLayout;
@@ -19,8 +22,11 @@ import com.beige.camera.R;
 import com.beige.camera.common.base.BaseActivity;
 import com.beige.camera.common.guide.util.LogUtil;
 import com.beige.camera.common.router.PageIdentity;
+import com.beige.camera.common.utils.ImageUtils;
 import com.beige.camera.common.utils.LogUtils;
+import com.beige.camera.common.utils.MsgUtils;
 import com.beige.camera.common.utils.RxUtil;
+import com.beige.camera.common.view.loadding.CustomDialog;
 import com.beige.camera.contract.IEffectImageView;
 import com.beige.camera.ringtone.api.bean.AdConfigBean;
 import com.beige.camera.ringtone.core.AdManager;
@@ -39,6 +45,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
 import static com.beige.camera.common.utils.RxUtil.io_main;
+import static com.beige.camera.common.utils.RxUtil.viewClick;
 
 @Route(path = PageIdentity.APP_ANIMALEFFECT)
 public class AnimalEffectActivity extends BaseActivity {
@@ -47,6 +54,7 @@ public class AnimalEffectActivity extends BaseActivity {
     public String rewardedAdType = "rewardedAdType";
 
     private ImageView icBack;
+    private CardView cardview;
     private ImageView ivAnimal;
     private ImageView ivPeople;
     private SeekBar seekbar;
@@ -56,6 +64,8 @@ public class AnimalEffectActivity extends BaseActivity {
 
     @Autowired(name = "image_path")
     String imagePath;
+
+    CustomDialog mCustomDialog;
 
     private int[] animalDrawables = new int[]{R.mipmap.img_animal_cat,R.mipmap.img_animal_dog_one,R.mipmap.img_animal_dog_two,R.mipmap.img_animal_dog_three,R.mipmap.img_animal_panda,R.mipmap.img_animal_tiger};
     @Override
@@ -75,6 +85,7 @@ public class AnimalEffectActivity extends BaseActivity {
     @Override
     public void initViews() {
         icBack = findViewById(R.id.ic_back);
+        cardview = findViewById(R.id.cardview);
         ivAnimal = findViewById(R.id.iv_animal);
         ivPeople = findViewById(R.id.iv_people);
         seekbar = findViewById(R.id.seekbar);
@@ -118,13 +129,14 @@ public class AnimalEffectActivity extends BaseActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                saveImage(cardview);
             }
         });
 
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                saveImage(cardview);
             }
         });
         seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -174,4 +186,41 @@ public class AnimalEffectActivity extends BaseActivity {
         return PageIdentity.APP_ANIMALEFFECT;
     }
 
+
+
+    private void saveImage(ViewGroup view){
+        Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件
+        ImageUtils.saveImageToGallery(AnimalEffectActivity.this, bitmap, System.currentTimeMillis() + ".jpg", new ImageUtils.CallBack() {
+            @Override
+            public void onStart() {
+                mCustomDialog = CustomDialog.instance(AnimalEffectActivity.this);
+                mCustomDialog.show();
+            }
+
+            @Override
+            public void onSuccess() {
+                MsgUtils.showToastCenter(AnimalEffectActivity.this,"图片保存成功，请在相册中点击分享");
+                if (mCustomDialog != null) {
+                    mCustomDialog.dismiss();
+                }
+            }
+
+            @Override
+            public void onFail() {
+                MsgUtils.showToastCenter(AnimalEffectActivity.this,"图片保存失败");
+                if (mCustomDialog != null) {
+                    mCustomDialog.dismiss();
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mCustomDialog != null) {
+            mCustomDialog.dismiss();
+            mCustomDialog =  null;
+        }
+    }
 }
