@@ -17,6 +17,7 @@ package com.beige.camera.api;
 
 import com.beige.camera.bean.EffectAgeBean;
 import com.beige.camera.bean.EffectImageBean;
+import com.beige.camera.bean.TemplatesConfigBean;
 import com.beige.camera.bean.VersionInfoBean;
 import com.beige.camera.common.base.bean.ApiResult;
 
@@ -39,6 +40,10 @@ public class Api {
         service = retrofit.create(ApiService.class);
     }
 
+    public Observable<ApiResult<VersionInfoBean>> checkVersion() {
+        return service.checkVersion();
+    }
+
     public Observable<ApiResult<EffectAgeBean>> getEffectAge(String imageUrl) {
         return service.getEffectAge(imageUrl);
     }
@@ -55,8 +60,17 @@ public class Api {
         return service.getImageSelieAnime(imageUrl);
     }
 
-    public Observable<ApiResult<VersionInfoBean>> checkVersion() {
-        return service.checkVersion();
+    public Observable<ApiResult<EffectImageBean>> getFaceMergeImage(String templateImage, String targetImage) {
+        return service.faceMerge(templateImage, targetImage);
     }
+
+    public Observable<ApiResult<EffectImageBean>> bodySeg(String image) {
+        return service.bodySeg(image);
+    }
+
+    public Observable<ApiResult<TemplatesConfigBean>> getTemplateConfig(String type) {
+        return service.getTemplateConfig(type);
+    }
+
 
 }

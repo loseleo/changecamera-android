@@ -20,7 +20,7 @@ public class PageIdentity {
     public static final String APP_IMGPREVIEW = "/app/imgpreview";
     public static final String APP_OLDEFFECT = "/app/oldeffect";
     public static final String APP_ANIMALEFFECT = "/app/animaleffect";
-    public static final String APP_GENDEREFFECT = "/app/gendereffect";
+    public static final String APP_FACEEDITEFFECT = "/app/faceediteffect";
     public static final String APP_PASTEFFECT = "/app/pastreffect";
     public static final String APP_AGEEFFECT = "/app/ageeffect";
     public static final String APP_CARTOONEFFECT = "/app/cartooneffect";
@@ -32,8 +32,7 @@ public class PageIdentity {
     public static final String APP_BABYEFFECT = "/app/babyeffect";
     public static final String APP_BEAUTYVSEFFECT = "/app/beautyvseffect";
     public static final String APP_BACKGROUNDEFFECT = "/app/backgroundeffect";
-
-
-
+    public static final String APP_ANIMALFACEEFFECT = "/app/animalfaceeffect";
+    public static final String APP_FACEMEGREEFFECT = "/app/facemegreeffect";
 
 }

@@ -7,7 +7,7 @@ import com.beige.camera.bean.VersionInfoBean;
 import com.zhangqiang.mvp.IView;
 
 
-public interface CheckVersionView extends IView, LifecycleOwner {
+public interface ICheckVersionView extends IView, LifecycleOwner {
 
     void showDownloadApkDialog(Context context, VersionInfoBean mVersionInfo, boolean isAutoCheck);
 }

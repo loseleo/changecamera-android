@@ -29,6 +29,7 @@ import com.beige.camera.common.utils.PackageUtils;
 import com.beige.camera.common.utils.imageloader.BitmapUtil;
 import com.beige.camera.contract.IHomeView;
 import com.beige.camera.dagger.MainComponentHolder;
+import com.beige.camera.dialog.GenderSelecterDialog;
 import com.beige.camera.dialog.UpdataVersionDialog;
 import com.beige.camera.presenter.HomePresenter;
 import com.beige.camera.utils.GlideImageLoader;
@@ -164,20 +165,20 @@ public class HomeActivity extends BaseActivity implements IHomeView {
 
         ArrayList<FunctionBean> functionBeanList = new ArrayList<>();
         functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_OLD,"变老相机",R.mipmap.img_home_pic_old));
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_GENDER,"性别转换",R.mipmap.img_home_pic_change));
+        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_GENDER_BOY,"性别转换",R.mipmap.img_home_pic_change));
         functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_CHILD,"童颜相机",R.mipmap.img_home_pic_keds));
         functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_CARTOON,"漫画脸",R.mipmap.img_home_pic_anime));
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_ANIMAL,"动物预测",R.mipmap.img_home_pic_animal));
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_DETECTION_AGE,"年龄检测",R.mipmap.img_home_pic_age));
         functionBeanList.add( new FunctionBean(FunctionBean.ID_DETECTION_PAST,"前世今生",R.mipmap.img_home_pic_past));
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_DETECTION_BABY,"宝宝预测",R.mipmap.img_home_pic_baby));
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_DETECTION_VS,"比比谁美",R.mipmap.img_home_pic_baby));
         functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_BACKGROUND,"换背景",R.mipmap.img_home_pic_background));
         functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_HAIR,"换发型",R.mipmap.img_home_pic_hair));
         functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_CUSTOMS,"异国风情",R.mipmap.img_home_pic_custom));
+        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_CLOTHES,"一键换装",R.mipmap.img_home_pic_custom));
+        functionBeanList.add( new FunctionBean(FunctionBean.ID_DETECTION_AGE,"年龄检测",R.mipmap.img_home_pic_age));
+        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_ANIMAL,"动物预测",R.mipmap.img_home_pic_animal));
+        functionBeanList.add( new FunctionBean(FunctionBean.ID_DETECTION_BABY,"宝宝预测",R.mipmap.img_home_pic_baby));
+        functionBeanList.add( new FunctionBean(FunctionBean.ID_DETECTION_VS,"比比谁美",R.mipmap.img_home_pic_beautiful));
         functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_ANIMALFACE,"动物人脸",R.mipmap.img_home_pic_animalface));
-
-
+        rvHotFunction.setNestedScrollingEnabled(false);
         rvHotFunction.setLayoutManager(new GridLayoutManager(this, 2));
         rvHotFunction.setAdapter(hotFunctionAdapter);
         List<Cell> hotCellList = new ArrayList<>();
@@ -191,7 +192,22 @@ public class HomeActivity extends BaseActivity implements IHomeView {
                         @Override
                         public void onClick(View view) {
                             String id = functionBean.getId();
-                            AppNavigator.goCameraActivity(HomeActivity.this,id);
+                            if(TextUtils.equals(FunctionBean.ID_CHANGE_GENDER_BOY,id)){
+                                GenderSelecterDialog genderSelecterDialog = GenderSelecterDialog.newInstance();
+                                genderSelecterDialog.setOnChoiceListener(new GenderSelecterDialog.OnChoiceListener() {
+                                    @Override
+                                    public void onGenderResurt(int gender) {
+                                        if(gender == 1){
+                                            AppNavigator.goCameraActivity(HomeActivity.this,FunctionBean.ID_CHANGE_GENDER_BOY);
+                                        }else{
+                                            AppNavigator.goCameraActivity(HomeActivity.this,FunctionBean.ID_CHANGE_GENDER_GIRL);
+                                        }
+                                    }
+                                });
+                                genderSelecterDialog.show(getSupportFragmentManager(), "gender_selecter_dialog");
+                            }else{
+                                AppNavigator.goCameraActivity(HomeActivity.this,id);
+                            }
                         }
                     });
                 }

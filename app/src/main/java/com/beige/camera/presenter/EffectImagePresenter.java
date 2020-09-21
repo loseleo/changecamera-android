@@ -10,6 +10,7 @@ import com.beige.camera.bean.EffectImageBean;
 import com.beige.camera.common.utils.LogUtils;
 import com.beige.camera.common.utils.RxUtil;
 import com.beige.camera.contract.IEffectImageView;
+import com.beige.camera.contract.IFaceMergeView;
 import com.beige.camera.contract.IWelcomeView;
 import com.beige.camera.ringtone.api.bean.AdConfigBean;
 import com.beige.camera.ringtone.core.AdManager;
@@ -188,6 +189,5 @@ public class EffectImagePresenter extends Presenter<IEffectImageView> {
                     }
                 });
     }
-
 
 }

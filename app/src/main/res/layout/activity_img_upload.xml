@@ -35,7 +35,7 @@
         android:id="@+id/iv_preview_bg"
         android:layout_width="230dp"
         android:layout_height="230dp"
-        android:scaleType="centerInside"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@+id/lv_w"
         app:layout_constraintLeft_toLeftOf="@+id/lv_w"
         app:layout_constraintRight_toRightOf="@+id/lv_w"

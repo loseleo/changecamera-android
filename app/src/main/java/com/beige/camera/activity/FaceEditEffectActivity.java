@@ -28,8 +28,8 @@ import com.beige.camera.utils.AdHelper;
 import javax.inject.Inject;
 
 
-@Route(path = PageIdentity.APP_GENDEREFFECT)
-public class GenderEffectActivity extends BaseActivity implements IEffectImageView {
+@Route(path = PageIdentity.APP_FACEEDITEFFECT)
+public class FaceEditEffectActivity extends BaseActivity implements IEffectImageView {
 
     public String bannerAdType = "bannerAdType";
     public String rewardedAdType = "rewardedAdType";
@@ -111,7 +111,7 @@ public class GenderEffectActivity extends BaseActivity implements IEffectImageVi
 
     @Override
     public void configViews() {
-        if (TextUtils.equals(function,FunctionBean.ID_CHANGE_GENDER)) {
+        if (TextUtils.equals(function,FunctionBean.ID_CHANGE_GENDER_BOY) || TextUtils.equals(function,FunctionBean.ID_CHANGE_GENDER_GIRL)) {
             tvTitle.setText("性别转换");
         }else if (TextUtils.equals(function,FunctionBean.ID_CHANGE_CHILD)) {
             tvTitle.setText("童颜相机");
@@ -139,8 +139,10 @@ public class GenderEffectActivity extends BaseActivity implements IEffectImageVi
         });
 
         String actionType = "TO_FEMALE";
-        if (TextUtils.equals(function,FunctionBean.ID_CHANGE_GENDER)) {
+        if (TextUtils.equals(function,FunctionBean.ID_CHANGE_GENDER_BOY)) {
             actionType = "TO_FEMALE";
+        }else if (TextUtils.equals(function,FunctionBean.ID_CHANGE_GENDER_GIRL)) {
+            actionType = "TO_MALE";
         }else if (TextUtils.equals(function,FunctionBean.ID_CHANGE_CHILD)) {
             actionType = "TO_KID";
         }
@@ -152,14 +154,14 @@ public class GenderEffectActivity extends BaseActivity implements IEffectImageVi
     @Nullable
     @Override
     public String getPageName() {
-        return PageIdentity.APP_GENDEREFFECT;
+        return PageIdentity.APP_FACEEDITEFFECT;
     }
 
 
     @Override
     public void onResultEffectImage(String image ,String actionType) {
         if (TextUtils.isEmpty(image)) {
-            MsgUtils.showToastCenter(GenderEffectActivity.this,"图片处理失败");
+            MsgUtils.showToastCenter(FaceEditEffectActivity.this,"图片处理失败");
             effectImage = imagePath;
         }
         effectImage = image;
@@ -175,19 +177,19 @@ public class GenderEffectActivity extends BaseActivity implements IEffectImageVi
 
     private void saveImage(View view){
         Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件
-        ImageUtils.saveImageToGallery(GenderEffectActivity.this, bitmap, System.currentTimeMillis() + ".jpg", new ImageUtils.CallBack() {
+        ImageUtils.saveImageToGallery(FaceEditEffectActivity.this, bitmap, System.currentTimeMillis() + ".jpg", new ImageUtils.CallBack() {
             @Override
             public void onStart() {
             }
 
             @Override
             public void onSuccess() {
-                MsgUtils.showToastCenter(GenderEffectActivity.this,"图片保存成功，请在相册中点击分享");
+                MsgUtils.showToastCenter(FaceEditEffectActivity.this,"图片保存成功，请在相册中点击分享");
             }
 
             @Override
             public void onFail() {
-                MsgUtils.showToastCenter(GenderEffectActivity.this,"图片保存失败");
+                MsgUtils.showToastCenter(FaceEditEffectActivity.this,"图片保存失败");
             }
         });
     }

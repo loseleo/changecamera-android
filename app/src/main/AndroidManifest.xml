@@ -81,7 +81,7 @@
             android:theme="@style/AppTheme.Main">
         </activity>
         <activity
-            android:name="com.beige.camera.activity.GenderEffectActivity"
+            android:name="com.beige.camera.activity.FaceEditEffectActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Main">
@@ -127,6 +127,11 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Main"/>
+        <activity
+            android:name="com.beige.camera.activity.AnimalFaceEffectActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Main"/>
 
         <activity
             android:name="com.beige.camera.activity.WebViewActivity"
@@ -151,6 +156,12 @@
 
         <activity
             android:name="com.beige.camera.activity.PastEffectActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Main">
+        </activity>
+        <activity
+            android:name="com.beige.camera.activity.FaceMegreEffectActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Main">

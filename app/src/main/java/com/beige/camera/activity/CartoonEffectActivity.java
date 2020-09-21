@@ -116,9 +116,8 @@ public class CartoonEffectActivity extends BaseActivity implements IEffectImageV
     @Override
     public void configViews() {
         LogUtils.e("zhangning", "imagePath = " + imagePath);
-        ivPreview.setImageBitmap(BitmapFactory.decodeFile(imagePath));
-
-        functionBeanList.add( new FunctionBean("selie_anime", "漫画脸", R.drawable.common_bg_erroe_default));
+        BitmapUtil.loadImage(imagePath, ivPreview);
+        functionBeanList.add( new FunctionBean("selie_anime", "漫画脸", R.mipmap.icon_pic_cartoon));
         functionBeanList.add( new FunctionBean("cartoon","卡通画",R.mipmap.icon_pic_katong));
         functionBeanList.add( new FunctionBean("warm","彩色糖块油画",R.mipmap.icon_pic_caisetang));
         functionBeanList.add( new FunctionBean("mononoke","奇异油画",R.mipmap.icon_pic_qiyiguo));
@@ -127,6 +126,7 @@ public class CartoonEffectActivity extends BaseActivity implements IEffectImageV
         functionBeanList.add( new FunctionBean("lavender","薰衣草",R.mipmap.icon_pic_xunyicao));
         functionBeanList.add( new FunctionBean("color_pencil","彩色铅笔",R.mipmap.icon_pic_caiqian));
         functionBeanList.add( new FunctionBean("pencil","铅笔",R.mipmap.icon_pic_heibaiqian));
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
         recyclerView.setAdapter(mAdapter);
         List<Cell> cellList = new ArrayList<>();
@@ -169,6 +169,7 @@ public class CartoonEffectActivity extends BaseActivity implements IEffectImageV
             public void onClick(View view) {
                 selectId =  "";
                 mAdapter.notifyDataSetChanged();
+                setEffectImage();
             }
         });
         btnSave.setOnClickListener(new View.OnClickListener() {

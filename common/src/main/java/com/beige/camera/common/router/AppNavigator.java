@@ -116,7 +116,7 @@ public class AppNavigator {
                 .navigation(context);
     }
 
-    public static void goBeautyVsEfectActivity(Context context, String imagePath,String imagePathVS) {
+    public static void goBeautyVsEfectActivity(Context context, String imagePath, String imagePathVS) {
         ARouter.getInstance().build(PageIdentity.APP_BEAUTYVSEFFECT)
                 .withString("image_path", imagePath)
                 .withString("image_path_vs", imagePathVS)
@@ -129,9 +129,22 @@ public class AppNavigator {
                 .navigation(context);
     }
 
-    public static void goAgeffectActivity(Context context, String imagePath) {
+    public static void goAgeEffectActivity(Context context, String imagePath) {
         ARouter.getInstance().build(PageIdentity.APP_AGEEFFECT)
                 .withString("image_path", imagePath)
+                .navigation(context);
+    }
+
+    public static void goAnimalFaceEffectActivity(Context context, String imagePath) {
+        ARouter.getInstance().build(PageIdentity.APP_ANIMALFACEEFFECT)
+                .withString("image_path", imagePath)
+                .navigation(context);
+    }
+
+    public static void goFaceMegreEffectActivity(Context context, String imagePath, String function) {
+        ARouter.getInstance().build(PageIdentity.APP_FACEMEGREEFFECT)
+                .withString("image_path", imagePath)
+                .withString("function", function)
                 .navigation(context);
     }
 
@@ -142,7 +155,7 @@ public class AppNavigator {
     }
 
     public static void goGenderEffectActivity(Context context, String imagePath, String function) {
-        ARouter.getInstance().build(PageIdentity.APP_GENDEREFFECT)
+        ARouter.getInstance().build(PageIdentity.APP_FACEEDITEFFECT)
                 .withString("image_path", imagePath)
                 .withString("function", function)
                 .navigation(context);

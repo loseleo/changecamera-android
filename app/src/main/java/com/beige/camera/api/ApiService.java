@@ -17,12 +17,15 @@ package com.beige.camera.api;
 
 import com.beige.camera.bean.EffectAgeBean;
 import com.beige.camera.bean.EffectImageBean;
+import com.beige.camera.bean.TemplatesConfigBean;
 import com.beige.camera.bean.VersionInfoBean;
 import com.beige.camera.common.base.bean.ApiResult;
 import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 
 /**
@@ -33,6 +36,9 @@ import retrofit2.http.POST;
  */
 public interface ApiService {
 
+    @FormUrlEncoded
+    @POST("api/v1/image_process/check_version")
+    Observable<ApiResult<VersionInfoBean>> checkVersion();
 
     @FormUrlEncoded
     @POST("api/v1/face/detect")
@@ -54,7 +60,14 @@ public interface ApiService {
     Observable<ApiResult<EffectImageBean>> getImageSelieAnime(@Field("image") String image);
 
     @FormUrlEncoded
-    @POST("api/v1/image_process/check_version")
-    Observable<ApiResult<VersionInfoBean>> checkVersion();
+    @POST("api/v1/face/merge")
+    Observable<ApiResult<EffectImageBean>> faceMerge(@Field("template_image") String templateImage,@Field("target_image") String targetImage);
+
+    @FormUrlEncoded
+    @POST("api/v1/image_process/body_seg")
+    Observable<ApiResult<EffectImageBean>> bodySeg(@Field("image") String templateImage);
+
+    @GET("api/v1/config/template")
+    Observable<ApiResult<TemplatesConfigBean>> getTemplateConfig(@Query("type") String templateImage);
 
 }

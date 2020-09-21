@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.beige.camera.R;
+import com.beige.camera.bean.FunctionBean;
+import com.beige.camera.bean.TemplatesConfigBean;
 import com.beige.camera.common.base.BaseActivity;
 import com.beige.camera.common.router.PageIdentity;
 import com.beige.camera.common.utils.ImageUtils;
@@ -20,11 +22,19 @@ import com.beige.camera.common.utils.MsgUtils;
 import com.beige.camera.common.utils.imageloader.BitmapUtil;
 import com.beige.camera.common.view.loadding.CustomDialog;
 import com.beige.camera.contract.IEffectImageView;
+import com.beige.camera.contract.IFaceMergeView;
+import com.beige.camera.dagger.MainComponentHolder;
+import com.beige.camera.presenter.EffectImagePresenter;
+import com.beige.camera.presenter.FaceMergePresenter;
 import com.beige.camera.utils.AdHelper;
+
+import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 
 @Route(path = PageIdentity.APP_BABYEFFECT)
-public class BabyEffectActivity extends BaseActivity implements IEffectImageView {
+public class BabyEffectActivity extends BaseActivity implements IFaceMergeView {
 
     public String bannerAdType = "bannerAdType";
     public String rewardedAdType = "rewardedAdType";
@@ -35,17 +45,19 @@ public class BabyEffectActivity extends BaseActivity implements IEffectImageView
     private TextView btnSave;
     private TextView btnShare;
     private FrameLayout adContainer;
-    ConstraintLayout clSaveImage ;
-    ConstraintLayout clPbabyBoy ;
-    ConstraintLayout clPbabyGiry;
-
-    private int[] babyBoyDrawable = new int[]{R.mipmap.pic_boy_one,R.mipmap.pic_boy_two,R.mipmap.pic_boy_three,R.mipmap.pic_boy_four,R.mipmap.pic_boy_five,R.mipmap.pic_boy_six,R.mipmap.pic_boy_seven,R.mipmap.pic_boy_eight};
-    private int[] babyGiryDrawable = new int[]{R.mipmap.pic_girl_one,R.mipmap.pic_girl_two,R.mipmap.pic_girl_three,R.mipmap.pic_girl_four,R.mipmap.pic_girl_five,R.mipmap.pic_girl_six,R.mipmap.pic_girl_seven,R.mipmap.pic_girl_eight};
-
+    private ConstraintLayout clSaveImage ;
+    private ConstraintLayout clPbabyBoy ;
+    private ConstraintLayout clPbabyGiry;
+    private String  imageUrlboy = "";
+    private String  imageUrlgirl = "";
     private boolean selectBoy = true;
 
     private  int selectDrawable ;
     private CustomDialog mCustomDialog;
+
+    @Inject
+    public FaceMergePresenter mPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +65,7 @@ public class BabyEffectActivity extends BaseActivity implements IEffectImageView
 
     @Override
     protected void setupActivityComponent() {
+        MainComponentHolder.getInstance().inject(this);
     }
 
     @Override
@@ -63,7 +76,7 @@ public class BabyEffectActivity extends BaseActivity implements IEffectImageView
     @Override
     protected void onResume() {
         super.onResume();
-//        mPresenter.attachView(this);
+        mPresenter.attachView(this);
         AdHelper.playRewardedVideo(this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
             @Override
             public void onDismissed(int action) {
@@ -80,7 +93,7 @@ public class BabyEffectActivity extends BaseActivity implements IEffectImageView
     @Override
     protected void onPause() {
         super.onPause();
-//        mPresenter.detachView();
+        mPresenter.detachView();
     }
 
     @Override
@@ -99,6 +112,7 @@ public class BabyEffectActivity extends BaseActivity implements IEffectImageView
 
     @Override
     public void initData() {
+        mPresenter.getTemplateConfig(FunctionBean.ID_DETECTION_BABY);
     }
 
     @Override
@@ -147,11 +161,11 @@ public class BabyEffectActivity extends BaseActivity implements IEffectImageView
         if (selectBoy) {
             clPbabyBoy.setBackground(getResources().getDrawable(R.drawable.bg_perview_white_stroke));
             clPbabyGiry.setBackground(getResources().getDrawable(R.drawable.bg_perview_white));
-            BitmapUtil.loadImageRound(this,babyBoyDrawable[selectDrawable],ivPreview,6);
+            BitmapUtil.loadImageRound(this,imageUrlboy,ivPreview,R.drawable.bg_perview_white,R.drawable.bg_perview_white,6);
         }else{
             clPbabyGiry.setBackground(getResources().getDrawable(R.drawable.bg_perview_white_stroke));
             clPbabyBoy.setBackground(getResources().getDrawable(R.drawable.bg_perview_white));
-            BitmapUtil.loadImageRound(this,babyGiryDrawable[selectDrawable],ivPreview,6);
+            BitmapUtil.loadImageRound(this,imageUrlgirl,ivPreview,R.drawable.bg_perview_white,R.drawable.bg_perview_white,6);
         }
     }
 
@@ -172,8 +186,19 @@ public class BabyEffectActivity extends BaseActivity implements IEffectImageView
     }
 
     @Override
-    public void onResultAge(String age) {
+    public void onResultTemplatesConfigBean(TemplatesConfigBean templatesConfigBean) {
+        ArrayList<TemplatesConfigBean.Template> templates = templatesConfigBean.getTemplates();
+        int size = templates.size();
+        if (templates != null || size > 0) {
+            int half = size / 2;
+            imageUrlboy = templates.get((int) (Math.random() * half)).getImage();
+            imageUrlgirl = templates.get((int)(half + Math.random() * (size - half + 1))).getImage();
+            setPerview();
+        } else {
+            MsgUtils.showToastCenter(BabyEffectActivity.this, "图片处理失败");
+        }
     }
+
 
     private void saveImage(ViewGroup view){
         Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件

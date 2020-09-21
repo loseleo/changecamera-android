@@ -70,12 +70,12 @@ public class UploadImgActivity extends BaseActivity {
     public void configViews() {
         LogUtils.e("zhangning", "imagePath = " + imagePath);
         BitmapUtil.loadImageCircle(this, imagePath, R.color.black, ivPreview);
-        setProgress();
-//        if(TextUtils.equals(function,FunctionBean.ID_CHANGE_ANIMAL)){
-//            setProgress();
-//        }else{
-//            upLoadImage();
-//        }
+//        setProgress();
+        if(TextUtils.equals(function,FunctionBean.ID_CHANGE_ANIMAL) || TextUtils.equals(function,FunctionBean.ID_CHANGE_ANIMALFACE)){
+            setProgress();
+        }else{
+            upLoadImage();
+        }
         icBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,8 +112,6 @@ public class UploadImgActivity extends BaseActivity {
             @Override
             public void onSuccess(String ossFilePath, String eTag, String requestId) {
                 Log.e("zhangning", "OssCoverPtah :" + ossFilePath);
-//                submitVideoBean.setOssCoverPtah(ossFilePath);
-//                submitVideoInfo(submitVideoBean);
                 goNextActivity(ossFilePath);
             }
 
@@ -148,7 +146,7 @@ public class UploadImgActivity extends BaseActivity {
 
         if (TextUtils.equals(function,FunctionBean.ID_CHANGE_OLD)) {
             AppNavigator.goOldEfectActivity(UploadImgActivity.this,imagePath);
-        }else if (TextUtils.equals(function,FunctionBean.ID_CHANGE_GENDER)) {
+        }else if (TextUtils.equals(function,FunctionBean.ID_CHANGE_GENDER_BOY) || TextUtils.equals(function,FunctionBean.ID_CHANGE_GENDER_GIRL)) {
             AppNavigator.goGenderEffectActivity(UploadImgActivity.this,imagePath,function);
         }else if (TextUtils.equals(function,FunctionBean.ID_CHANGE_CHILD)) {
             AppNavigator.goGenderEffectActivity(UploadImgActivity.this,imagePath,function);
@@ -157,17 +155,19 @@ public class UploadImgActivity extends BaseActivity {
         }else if (TextUtils.equals(function,FunctionBean.ID_CHANGE_ANIMAL)) {
             AppNavigator.goAnimalEffectActivity(UploadImgActivity.this,imagePath);
         }else if (TextUtils.equals(function,FunctionBean.ID_DETECTION_AGE)) {
-            AppNavigator.goAgeffectActivity(UploadImgActivity.this,imagePath);
+            AppNavigator.goAgeEffectActivity(UploadImgActivity.this,imagePath);
         }else if (TextUtils.equals(function,FunctionBean.ID_DETECTION_PAST)) {
             AppNavigator.goPastEffectActivity(UploadImgActivity.this,imagePath);
         }else  if (TextUtils.equals(function,FunctionBean.ID_CHANGE_BACKGROUND)) {
             AppNavigator.goBackgroundffectActivity(UploadImgActivity.this,imagePath);
         }else if (TextUtils.equals(function,FunctionBean.ID_CHANGE_HAIR)) {
-//            AppNavigator.goAgeffectActivity(UploadImgActivity.this,imagePath);
+            AppNavigator.goFaceMegreEffectActivity(UploadImgActivity.this,imagePath,function);
+        }else if (TextUtils.equals(function,FunctionBean.ID_CHANGE_CLOTHES)) {
+            AppNavigator.goFaceMegreEffectActivity(UploadImgActivity.this,imagePath,function);
         }else if (TextUtils.equals(function,FunctionBean.ID_CHANGE_CUSTOMS)) {
-//            AppNavigator.goAgeffectActivity(UploadImgActivity.this,imagePath);
+            AppNavigator.goFaceMegreEffectActivity(UploadImgActivity.this,imagePath,function);
         }else if (TextUtils.equals(function,FunctionBean.ID_CHANGE_ANIMALFACE)) {
-//            AppNavigator.goAgeffectActivity(UploadImgActivity.this,imagePath);
+            AppNavigator.goAnimalFaceEffectActivity(UploadImgActivity.this,imagePath);
         }
         finish();
     }

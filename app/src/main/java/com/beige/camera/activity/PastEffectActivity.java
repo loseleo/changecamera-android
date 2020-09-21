@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.beige.camera.R;
+import com.beige.camera.bean.FunctionBean;
+import com.beige.camera.bean.TemplatesConfigBean;
 import com.beige.camera.common.base.BaseActivity;
 import com.beige.camera.common.router.PageIdentity;
 import com.beige.camera.common.utils.ImageUtils;
@@ -21,15 +23,19 @@ import com.beige.camera.common.utils.LogUtils;
 import com.beige.camera.common.utils.MsgUtils;
 import com.beige.camera.common.utils.imageloader.BitmapUtil;
 import com.beige.camera.contract.IEffectImageView;
+import com.beige.camera.contract.IFaceMergeView;
 import com.beige.camera.dagger.MainComponentHolder;
 import com.beige.camera.presenter.EffectImagePresenter;
+import com.beige.camera.presenter.FaceMergePresenter;
 import com.beige.camera.utils.AdHelper;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
 
 @Route(path = PageIdentity.APP_PASTEFFECT)
-public class PastEffectActivity extends BaseActivity implements IEffectImageView {
+public class PastEffectActivity extends BaseActivity implements IFaceMergeView {
 
     public String bannerAdType = "bannerAdType";
     public String rewardedAdType = "rewardedAdType";
@@ -41,17 +47,16 @@ public class PastEffectActivity extends BaseActivity implements IEffectImageView
     private TextView btnSave;
     private TextView btnShare;
     private FrameLayout adContainer;
-    private TextView tvBirth ;
-    private TextView tvDieage ;
-    private TextView tvProfession ;
+    private TextView tvDescription ;
 
     @Inject
-    public EffectImagePresenter mPresenter;
-
-    private String effectImage = "";
+    public FaceMergePresenter mPresenter;
 
     @Autowired(name = "image_path")
     String imagePath;
+
+    TemplatesConfigBean.Template template;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,9 +102,7 @@ public class PastEffectActivity extends BaseActivity implements IEffectImageView
         tvTitle = findViewById(R.id.tv_title);
         clPreview = findViewById(R.id.cl_preview);
         ivPreview = findViewById(R.id.iv_preview_bg);
-        tvBirth = findViewById(R.id.tv_birth_content);
-        tvDieage = findViewById(R.id.tv_dieage_content);
-        tvProfession = findViewById(R.id.tv_profession_content);
+        tvDescription = findViewById(R.id.tv_description);
         btnSave = findViewById(R.id.btn_save);
         btnShare = findViewById(R.id.btn_share);
         adContainer = findViewById(R.id.fl_ad_container);
@@ -108,6 +111,7 @@ public class PastEffectActivity extends BaseActivity implements IEffectImageView
 
     @Override
     public void initData() {
+            mPresenter.getTemplateConfig(FunctionBean.ID_DETECTION_PAST);
     }
 
     @Override
@@ -152,17 +156,23 @@ public class PastEffectActivity extends BaseActivity implements IEffectImageView
     public void onResultEffectImage(String image ,String actionType) {
         if (TextUtils.isEmpty(image)) {
             MsgUtils.showToastCenter(PastEffectActivity.this,"图片处理失败");
-            effectImage = imagePath;
+            return;
         }
-        effectImage = image;
-        BitmapUtil.loadImageRound(this,effectImage,ivPreview,R.drawable.bg_perview_white,R.drawable.bg_perview_white,6);
+        BitmapUtil.loadImageRound(this,image,ivPreview,R.drawable.bg_perview_white,R.drawable.bg_perview_white,6);
     }
-
 
     @Override
-    public void onResultAge(String age) {
-
+    public void onResultTemplatesConfigBean(TemplatesConfigBean templatesConfigBean) {
+        ArrayList<TemplatesConfigBean.Template> templates = templatesConfigBean.getTemplates();
+        if (templates != null || templates.size() > 0) {
+            template = templates.get((int) (Math.random() * templates.size()));
+            mPresenter.getFaceMergeImage(imagePath,template.getImage(),FunctionBean.ID_DETECTION_PAST);
+            tvDescription.setText(template.getDescription());
+        } else {
+            MsgUtils.showToastCenter(PastEffectActivity.this, "图片处理失败");
+        }
     }
+
 
     private void saveImage(ViewGroup view){
         Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件

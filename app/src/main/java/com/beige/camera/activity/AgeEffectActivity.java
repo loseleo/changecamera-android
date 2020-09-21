@@ -173,7 +173,7 @@ public class AgeEffectActivity extends BaseActivity implements IEffectImageView 
     public void onResultAge(String age) {
         LogUtils.e("zhangning","age = " + age);
         if (TextUtils.isEmpty(age)) {
-             age = (int) (10 + Math.random() * (1000 - 10 + 1)) + "";
+             age = (int) (10 + Math.random() * (120 - 10 + 1)) + "";
         }
         tvAge.setText(age + " 岁");
     }

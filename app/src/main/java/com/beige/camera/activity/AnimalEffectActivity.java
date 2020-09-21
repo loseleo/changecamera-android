@@ -19,6 +19,8 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.beige.camera.R;
+import com.beige.camera.bean.FunctionBean;
+import com.beige.camera.bean.TemplatesConfigBean;
 import com.beige.camera.common.base.BaseActivity;
 import com.beige.camera.common.guide.util.LogUtil;
 import com.beige.camera.common.router.PageIdentity;
@@ -26,17 +28,30 @@ import com.beige.camera.common.utils.ImageUtils;
 import com.beige.camera.common.utils.LogUtils;
 import com.beige.camera.common.utils.MsgUtils;
 import com.beige.camera.common.utils.RxUtil;
+import com.beige.camera.common.utils.imageloader.BitmapUtil;
+import com.beige.camera.common.utils.imageloader.BitmapUtil.LoadPicCallback;
 import com.beige.camera.common.view.loadding.CustomDialog;
 import com.beige.camera.contract.IEffectImageView;
+import com.beige.camera.contract.IFaceMergeView;
+import com.beige.camera.dagger.MainComponentHolder;
+import com.beige.camera.presenter.FaceMergePresenter;
 import com.beige.camera.ringtone.api.bean.AdConfigBean;
 import com.beige.camera.ringtone.core.AdManager;
 import com.beige.camera.ringtone.core.infoflow.InfoFlowAd;
 import com.beige.camera.ringtone.core.strategy.Callback;
 import com.beige.camera.ringtone.dagger.AdComponentHolder;
 import com.beige.camera.utils.AdHelper;
+import com.zhangqiang.celladapter.cell.Cell;
+import com.zhangqiang.celladapter.cell.MultiCell;
+import com.zhangqiang.celladapter.cell.ViewHolderBinder;
+import com.zhangqiang.celladapter.vh.ViewHolder;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+
+import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -48,7 +63,7 @@ import static com.beige.camera.common.utils.RxUtil.io_main;
 import static com.beige.camera.common.utils.RxUtil.viewClick;
 
 @Route(path = PageIdentity.APP_ANIMALEFFECT)
-public class AnimalEffectActivity extends BaseActivity {
+public class AnimalEffectActivity extends BaseActivity implements IFaceMergeView {
 
     public String bannerAdType = "bannerAdType";
     public String rewardedAdType = "rewardedAdType";
@@ -67,7 +82,9 @@ public class AnimalEffectActivity extends BaseActivity {
 
     CustomDialog mCustomDialog;
 
-    private int[] animalDrawables = new int[]{R.mipmap.img_animal_cat,R.mipmap.img_animal_dog_one,R.mipmap.img_animal_dog_two,R.mipmap.img_animal_dog_three,R.mipmap.img_animal_panda,R.mipmap.img_animal_tiger};
+    @Inject
+    public FaceMergePresenter mPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +92,7 @@ public class AnimalEffectActivity extends BaseActivity {
 
     @Override
     protected void setupActivityComponent() {
+        MainComponentHolder.getInstance().inject(this);
     }
 
     @Override
@@ -98,6 +116,7 @@ public class AnimalEffectActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        mPresenter.attachView(this);
         AdHelper.playRewardedVideo(this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
             @Override
             public void onDismissed(int action) {
@@ -112,14 +131,21 @@ public class AnimalEffectActivity extends BaseActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        mPresenter.detachView();
+    }
+
+    @Override
     public void initData() {
+        mPresenter.getTemplateConfig(FunctionBean.ID_CHANGE_ANIMAL);
     }
 
     @Override
     public void configViews() {
         LogUtils.e("zhangning", "imagePath = " + imagePath);
         ivPeople.setImageBitmap(BitmapFactory.decodeFile(imagePath));
-        ivAnimal.setImageResource(animalDrawables[(int)(Math.random()*6)]);
+
         icBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -156,7 +182,6 @@ public class AnimalEffectActivity extends BaseActivity {
 
             }
         });
-        showAutoAnimation();
     }
 
 
@@ -223,4 +248,32 @@ public class AnimalEffectActivity extends BaseActivity {
             mCustomDialog =  null;
         }
     }
+
+    @Override
+    public void onResultEffectImage(String image, String actionType) {
+
+    }
+
+    @Override
+    public void onResultTemplatesConfigBean(TemplatesConfigBean templatesConfigBean) {
+        ArrayList<TemplatesConfigBean.Template> templates = templatesConfigBean.getTemplates();
+        if (templates != null || templates.size() > 0) {
+            TemplatesConfigBean.Template template = templates.get((int) (Math.random() * templates.size()));
+            BitmapUtil.loadImageRoundByListerner(AnimalEffectActivity.this, template.getImage(), ivAnimal, R.drawable.bg_perview_white, R.drawable.bg_perview_white, 0, new LoadPicCallback() {
+                @Override
+                public void onSuccess() {
+                    showAutoAnimation();
+                }
+
+                @Override
+                public void onFaild() {
+
+                }
+            });
+
+        } else {
+            MsgUtils.showToastCenter(AnimalEffectActivity.this, "图片处理失败");
+        }
+    }
+
 }

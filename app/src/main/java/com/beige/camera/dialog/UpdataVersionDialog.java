@@ -70,12 +70,7 @@ public class UpdataVersionDialog extends BaseDialogFragment {
         progressbar = view.findViewById(R.id.progressbar);
         String strTitle = mVersionInfoBean.getTitle();
         SpanUtils.setHtmlText(tvTitle, strTitle);
-        SpanUtils.setHtmlText(tvContent, mVersionInfoBean.getVersionMemo(), new URLSpanWrapper.OnClickListener() {
-            @Override
-            public boolean onClick(View widget, String url) {
-                return false;
-            }
-        });
+        tvContent.setText(mVersionInfoBean.getVersionMemo());
         String forceUpdate = mVersionInfoBean.getForceUpdate();
         if (TextUtils.equals("1", forceUpdate)) {
             btnCancel.setVisibility(View.GONE);

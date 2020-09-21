@@ -5,7 +5,8 @@ import java.io.Serializable;
 public class FunctionBean implements Serializable {
 
     public static String ID_CHANGE_OLD = "id_change_old";//变老
-    public static String ID_CHANGE_GENDER = "id_change_gender";//性别转换
+    public static String ID_CHANGE_GENDER_BOY = "id_change_gender_boy";//性别转换
+    public static String ID_CHANGE_GENDER_GIRL = "id_change_gender_girl";//性别转换
     public static String ID_CHANGE_CHILD = "id_change_child";//变小孩
     public static String ID_CHANGE_CARTOON = "id_change_cartoon";//漫画脸
     public static String ID_CHANGE_ANIMAL = "id_change_animal";//动物检测
@@ -14,6 +15,7 @@ public class FunctionBean implements Serializable {
     public static String ID_DETECTION_VS = "id_detection_vs";//宝宝检测
     public static String ID_CHANGE_BACKGROUND = "id_change_background";//换背景
     public static String ID_DETECTION_PAST = "id_detection_past";//前世今生
+    public static String ID_CHANGE_CLOTHES = "ID_CHANGE_CLOTHES";//一键换装
     public static String ID_CHANGE_HAIR = "id_change_hair";//换发型
     public static String ID_CHANGE_CUSTOMS = "id_change_customs";//异国风情
     public static String ID_CHANGE_ANIMALFACE = "id_change_animalface";//动物脸
@@ -28,6 +30,12 @@ public class FunctionBean implements Serializable {
         this.id = id;
         this.title = title;
         this.drawable = drawable;
+    }
+
+    public FunctionBean(String id, String title, String imageUrl) {
+        this.id = id;
+        this.title = title;
+        this.imageUrl = imageUrl;
     }
 
     public String getId() {
