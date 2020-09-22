@@ -1,4 +1,4 @@
-package com.beige.camera.ringtone.manager;
+package com.beige.camera.advertisement.manager;
 
 import android.content.Context;
 import android.text.TextUtils;

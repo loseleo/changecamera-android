@@ -78,6 +78,20 @@
         android:layout_marginTop="4dp"
         />
 
+    <TextView
+        android:id="@+id/tv_contact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="联系方式   QQ：27929092   邮箱：27929092@qq.com"
+        android:textSize="10dp"
+        android:textColor="#535353"
+        app:layout_constraintTop_toBottomOf="@+id/tv_version"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="4dp"
+        />
+
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/cl_user_agreement"
         android:layout_width="match_parent"
@@ -85,7 +99,7 @@
         android:layout_marginTop="50dp"
         android:background="@color/white"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_version">
+        app:layout_constraintTop_toBottomOf="@+id/tv_contact">
 
         <TextView
             android:id="@+id/tv_clean"

@@ -1,4 +1,4 @@
-package com.beige.camera.ringtone.manager;
+package com.beige.camera.advertisement.manager;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -12,8 +12,8 @@ import android.text.TextUtils;
 import com.beige.camera.common.base.BaseActivity;
 import com.beige.camera.common.utils.AppUtils;
 import com.beige.camera.common.utils.LogUtils;
-import com.beige.camera.ringtone.dialog.RingPermissionDialog;
-import com.beige.camera.ringtone.permission.PermissionUtils;
+import com.beige.camera.advertisement.dialog.RingPermissionDialog;
+import com.beige.camera.advertisement.permission.PermissionUtils;
 
 import java.io.File;
 

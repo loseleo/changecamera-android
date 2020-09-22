@@ -3,7 +3,7 @@
     <application>
 
         <activity
-            android:name="com.beige.camera.ringtone.RingtoneTestActivity"
+            android:name="com.beige.camera.advertisement.RingtoneTestActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
         </activity>

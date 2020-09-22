@@ -1,4 +1,4 @@
-package com.beige.camera.ringtone.permission;
+package com.beige.camera.advertisement.permission;
 
 import android.os.Build;
 import android.text.TextUtils;

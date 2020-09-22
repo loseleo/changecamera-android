@@ -1,4 +1,4 @@
-package com.beige.camera.ringtone.view;
+package com.beige.camera.advertisement.view;
 
 /**
  * Description:记录悬浮窗的宽高，坐标等信息

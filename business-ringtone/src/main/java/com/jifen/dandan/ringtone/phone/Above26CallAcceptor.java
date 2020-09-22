@@ -1,12 +1,12 @@
-package com.beige.camera.ringtone.phone;
+package com.beige.camera.advertisement.phone;
 
 import android.content.Context;
 import android.os.Build;
 import android.telecom.TelecomManager;
 
 import com.beige.camera.common.utils.AppUtils;
-import com.beige.camera.ringtone.interfaces.ICallAcceptor;
-import com.beige.camera.ringtone.manager.RingVideoViewManager;
+import com.beige.camera.advertisement.interfaces.ICallAcceptor;
+import com.beige.camera.advertisement.manager.RingVideoViewManager;
 
 public class Above26CallAcceptor implements ICallAcceptor {
 

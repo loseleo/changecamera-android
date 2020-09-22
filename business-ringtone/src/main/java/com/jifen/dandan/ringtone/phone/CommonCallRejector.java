@@ -1,11 +1,11 @@
-package com.beige.camera.ringtone.phone;
+package com.beige.camera.advertisement.phone;
 
 import android.os.IBinder;
 
 import com.android.internal.telephony.ITelephony;
 import com.beige.camera.common.utils.AppUtils;
-import com.beige.camera.ringtone.interfaces.ICallRejector;
-import com.beige.camera.ringtone.manager.RingVideoViewManager;
+import com.beige.camera.advertisement.interfaces.ICallRejector;
+import com.beige.camera.advertisement.manager.RingVideoViewManager;
 
 import java.lang.reflect.Method;
 

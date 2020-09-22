@@ -12,7 +12,7 @@ import com.beige.camera.activity.HomeActivity;
 import com.beige.camera.activity.OldEffectActivity;
 import com.beige.camera.activity.PastEffectActivity;
 import com.beige.camera.activity.WelcomeActivity;
-import com.beige.camera.ringtone.dagger.ADApiModule;
+import com.beige.camera.advertisement.dagger.ADApiModule;
 import com.beige.camera.api.Api;
 import com.beige.camera.common.dagger.component.CommonComponent;
 import com.beige.camera.common.dagger.scope.AppScope;

@@ -1,4 +1,4 @@
-package com.beige.camera.ringtone.view;
+package com.beige.camera.advertisement.view;
 
 /**
  * description:保存上一次悬浮窗的位置

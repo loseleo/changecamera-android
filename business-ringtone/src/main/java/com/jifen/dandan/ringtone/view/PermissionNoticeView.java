@@ -1,4 +1,4 @@
-package com.beige.camera.ringtone.view;
+package com.beige.camera.advertisement.view;
 
 import android.content.Context;
 import android.os.Handler;
@@ -13,8 +13,8 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.beige.camera.ringtone.R;
-import com.beige.camera.ringtone.utils.SystemUtils;
+import com.beige.camera.advertisement.R;
+import com.beige.camera.advertisement.utils.SystemUtils;
 
 
 public class PermissionNoticeView extends FrameLayout implements IFloatView{

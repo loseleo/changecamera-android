@@ -1,13 +1,13 @@
-package com.beige.camera.ringtone;
+package com.beige.camera.advertisement;
 
 import android.content.Context;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
 import com.beige.camera.common.utils.LogUtils;
-import com.beige.camera.ringtone.manager.RingToneManager;
-import com.beige.camera.ringtone.manager.RingVideoManager;
-import com.beige.camera.ringtone.manager.RingVideoViewManager;
+import com.beige.camera.advertisement.manager.RingToneManager;
+import com.beige.camera.advertisement.manager.RingVideoManager;
+import com.beige.camera.advertisement.manager.RingVideoViewManager;
 
 public class CallPhoneStateListener extends PhoneStateListener {
 

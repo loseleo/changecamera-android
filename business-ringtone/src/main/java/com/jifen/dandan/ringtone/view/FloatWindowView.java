@@ -1,4 +1,4 @@
-package com.beige.camera.ringtone.view;
+package com.beige.camera.advertisement.view;
 
 import android.content.Context;
 import android.os.Handler;
@@ -14,8 +14,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.beige.camera.ringtone.R;
-import com.beige.camera.ringtone.utils.SystemUtils;
+import com.beige.camera.advertisement.R;
+import com.beige.camera.advertisement.utils.SystemUtils;
 
 /**
  * FloatWindowView:悬浮窗控件V1-利用windowManger控制窗口

@@ -4,13 +4,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.CardView;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -22,45 +18,26 @@ import com.beige.camera.R;
 import com.beige.camera.bean.FunctionBean;
 import com.beige.camera.bean.TemplatesConfigBean;
 import com.beige.camera.common.base.BaseActivity;
-import com.beige.camera.common.guide.util.LogUtil;
 import com.beige.camera.common.router.PageIdentity;
 import com.beige.camera.common.utils.ImageUtils;
 import com.beige.camera.common.utils.LogUtils;
 import com.beige.camera.common.utils.MsgUtils;
-import com.beige.camera.common.utils.RxUtil;
 import com.beige.camera.common.utils.imageloader.BitmapUtil;
 import com.beige.camera.common.utils.imageloader.BitmapUtil.LoadPicCallback;
 import com.beige.camera.common.view.loadding.CustomDialog;
-import com.beige.camera.contract.IEffectImageView;
 import com.beige.camera.contract.IFaceMergeView;
 import com.beige.camera.dagger.MainComponentHolder;
 import com.beige.camera.presenter.FaceMergePresenter;
-import com.beige.camera.ringtone.api.bean.AdConfigBean;
-import com.beige.camera.ringtone.core.AdManager;
-import com.beige.camera.ringtone.core.infoflow.InfoFlowAd;
-import com.beige.camera.ringtone.core.strategy.Callback;
-import com.beige.camera.ringtone.dagger.AdComponentHolder;
 import com.beige.camera.utils.AdHelper;
-import com.zhangqiang.celladapter.cell.Cell;
-import com.zhangqiang.celladapter.cell.MultiCell;
-import com.zhangqiang.celladapter.cell.ViewHolderBinder;
-import com.zhangqiang.celladapter.vh.ViewHolder;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-
-import static com.beige.camera.common.utils.RxUtil.io_main;
-import static com.beige.camera.common.utils.RxUtil.viewClick;
 
 @Route(path = PageIdentity.APP_ANIMALEFFECT)
 public class AnimalEffectActivity extends BaseActivity implements IFaceMergeView {

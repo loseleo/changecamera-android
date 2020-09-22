@@ -1,4 +1,4 @@
-package com.beige.camera.ringtone.phone;
+package com.beige.camera.advertisement.phone;
 
 import android.app.ActivityManager;
 import android.content.ComponentName;

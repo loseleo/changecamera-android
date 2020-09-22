@@ -18,7 +18,7 @@ package com.beige.camera;
 import android.content.Context;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.beige.camera.ringtone.dagger.AdComponentHolder;
+import com.beige.camera.advertisement.dagger.AdComponentHolder;
 import com.beige.camera.common.base.BaseApplication;
 import com.beige.camera.common.dagger.component.CommonComponentHolder;
 import com.beige.camera.common.helper.activitylife.ActivityLifeManager;

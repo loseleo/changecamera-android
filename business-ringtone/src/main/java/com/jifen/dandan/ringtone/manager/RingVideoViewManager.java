@@ -1,14 +1,14 @@
-package com.beige.camera.ringtone.manager;
+package com.beige.camera.advertisement.manager;
 
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.beige.camera.common.utils.MmkvUtil;
-import com.beige.camera.ringtone.utils.SystemUtils;
-import com.beige.camera.ringtone.view.FloatViewParams;
-import com.beige.camera.ringtone.view.FloatWindowManager;
-import com.beige.camera.ringtone.view.RingVideoView;
+import com.beige.camera.advertisement.utils.SystemUtils;
+import com.beige.camera.advertisement.view.FloatViewParams;
+import com.beige.camera.advertisement.view.FloatWindowManager;
+import com.beige.camera.advertisement.view.RingVideoView;
 
 public class RingVideoViewManager {
 

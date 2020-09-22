@@ -1,4 +1,4 @@
-package com.beige.camera.ringtone;
+package com.beige.camera.advertisement;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +10,7 @@ import android.view.View;
 
 import com.beige.camera.common.base.BaseActivity;
 import com.beige.camera.common.utils.StatusBarConfig;
-import com.beige.camera.ringtone.manager.RingToneManager;
+import com.beige.camera.advertisement.manager.RingToneManager;
 import com.zhangqiang.visiblehelper.OnVisibilityChangeListener;
 
 

@@ -5,14 +5,13 @@ import android.widget.FrameLayout;
 
 import com.beige.camera.common.utils.LogUtils;
 import com.beige.camera.common.utils.RxUtil;
-import com.beige.camera.contract.IEffectImageView;
-import com.beige.camera.ringtone.api.bean.AdConfigBean;
-import com.beige.camera.ringtone.core.AdManager;
-import com.beige.camera.ringtone.core.dismiss.OnDismissedListener;
-import com.beige.camera.ringtone.core.infoflow.InfoFlowAd;
-import com.beige.camera.ringtone.core.rewardvideo.RewardVideoAd;
-import com.beige.camera.ringtone.core.strategy.Callback;
-import com.beige.camera.ringtone.dagger.AdComponentHolder;
+import com.beige.camera.advertisement.api.bean.AdConfigBean;
+import com.beige.camera.advertisement.core.AdManager;
+import com.beige.camera.advertisement.core.dismiss.OnDismissedListener;
+import com.beige.camera.advertisement.core.infoflow.InfoFlowAd;
+import com.beige.camera.advertisement.core.rewardvideo.RewardVideoAd;
+import com.beige.camera.advertisement.core.strategy.Callback;
+import com.beige.camera.advertisement.dagger.AdComponentHolder;
 
 import java.util.concurrent.TimeUnit;
 

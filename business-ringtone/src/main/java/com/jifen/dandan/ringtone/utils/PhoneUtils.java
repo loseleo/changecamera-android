@@ -1,4 +1,4 @@
-package com.beige.camera.ringtone.utils;
+package com.beige.camera.advertisement.utils;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -33,7 +33,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.beige.camera.common.utils.AppUtils;
-import com.beige.camera.ringtone.permission.PermissionUtils;
+import com.beige.camera.advertisement.permission.PermissionUtils;
 import com.beige.framework.core.utils.ImageUtil;
 import com.beige.qukan.ui.common.MsgUtils;
 

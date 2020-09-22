@@ -1,13 +1,13 @@
-package com.beige.camera.ringtone.phone;
+package com.beige.camera.advertisement.phone;
 
 import android.os.Build;
 import android.text.TextUtils;
 
-import com.beige.camera.ringtone.interfaces.ICallRejector;
-import com.beige.camera.ringtone.manager.RingVideoViewManager;
-import com.beige.camera.ringtone.permission.RomUtils;
-import com.beige.camera.ringtone.permission.SystemProperties;
-import com.beige.camera.ringtone.permission.VivoUtils;
+import com.beige.camera.advertisement.interfaces.ICallRejector;
+import com.beige.camera.advertisement.manager.RingVideoViewManager;
+import com.beige.camera.advertisement.permission.RomUtils;
+import com.beige.camera.advertisement.permission.SystemProperties;
+import com.beige.camera.advertisement.permission.VivoUtils;
 
 public class UseSystemCallRejector implements ICallRejector {
 

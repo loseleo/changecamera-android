@@ -1,4 +1,4 @@
-package com.beige.camera.ringtone.view;
+package com.beige.camera.advertisement.view;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -12,10 +12,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.beige.camera.common.utils.MmkvUtil;
-import com.beige.camera.ringtone.R;
-import com.beige.camera.ringtone.manager.RingVideoManager;
-import com.beige.camera.ringtone.phone.PhoneHolder;
-import com.beige.camera.ringtone.utils.PhoneUtils;
+import com.beige.camera.advertisement.R;
+import com.beige.camera.advertisement.manager.RingVideoManager;
+import com.beige.camera.advertisement.phone.PhoneHolder;
+import com.beige.camera.advertisement.utils.PhoneUtils;
 
 public class RingVideoView extends FrameLayout implements IFloatView, View.OnClickListener {
     private FloatViewListener mListener;

@@ -1,11 +1,11 @@
-package com.beige.camera.ringtone.phone;
+package com.beige.camera.advertisement.phone;
 
 import android.content.Context;
 import android.os.Build;
 import android.telecom.TelecomManager;
 
 import com.beige.camera.common.utils.AppUtils;
-import com.beige.camera.ringtone.interfaces.ICallRejector;
+import com.beige.camera.advertisement.interfaces.ICallRejector;
 
 public class Above28CallRejector implements ICallRejector {
     @Override

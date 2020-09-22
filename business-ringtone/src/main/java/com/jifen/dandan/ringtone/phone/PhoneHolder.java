@@ -1,11 +1,11 @@
-package com.beige.camera.ringtone.phone;
+package com.beige.camera.advertisement.phone;
 
 import android.os.Build;
 
-import com.beige.camera.ringtone.interfaces.CallStateObservable;
-import com.beige.camera.ringtone.interfaces.ICallAcceptor;
-import com.beige.camera.ringtone.interfaces.ICallRejector;
-import com.beige.camera.ringtone.manager.RingVideoViewManager;
+import com.beige.camera.advertisement.interfaces.CallStateObservable;
+import com.beige.camera.advertisement.interfaces.ICallAcceptor;
+import com.beige.camera.advertisement.interfaces.ICallRejector;
+import com.beige.camera.advertisement.manager.RingVideoViewManager;
 
 
 public class PhoneHolder implements ICallAcceptor, ICallRejector {

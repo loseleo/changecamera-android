@@ -1,4 +1,4 @@
-package com.beige.camera.ringtone.dialog;
+package com.beige.camera.advertisement.dialog;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -15,8 +15,8 @@ import com.beige.camera.common.base.BaseDialogFragment;
 import com.beige.camera.common.utils.ScreenUtils;
 import com.beige.camera.common.utils.span.SpanUtils;
 import com.beige.camera.common.utils.span.URLSpanWrapper;
-import com.beige.camera.ringtone.R;
-import com.beige.camera.ringtone.permission.PermissionUtils;
+import com.beige.camera.advertisement.R;
+import com.beige.camera.advertisement.permission.PermissionUtils;
 import com.zhangqiang.visiblehelper.OnVisibilityChangeListener;
 
 

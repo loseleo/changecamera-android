@@ -1,4 +1,4 @@
-package com.beige.camera.ringtone.interfaces;
+package com.beige.camera.advertisement.interfaces;
 
 import com.zheyun.bumblebee.common.subscribe.BaseObservable;
 

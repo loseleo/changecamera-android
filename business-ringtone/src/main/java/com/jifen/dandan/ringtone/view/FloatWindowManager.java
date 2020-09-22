@@ -1,4 +1,4 @@
-package com.beige.camera.ringtone.view;
+package com.beige.camera.advertisement.view;
 
 import android.content.Context;
 import android.graphics.PixelFormat;
@@ -11,7 +11,7 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import com.beige.camera.common.base.BaseActivity;
-import com.beige.camera.ringtone.utils.SystemUtils;
+import com.beige.camera.advertisement.utils.SystemUtils;
 
 /**
  * FloatWindowManager:管理悬浮窗视频播放

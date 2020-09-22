@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2016 Facishare Technology Co., Ltd. All Rights Reserved.
  */
-package com.beige.camera.ringtone.permission;
+package com.beige.camera.advertisement.permission;
 
 import android.annotation.TargetApi;
 import android.app.AppOpsManager;

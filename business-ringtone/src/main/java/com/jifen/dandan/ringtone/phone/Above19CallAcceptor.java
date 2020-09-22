@@ -1,4 +1,4 @@
-package com.beige.camera.ringtone.phone;
+package com.beige.camera.advertisement.phone;
 
 import android.content.Context;
 import android.media.AudioManager;
@@ -7,7 +7,7 @@ import android.support.annotation.RequiresApi;
 import android.view.KeyEvent;
 
 import com.beige.camera.common.utils.AppUtils;
-import com.beige.camera.ringtone.interfaces.ICallAcceptor;
+import com.beige.camera.advertisement.interfaces.ICallAcceptor;
 
 public class Above19CallAcceptor implements ICallAcceptor {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
