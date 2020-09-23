@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.beige.camera.advertisement.TTAdManagerHolder;
 import com.beige.camera.common.feed.bean.AdModel;
 import com.beige.camera.advertisement.core.loader.ResourceLoader;
+import com.beige.camera.common.utils.LogUtils;
 import com.bytedance.sdk.openadsdk.AdSlot;
 import com.bytedance.sdk.openadsdk.TTAdNative;
 
@@ -130,18 +131,21 @@ public class TTSplashAd extends SplashAd<com.bytedance.sdk.openadsdk.TTSplashAd>
                 @Override
                 @MainThread
                 public void onError(int code, String message) {
+                    LogUtils.e("TTSplashAd onError=", message);
                     notifyFail(new RuntimeException("load tt splash error:" + code + "," + message));
                 }
 
                 @Override
                 @MainThread
                 public void onTimeout() {
+                    LogUtils.e("TTSplashAd onTimeout");
                     notifyFail(new RuntimeException("load tt splash timeout"));
                 }
 
                 @Override
                 @MainThread
                 public void onSplashAdLoad(com.bytedance.sdk.openadsdk.TTSplashAd ad) {
+                    LogUtils.e("TTSplashAd onSplashAdLoad");
                     if (ad == null) {
                         notifyFail(new RuntimeException("load tt splash result null"));
                         return;

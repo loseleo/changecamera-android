@@ -130,7 +130,6 @@ public class UploadImgActivity extends BaseActivity {
                 .doOnNext(new Consumer<Long>() {
                     @Override
                     public void accept(Long aLong) throws Exception {
-                        LogUtils.e("zhangning","Long = " + aLong);
                         int progress = (int) (aLong * 5);
                         progressbar.setProgress(progress);
                         tvProgress.setText(progress + "%");

@@ -39,10 +39,7 @@ public class GDTSplashAd extends SplashAd<SplashAD> {
             @Override
             protected void onLoad(AdModel adModel) {
                 ViewGroup adContainer = getAdContainer();
-                splashAD = new SplashAD((Activity) adContainer.getContext(),
-                        null,
-                        BuildConfig.AD_GDT_APP_ID,
-                        getAdModel().getAdId(), new SplashADListener() {
+                splashAD = new SplashAD((Activity) adContainer.getContext(), getAdModel().getAdId(), new SplashADListener() {
                     @Override
                     public void onADDismissed() {
                         notifyAdTimeOver();
@@ -50,6 +47,10 @@ public class GDTSplashAd extends SplashAd<SplashAD> {
 
                     @Override
                     public void onNoAD(AdError adError) {
+
+                        Log.i("GDTSplashAd", "SplashADClicked onNoAD: " + adError.getErrorCode() + adError.getErrorMsg());
+
+
                         notifyFail(new RuntimeException("load gdt splash ad error :" + adError.getErrorCode()
                                 + ",msg:" + adError.getErrorMsg()));
                     }
@@ -61,7 +62,7 @@ public class GDTSplashAd extends SplashAd<SplashAD> {
 
                     @Override
                     public void onADClicked() {
-                        Log.i("AD_DEMO", "SplashADClicked clickUrl: "
+                        Log.i("GDTSplashAd", "SplashADClicked clickUrl: "
                                 + (splashAD.getExt() != null ? splashAD.getExt().get("clickUrl") : ""));
                         notifyAdClick();
                     }
@@ -80,7 +81,7 @@ public class GDTSplashAd extends SplashAd<SplashAD> {
                     public void onADLoaded(long l) {
 
                     }
-                }, 0);
+                }, 3000);
                 splashAD.fetchAndShowIn(adContainer);
             }
         };

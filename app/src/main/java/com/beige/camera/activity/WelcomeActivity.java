@@ -54,7 +54,7 @@ public class WelcomeActivity extends BaseActivity implements IWelcomeView {
             finish();
             return;
         }
-        showPrivacyPolice();
+
     }
 
 
@@ -62,6 +62,7 @@ public class WelcomeActivity extends BaseActivity implements IWelcomeView {
     protected void onResume() {
         super.onResume();
         mPresenter.attachView(this);
+        showPrivacyPolice();
     }
 
     @Override
@@ -105,15 +106,6 @@ public class WelcomeActivity extends BaseActivity implements IWelcomeView {
     public void showPrivacyPolice() {
         if (!isShowPrivacyPolice()) {
             mPresenter.showSplashAD();
-            Observable.timer(6, TimeUnit.SECONDS)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Consumer<Long>() {
-                        @Override
-                        public void accept(Long aLong) throws Exception {
-                            goHome();
-                        }
-                    });
-
             return;
         }
         PrivacyPoliceDialog privacyPoliceDialog = PrivacyPoliceDialog.newInstance(getPageName());

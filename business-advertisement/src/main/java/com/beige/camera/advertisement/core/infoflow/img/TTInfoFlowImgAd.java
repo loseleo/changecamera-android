@@ -12,6 +12,7 @@ import com.beige.camera.common.feed.bean.AdModel;
 import com.beige.camera.advertisement.R;
 import com.beige.camera.advertisement.TTAdManagerHolder;
 import com.beige.camera.advertisement.core.loader.ResourceLoader;
+import com.beige.camera.common.utils.LogUtils;
 import com.beige.camera.common.utils.ThreadUtils;
 import com.bytedance.sdk.openadsdk.AdSlot;
 import com.bytedance.sdk.openadsdk.TTAdManager;
@@ -147,17 +148,21 @@ public class TTInfoFlowImgAd extends BaseImgAd<TTInfoFlowImgAd.ImgAdRes> {
                             .setSupportDeepLink(true)
                             .setImageAcceptedSize(1080, 1920)
                             .setAdCount(1) //请求广告数量为1到3条
+                            .setImageAcceptedSize(640,320) //这个参数设置即可，不影响个性化模板广告的size
                             .build();
+
                     //step4:请求广告,对请求回调的广告作渲染处理
                     mTTAdNative.loadFeedAd(adSlot, new TTAdNative.FeedAdListener() {
                         @Override
                         public void onError(int code, String message) {
+                            LogUtils.e("TTInfoFlowImgAd onError=", message);
                             notifyFail(new RuntimeException("load tt info flow video ad fail:" + code + ";" + message));
                         }
 
                         @Override
                         public void onFeedAdLoad(List<TTFeedAd> ads) {
                             if (ads == null || ads.size() <= 0) {
+                                LogUtils.e("TTInfoFlowImgAd null result");
                                 notifyFail(new RuntimeException("null result"));
                                 return;
                             }

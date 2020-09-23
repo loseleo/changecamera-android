@@ -12,7 +12,6 @@ import java.util.Map;
  */
 public class AdModel implements Serializable {
 
-    public static final String AD_CHANNEL_CPC = "cpc";
     public static final String AD_CHANNEL_TOUTIAO = "toutiao";
     public static final String AD_CHANNEL_GDT = "gdt";
     public static final String AD_CHANNEL_CPC_RTB = "cpc_rtb";

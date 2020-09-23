@@ -54,7 +54,7 @@ public class GDTRewardVideoAd extends RewardVideoAd<GDTRewardVideoAd.GDTRewardVi
         @Override
         protected void onLoad(AdModel adModel) {
 
-            rewardVideoAD = new RewardVideoAD(gdtRewardVideoAd.getActivity(), BuildConfig.AD_GDT_APP_ID, adModel.getAdId(), new RewardVideoADListener() {
+            rewardVideoAD = new RewardVideoAD(gdtRewardVideoAd.getActivity(),adModel.getAdId(), new RewardVideoADListener() {
 
                 /**
                  * 广告加载成功，可在此回调后进行广告展示，此时广告过期时间确定，可通过RewardVideoAD.getExpireTimestamp()获取

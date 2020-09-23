@@ -161,6 +161,9 @@ public class TTRewardVideoAd extends RewardVideoAd<TTRewardVideoAd.TTRewardVideo
             AdSlot adSlot = new AdSlot.Builder()
                     .setCodeId(adModel.getAdId())
                     .setSupportDeepLink(true)
+                    .setAdCount(2)
+                    //个性化模板广告需要设置期望个性化模板广告的大小,单位dp,激励视频场景，只要设置的值大于0即可。仅模板广告需要设置此参数
+                    .setExpressViewAcceptedSize(500,500)
                     .setImageAcceptedSize(ScreenUtils.getScreenWidth(), ScreenUtils.getScreenHeight())
 //                    .setUserID(UserInfoManager.getMemberId())//用户id,必传参数
                     .setMediaExtra(JsonUtils.mapToJsonString(data)) //附加参数，ad_video_pause.png`可选

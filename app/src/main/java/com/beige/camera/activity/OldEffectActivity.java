@@ -138,6 +138,17 @@ public class OldEffectActivity extends BaseActivity implements IEffectImageView 
             @Override
             public void onClick(View view) {
                 saveImage(ivPreview);
+                AdHelper.playRewardedVideo(OldEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+                    @Override
+                    public void onDismissed(int action) {
+
+                    }
+
+                    @Override
+                    public void onFail() {
+
+                    }
+                });
             }
         });
 

@@ -12,11 +12,13 @@ import com.beige.camera.advertisement.core.strategy.AdLoader;
 import com.beige.camera.advertisement.core.strategy.Callback;
 import com.beige.camera.advertisement.dagger.AdComponentHolder;
 import com.beige.camera.api.Api;
+import com.beige.camera.common.feed.bean.AdModel;
 import com.beige.camera.common.utils.LogUtils;
 import com.beige.camera.common.utils.RxUtil;
 import com.beige.camera.contract.IWelcomeView;
 import com.zhangqiang.mvp.Presenter;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -77,10 +79,19 @@ public class WelcomePresenter extends Presenter<IWelcomeView> {
     }
 
     public void loadSplashAd(AdConfigBean adModel) {
-
+        AdModel adModelm = new AdModel();
+//        adModelm.setAdCode("887382348");
+//        adModelm.setAdId("887382348");
+//        adModelm.setAdChannel(AdModel.AD_CHANNEL_TOUTIAO);
+        adModelm.setAdCode("3071432421593479");
+        adModelm.setAdId("3071432421593479");
+        adModelm.setAdChannel(AdModel.AD_CHANNEL_GDT);
+        adModelm.setAction(0);
+        ArrayList<AdModel> adModels = new ArrayList<>();
+        adModels.add(adModelm);
         IWelcomeView view = getAttachedView();
         FrameLayout adContainer = view.getAdContainer();
-        AdLoader<SplashAd> splashAdAdLoader = AdManager.loadSplashAd(adContainer, adModel.getCandidates(), new Callback<SplashAd>() {
+        AdLoader<SplashAd> splashAdAdLoader = AdManager.loadSplashAd(adContainer, adModels, new Callback<SplashAd>() {
             @Override
             public void onAdLoadStart(SplashAd ad) {
                 ad.addOnAdSkipListener(new OnAdSkipListener() {

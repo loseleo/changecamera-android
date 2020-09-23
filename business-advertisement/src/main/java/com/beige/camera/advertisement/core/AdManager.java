@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.support.annotation.Nullable;
 import android.widget.FrameLayout;
 
+import com.beige.camera.advertisement.core.fullscreenvideo.GDTFullScreenVideoAd;
+import com.beige.camera.advertisement.core.fullscreenvideo.TTFullScreenVideoAd;
 import com.beige.camera.common.feed.bean.AdModel;
 import com.beige.camera.advertisement.core.dismiss.OnDismissedListener;
 import com.beige.camera.advertisement.core.infoflow.GDTInfoFlowVideoAd;
@@ -268,6 +270,17 @@ public class AdManager {
         loadAd(adModels, new RewardVideoAdFactory(activity), new RewardVideoAdCallback<>(callback));
     }
 
+ /**
+     * 加载全屏视频
+     *
+     * @param activity
+     * @param adModels
+     */
+    public static void loadFullScreenAd(Activity activity, List<AdModel> adModels, Callback<RewardVideoAd> callback) {
+
+        loadAd(adModels, new FullScreenAdFactory(activity), new RewardVideoAdCallback<>(callback));
+    }
+
 
     /**
      * 是否使用个性化金币
@@ -376,6 +389,27 @@ public class AdManager {
                 return new GDTRewardVideoAd(adModel, activity);
             } else if (AdModel.AD_CHANNEL_TOUTIAO.equals(adChannel)) {
                 return new TTRewardVideoAd(adModel, activity);
+            }
+            return null;
+        }
+    }
+
+    private static class FullScreenAdFactory implements AdFactory<RewardVideoAd> {
+
+        private Activity activity;
+
+        FullScreenAdFactory(Activity activity) {
+            this.activity = activity;
+        }
+
+        @Override
+        public RewardVideoAd create(AdModel adModel) {
+
+            final String adChannel = adModel.getAdChannel();
+            if (AdModel.AD_CHANNEL_GDT.equals(adChannel)) {
+                return new GDTFullScreenVideoAd(adModel, activity);
+            } else if (AdModel.AD_CHANNEL_TOUTIAO.equals(adChannel)) {
+                return new TTFullScreenVideoAd(adModel, activity);
             }
             return null;
         }

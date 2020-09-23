@@ -94,17 +94,6 @@ public class AnimalEffectActivity extends BaseActivity implements IFaceMergeView
     protected void onResume() {
         super.onResume();
         mPresenter.attachView(this);
-        AdHelper.playRewardedVideo(this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
-            @Override
-            public void onDismissed(int action) {
-
-            }
-
-            @Override
-            public void onFail() {
-
-            }
-        });
     }
 
     @Override
@@ -133,19 +122,40 @@ public class AnimalEffectActivity extends BaseActivity implements IFaceMergeView
             @Override
             public void onClick(View view) {
                 saveImage(cardview);
+                AdHelper.playFullScreenVideoAd(AnimalEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+                    @Override
+                    public void onDismissed(int action) {
+
+                    }
+
+                    @Override
+                    public void onFail() {
+
+                    }
+                });
             }
         });
 
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveImage(cardview);
+//                saveImage(cardview);
+                AdHelper.playRewardedVideo(AnimalEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+                    @Override
+                    public void onDismissed(int action) {
+
+                    }
+
+                    @Override
+                    public void onFail() {
+
+                    }
+                });
             }
         });
         seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                LogUtils.e("zhangning", "seekBar progress = " + i);
                 setImageAlpha(i);
             }
 
@@ -169,7 +179,6 @@ public class AnimalEffectActivity extends BaseActivity implements IFaceMergeView
                 .doOnNext(new Consumer<Long>() {
                     @Override
                     public void accept(Long aLong) throws Exception {
-                        LogUtils.e("zhangning","Long = " + aLong);
                         int progress = (int) (aLong * 2);
                         seekbar.setProgress(progress);
                     }
