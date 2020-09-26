@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -33,6 +34,7 @@ public class FaceEditEffectActivity extends BaseActivity implements IEffectImage
 
     public String bannerAdType = "bannerAdType";
     public String rewardedAdType = "rewardedAdType";
+    public String fullScreenVideoType = "fullScreenVideoType";
 
     private ConstraintLayout clSaveImage;
     private ImageView icBack;
@@ -47,7 +49,7 @@ public class FaceEditEffectActivity extends BaseActivity implements IEffectImage
     public EffectImagePresenter mPresenter;
 
     private String effectImage = "";
-
+    private AdHelper adHelper;
     @Autowired(name = "image_path")
     String imagePath;
     @Autowired(name = "function")
@@ -57,6 +59,7 @@ public class FaceEditEffectActivity extends BaseActivity implements IEffectImage
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPresenter.attachView(this);
     }
 
     @Override
@@ -72,23 +75,17 @@ public class FaceEditEffectActivity extends BaseActivity implements IEffectImage
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.attachView(this);
-        AdHelper.playRewardedVideo(this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
-            @Override
-            public void onDismissed(int action) {
-
-            }
-
-            @Override
-            public void onFail() {
-
-            }
-        });
+        adHelper.showBannerAdView(bannerAdType,adContainer);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
         mPresenter.detachView();
     }
 
@@ -102,7 +99,7 @@ public class FaceEditEffectActivity extends BaseActivity implements IEffectImage
         btnSave = findViewById(R.id.btn_save);
         btnShare = findViewById(R.id.btn_share);
         adContainer = findViewById(R.id.fl_ad_container);
-        AdHelper.showBannerAdView(bannerAdType,adContainer);
+        adHelper = new AdHelper();
     }
 
     @Override
@@ -121,7 +118,7 @@ public class FaceEditEffectActivity extends BaseActivity implements IEffectImage
         icBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                finshActivity();
             }
         });
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -147,6 +144,16 @@ public class FaceEditEffectActivity extends BaseActivity implements IEffectImage
             actionType = "TO_KID";
         }
         mPresenter.getFaceEditAttr(imagePath,actionType);
+        adHelper.playRewardedVideo(FaceEditEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+            @Override
+            public void onDismissed(int action) {
+            }
+            @Override
+            public void onFail() {
+
+            }
+        });
+
     }
 
 
@@ -171,25 +178,58 @@ public class FaceEditEffectActivity extends BaseActivity implements IEffectImage
 
     @Override
     public void onResultAge(String age) {
-
     }
 
 
     private void saveImage(View view){
-        Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件
-        ImageUtils.saveImageToGallery(FaceEditEffectActivity.this, bitmap, System.currentTimeMillis() + ".jpg", new ImageUtils.CallBack() {
-            @Override
-            public void onStart() {
-            }
 
+        adHelper.playRewardedVideo(FaceEditEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
             @Override
-            public void onSuccess() {
-                MsgUtils.showToastCenter(FaceEditEffectActivity.this,"图片保存成功，请在相册中点击分享");
+            public void onDismissed(int action) {
+                Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件
+                ImageUtils.saveImageToGallery(FaceEditEffectActivity.this, bitmap, System.currentTimeMillis() + ".jpg", new ImageUtils.CallBack() {
+                    @Override
+                    public void onStart() {
+                    }
+
+                    @Override
+                    public void onSuccess() {
+                        MsgUtils.showToastCenter(FaceEditEffectActivity.this,"图片保存成功，请在相册中点击分享");
+                    }
+
+                    @Override
+                    public void onFail() {
+                        MsgUtils.showToastCenter(FaceEditEffectActivity.this,"图片保存失败");
+                    }
+                });
+            }
+            @Override
+            public void onFail() {
+
+            }
+        });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            finshActivity();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public void finshActivity(){
+
+        adHelper.playFullScreenVideoAd(this, fullScreenVideoType, new AdHelper.PlayRewardedAdCallback() {
+            @Override
+            public void onDismissed(int action) {
+                finish();
             }
 
             @Override
             public void onFail() {
-                MsgUtils.showToastCenter(FaceEditEffectActivity.this,"图片保存失败");
+                finish();
             }
         });
     }

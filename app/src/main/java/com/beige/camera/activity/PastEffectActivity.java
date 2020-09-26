@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -39,6 +40,7 @@ public class PastEffectActivity extends BaseActivity implements IFaceMergeView {
 
     public String bannerAdType = "bannerAdType";
     public String rewardedAdType = "rewardedAdType";
+    public String fullScreenVideoType = "fullScreenVideoType";
 
     private ImageView icBack;
     private TextView tvTitle;
@@ -48,6 +50,9 @@ public class PastEffectActivity extends BaseActivity implements IFaceMergeView {
     private TextView btnShare;
     private FrameLayout adContainer;
     private TextView tvDescription ;
+    private ConstraintLayout layoutAdMantle;
+
+    private AdHelper adHelper;
 
     @Inject
     public FaceMergePresenter mPresenter;
@@ -61,6 +66,7 @@ public class PastEffectActivity extends BaseActivity implements IFaceMergeView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPresenter.attachView(this);
     }
 
     @Override
@@ -76,23 +82,17 @@ public class PastEffectActivity extends BaseActivity implements IFaceMergeView {
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.attachView(this);
-        AdHelper.playRewardedVideo(this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
-            @Override
-            public void onDismissed(int action) {
-
-            }
-
-            @Override
-            public void onFail() {
-
-            }
-        });
+        adHelper.showBannerAdView(bannerAdType,adContainer);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
         mPresenter.detachView();
     }
 
@@ -106,7 +106,8 @@ public class PastEffectActivity extends BaseActivity implements IFaceMergeView {
         btnSave = findViewById(R.id.btn_save);
         btnShare = findViewById(R.id.btn_share);
         adContainer = findViewById(R.id.fl_ad_container);
-        AdHelper.showBannerAdView(bannerAdType,adContainer);
+        layoutAdMantle = findViewById(R.id.layout_ad_mantle);
+        adHelper = new AdHelper();
     }
 
     @Override
@@ -123,7 +124,7 @@ public class PastEffectActivity extends BaseActivity implements IFaceMergeView {
         icBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                finshActivity();
             }
         });
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +141,23 @@ public class PastEffectActivity extends BaseActivity implements IFaceMergeView {
             }
         });
 
-//        mPresenter.getFaceEditAttr(imagePath,actionType);
+        layoutAdMantle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                adHelper.playRewardedVideo(PastEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+                    @Override
+                    public void onDismissed(int action) {
+                        layoutAdMantle.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onFail() {
+                    }
+                });
+            }
+        });
+
+
     }
 
 
@@ -175,21 +192,59 @@ public class PastEffectActivity extends BaseActivity implements IFaceMergeView {
 
 
     private void saveImage(ViewGroup view){
-        Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件
-        ImageUtils.saveImageToGallery(PastEffectActivity.this, bitmap, System.currentTimeMillis() + ".jpg", new ImageUtils.CallBack() {
-            @Override
-            public void onStart() {
-            }
 
+        adHelper.playRewardedVideo(PastEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
             @Override
-            public void onSuccess() {
-                MsgUtils.showToastCenter(PastEffectActivity.this,"图片保存成功，请在相册中点击分享");
+            public void onDismissed(int action) {
+
+                Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件
+                ImageUtils.saveImageToGallery(PastEffectActivity.this, bitmap, System.currentTimeMillis() + ".jpg", new ImageUtils.CallBack() {
+                    @Override
+                    public void onStart() {
+                    }
+
+                    @Override
+                    public void onSuccess() {
+                        MsgUtils.showToastCenter(PastEffectActivity.this,"图片保存成功，请在相册中点击分享");
+                    }
+
+                    @Override
+                    public void onFail() {
+                        MsgUtils.showToastCenter(PastEffectActivity.this,"图片保存失败");
+                    }
+                });
+            }
+            @Override
+            public void onFail() {
+
+            }
+        });
+
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            finshActivity();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public void finshActivity(){
+
+        adHelper.playFullScreenVideoAd(this, fullScreenVideoType, new AdHelper.PlayRewardedAdCallback() {
+            @Override
+            public void onDismissed(int action) {
+                finish();
             }
 
             @Override
             public void onFail() {
-                MsgUtils.showToastCenter(PastEffectActivity.this,"图片保存失败");
+                finish();
             }
         });
     }
+
 }

@@ -5,6 +5,8 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
+import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -29,6 +31,7 @@ import com.beige.camera.contract.IFaceMergeView;
 import com.beige.camera.dagger.MainComponentHolder;
 import com.beige.camera.presenter.FaceMergePresenter;
 import com.beige.camera.utils.AdHelper;
+import com.zhangqiang.celladapter.cell.MultiCell;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -44,6 +47,7 @@ public class AnimalEffectActivity extends BaseActivity implements IFaceMergeView
 
     public String bannerAdType = "bannerAdType";
     public String rewardedAdType = "rewardedAdType";
+    public String fullScreenVideoType = "fullScreenVideoType";
 
     private ImageView icBack;
     private CardView cardview;
@@ -58,13 +62,14 @@ public class AnimalEffectActivity extends BaseActivity implements IFaceMergeView
     String imagePath;
 
     CustomDialog mCustomDialog;
-
+    private AdHelper adHelper;
     @Inject
     public FaceMergePresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPresenter.attachView(this);
     }
 
     @Override
@@ -87,19 +92,18 @@ public class AnimalEffectActivity extends BaseActivity implements IFaceMergeView
         btnSave = findViewById(R.id.btn_save);
         btnShare = findViewById(R.id.btn_share);
         adContainer = findViewById(R.id.fl_ad_container);
-        AdHelper.showBannerAdView(bannerAdType,adContainer);
+        adHelper = new AdHelper();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.attachView(this);
+        adHelper.showBannerAdView(bannerAdType,adContainer);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mPresenter.detachView();
     }
 
     @Override
@@ -115,42 +119,20 @@ public class AnimalEffectActivity extends BaseActivity implements IFaceMergeView
         icBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                finshActivity();
             }
         });
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 saveImage(cardview);
-                AdHelper.playFullScreenVideoAd(AnimalEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
-                    @Override
-                    public void onDismissed(int action) {
-
-                    }
-
-                    @Override
-                    public void onFail() {
-
-                    }
-                });
             }
         });
 
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                saveImage(cardview);
-                AdHelper.playRewardedVideo(AnimalEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
-                    @Override
-                    public void onDismissed(int action) {
-
-                    }
-
-                    @Override
-                    public void onFail() {
-
-                    }
-                });
+                saveImage(cardview);
             }
         });
         seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -167,6 +149,17 @@ public class AnimalEffectActivity extends BaseActivity implements IFaceMergeView
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
 
+            }
+        });
+
+        adHelper.playRewardedVideo(AnimalEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+            @Override
+            public void onDismissed(int action) {
+                showAutoAnimation();
+            }
+            @Override
+            public void onFail() {
+                showAutoAnimation();
             }
         });
     }
@@ -197,38 +190,48 @@ public class AnimalEffectActivity extends BaseActivity implements IFaceMergeView
         return PageIdentity.APP_ANIMALEFFECT;
     }
 
-
-
     private void saveImage(ViewGroup view){
-        Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件
-        ImageUtils.saveImageToGallery(AnimalEffectActivity.this, bitmap, System.currentTimeMillis() + ".jpg", new ImageUtils.CallBack() {
-            @Override
-            public void onStart() {
-                mCustomDialog = CustomDialog.instance(AnimalEffectActivity.this);
-                mCustomDialog.show();
-            }
 
+        adHelper.playRewardedVideo(AnimalEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
             @Override
-            public void onSuccess() {
-                MsgUtils.showToastCenter(AnimalEffectActivity.this,"图片保存成功，请在相册中点击分享");
-                if (mCustomDialog != null) {
-                    mCustomDialog.dismiss();
-                }
-            }
+            public void onDismissed(int action) {
+                Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件
+                ImageUtils.saveImageToGallery(AnimalEffectActivity.this, bitmap, System.currentTimeMillis() + ".jpg", new ImageUtils.CallBack() {
+                    @Override
+                    public void onStart() {
+                        mCustomDialog = CustomDialog.instance(AnimalEffectActivity.this);
+                        mCustomDialog.show();
+                    }
 
+                    @Override
+                    public void onSuccess() {
+                        MsgUtils.showToastCenter(AnimalEffectActivity.this,"图片保存成功，请在相册中点击分享");
+                        if (mCustomDialog != null) {
+                            mCustomDialog.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onFail() {
+                        MsgUtils.showToastCenter(AnimalEffectActivity.this,"图片保存失败");
+                        if (mCustomDialog != null) {
+                            mCustomDialog.dismiss();
+                        }
+                    }
+                });
+            }
             @Override
             public void onFail() {
-                MsgUtils.showToastCenter(AnimalEffectActivity.this,"图片保存失败");
-                if (mCustomDialog != null) {
-                    mCustomDialog.dismiss();
-                }
+
             }
         });
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mPresenter.detachView();
         if (mCustomDialog != null) {
             mCustomDialog.dismiss();
             mCustomDialog =  null;
@@ -236,8 +239,30 @@ public class AnimalEffectActivity extends BaseActivity implements IFaceMergeView
     }
 
     @Override
-    public void onResultEffectImage(String image, String actionType) {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            finshActivity();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
+    public void finshActivity(){
+        adHelper.playFullScreenVideoAd(this, fullScreenVideoType, new AdHelper.PlayRewardedAdCallback() {
+            @Override
+            public void onDismissed(int action) {
+                finish();
+            }
+
+            @Override
+            public void onFail() {
+                finish();
+            }
+        });
+    }
+
+    @Override
+    public void onResultEffectImage(String image, String actionType) {
     }
 
     @Override
@@ -248,12 +273,11 @@ public class AnimalEffectActivity extends BaseActivity implements IFaceMergeView
             BitmapUtil.loadImageRoundByListerner(AnimalEffectActivity.this, template.getImage(), ivAnimal, R.drawable.bg_perview_white, R.drawable.bg_perview_white, 0, new LoadPicCallback() {
                 @Override
                 public void onSuccess() {
-                    showAutoAnimation();
+//                    showAutoAnimation();
                 }
 
                 @Override
                 public void onFaild() {
-
                 }
             });
 
@@ -261,5 +285,6 @@ public class AnimalEffectActivity extends BaseActivity implements IFaceMergeView
             MsgUtils.showToastCenter(AnimalEffectActivity.this, "图片处理失败");
         }
     }
+
 
 }

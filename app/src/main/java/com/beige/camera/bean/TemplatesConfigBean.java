@@ -24,6 +24,7 @@ public class TemplatesConfigBean implements Serializable {
         private String image;
         private String description;
         private String imageEffect;
+        private boolean isShowAD = false;
 
         public Template(String name, String image) {
             this.name = name;
@@ -31,7 +32,7 @@ public class TemplatesConfigBean implements Serializable {
         }
 
         public String getName() {
-            if(TextUtils.isEmpty(name)){
+            if (TextUtils.isEmpty(name)) {
                 return image;
             }
             return name;
@@ -63,6 +64,14 @@ public class TemplatesConfigBean implements Serializable {
 
         public void setDescription(String description) {
             this.description = description;
+        }
+
+        public boolean isShowAD() {
+            return isShowAD;
+        }
+
+        public void setShowAD(boolean showAD) {
+            isShowAD = showAD;
         }
     }
 }

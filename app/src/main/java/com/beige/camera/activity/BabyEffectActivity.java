@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -38,6 +39,7 @@ public class BabyEffectActivity extends BaseActivity implements IFaceMergeView {
 
     public String bannerAdType = "bannerAdType";
     public String rewardedAdType = "rewardedAdType";
+    public String fullScreenVideoType = "fullScreenVideoType";
 
     private ImageView icBack;
     private TextView tvTitle;
@@ -48,19 +50,22 @@ public class BabyEffectActivity extends BaseActivity implements IFaceMergeView {
     private ConstraintLayout clSaveImage ;
     private ConstraintLayout clPbabyBoy ;
     private ConstraintLayout clPbabyGiry;
+    private ConstraintLayout layoutAdMantle;
     private String  imageUrlboy = "";
     private String  imageUrlgirl = "";
+    private boolean  isShowAdBoy = false;
+    private boolean  isShowAdGirl = false;
     private boolean selectBoy = true;
 
-    private  int selectDrawable ;
     private CustomDialog mCustomDialog;
-
+    private AdHelper adHelper;
     @Inject
     public FaceMergePresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPresenter.attachView(this);
     }
 
     @Override
@@ -76,24 +81,12 @@ public class BabyEffectActivity extends BaseActivity implements IFaceMergeView {
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.attachView(this);
-        AdHelper.playRewardedVideo(this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
-            @Override
-            public void onDismissed(int action) {
-
-            }
-
-            @Override
-            public void onFail() {
-
-            }
-        });
+        adHelper.showBannerAdView(bannerAdType,adContainer);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mPresenter.detachView();
     }
 
     @Override
@@ -102,12 +95,14 @@ public class BabyEffectActivity extends BaseActivity implements IFaceMergeView {
         tvTitle = findViewById(R.id.tv_title);
         clSaveImage = findViewById(R.id.cl_save_image);
         ivPreview = findViewById(R.id.iv_preview_bg);
+        layoutAdMantle = findViewById(R.id.layout_ad_mantle);
         btnSave = findViewById(R.id.btn_save);
         btnShare = findViewById(R.id.btn_share);
         clPbabyBoy = findViewById(R.id.cl_pbaby_boy);
         clPbabyGiry = findViewById(R.id.cl_pbaby_giry);
         adContainer = findViewById(R.id.fl_ad_container);
-        AdHelper.showBannerAdView(bannerAdType,adContainer);
+        layoutAdMantle.setVisibility(View.VISIBLE);
+        adHelper = new AdHelper();
     }
 
     @Override
@@ -118,12 +113,11 @@ public class BabyEffectActivity extends BaseActivity implements IFaceMergeView {
     @Override
     public void configViews() {
 
-        selectDrawable = (int) (Math.random()*8);
         setPerview();
         icBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                finshActivity();
             }
         });
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -145,6 +139,11 @@ public class BabyEffectActivity extends BaseActivity implements IFaceMergeView {
             public void onClick(View view) {
                 selectBoy = true;
                 setPerview();
+                if(isShowAdBoy){
+                    layoutAdMantle.setVisibility(View.GONE);
+                }else{
+                    layoutAdMantle.setVisibility(View.VISIBLE);
+                }
             }
         });
 
@@ -153,6 +152,31 @@ public class BabyEffectActivity extends BaseActivity implements IFaceMergeView {
             public void onClick(View view) {
                 selectBoy = false;
                 setPerview();
+                if(isShowAdGirl){
+                    layoutAdMantle.setVisibility(View.GONE);
+                }else{
+                    layoutAdMantle.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        layoutAdMantle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                adHelper.playRewardedVideo(BabyEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+                    @Override
+                    public void onDismissed(int action) {
+                        layoutAdMantle.setVisibility(View.GONE);
+                        if(selectBoy){
+                            isShowAdBoy = true;
+                        }else{
+                            isShowAdGirl = true;
+                        }
+                    }
+                    @Override
+                    public void onFail() {
+
+                    }
+                });
             }
         });
     }
@@ -182,7 +206,6 @@ public class BabyEffectActivity extends BaseActivity implements IFaceMergeView {
         if (TextUtils.isEmpty(image)) {
             MsgUtils.showToastCenter(BabyEffectActivity.this,"图片处理失败");
         }
-//        BitmapUtil.loadImageRound(this,effectImage,ivPreview,R.drawable.bg_perview_white,R.drawable.bg_perview_white,6);
     }
 
     @Override
@@ -201,28 +224,38 @@ public class BabyEffectActivity extends BaseActivity implements IFaceMergeView {
 
 
     private void saveImage(ViewGroup view){
-        Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件
-        ImageUtils.saveImageToGallery(BabyEffectActivity.this, bitmap, System.currentTimeMillis() + ".jpg", new ImageUtils.CallBack() {
-            @Override
-            public void onStart() {
-                mCustomDialog = CustomDialog.instance(BabyEffectActivity.this);
-                mCustomDialog.show();
-            }
 
+        adHelper.playRewardedVideo(BabyEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
             @Override
-            public void onSuccess() {
-                MsgUtils.showToastCenter(BabyEffectActivity.this,"图片保存成功，请在相册中点击分享");
-                if (mCustomDialog != null) {
-                    mCustomDialog.dismiss();
-                }
-            }
+            public void onDismissed(int action) {
+                Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件
+                ImageUtils.saveImageToGallery(BabyEffectActivity.this, bitmap, System.currentTimeMillis() + ".jpg", new ImageUtils.CallBack() {
+                    @Override
+                    public void onStart() {
+                        mCustomDialog = CustomDialog.instance(BabyEffectActivity.this);
+                        mCustomDialog.show();
+                    }
 
+                    @Override
+                    public void onSuccess() {
+                        MsgUtils.showToastCenter(BabyEffectActivity.this,"图片保存成功，请在相册中点击分享");
+                        if (mCustomDialog != null) {
+                            mCustomDialog.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onFail() {
+                        MsgUtils.showToastCenter(BabyEffectActivity.this,"图片保存失败");
+                        if (mCustomDialog != null) {
+                            mCustomDialog.dismiss();
+                        }
+                    }
+                });
+            }
             @Override
             public void onFail() {
-                MsgUtils.showToastCenter(BabyEffectActivity.this,"图片保存失败");
-                if (mCustomDialog != null) {
-                    mCustomDialog.dismiss();
-                }
+
             }
         });
     }
@@ -230,9 +263,36 @@ public class BabyEffectActivity extends BaseActivity implements IFaceMergeView {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mPresenter.detachView();
         if (mCustomDialog != null) {
             mCustomDialog.dismiss();
             mCustomDialog = null;
         }
     }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            finshActivity();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public void finshActivity(){
+
+        adHelper.playFullScreenVideoAd(this, fullScreenVideoType, new AdHelper.PlayRewardedAdCallback() {
+            @Override
+            public void onDismissed(int action) {
+                finish();
+            }
+
+            @Override
+            public void onFail() {
+                finish();
+            }
+        });
+    }
+
 }

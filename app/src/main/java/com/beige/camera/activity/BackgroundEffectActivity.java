@@ -4,7 +4,10 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -47,11 +50,13 @@ public class BackgroundEffectActivity extends BaseActivity implements IBodySegVi
 
     public String bannerAdType = "bannerAdType";
     public String rewardedAdType = "rewardedAdType";
+    public String fullScreenVideoType = "fullScreenVideoType";
 
     private ImageView icBack;
     private TextView tvTitle;
     private ConstraintLayout clSaveImage;
     private ImageView ivPreviewBg;
+    private RecyclerView recyclerView;
     private BaseDragZoomImageView ivPreview;
     private TextView btnSave;
     private TextView btnShare;
@@ -65,10 +70,12 @@ public class BackgroundEffectActivity extends BaseActivity implements IBodySegVi
 
     private String selectId;
     private CellRVAdapter mAdapter = new CellRVAdapter();
+    private AdHelper adHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPresenter.attachView(this);
     }
 
     @Override
@@ -84,23 +91,12 @@ public class BackgroundEffectActivity extends BaseActivity implements IBodySegVi
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.attachView(this);
-        AdHelper.playRewardedVideo(this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
-            @Override
-            public void onDismissed(int action) {
-
-            }
-
-            @Override
-            public void onFail() {
-
-            }
-        });
+        adHelper.showBannerAdView(bannerAdType,adContainer);
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onDestroy() {
+        super.onDestroy();
         mPresenter.detachView();
     }
 
@@ -111,10 +107,11 @@ public class BackgroundEffectActivity extends BaseActivity implements IBodySegVi
         ivPreviewBg = findViewById(R.id.iv_preview_bg);
         clSaveImage = findViewById(R.id.cl_save_image);
         ivPreview = findViewById(R.id.iv_preview);
+        recyclerView = findViewById(R.id.recyclerView);
         btnSave = findViewById(R.id.btn_save);
         btnShare = findViewById(R.id.btn_share);
         adContainer = findViewById(R.id.fl_ad_container);
-        AdHelper.showBannerAdView(bannerAdType,adContainer);
+        adHelper = new AdHelper();
     }
 
     @Override
@@ -128,10 +125,12 @@ public class BackgroundEffectActivity extends BaseActivity implements IBodySegVi
 
         LogUtils.e("zhangning", "imagePath = " + imagePath);
         BitmapUtil.loadImage(this,imagePath,ivPreviewBg,R.drawable.bg_perview_white,R.drawable.bg_perview_white);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        recyclerView.setAdapter(mAdapter);
         icBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                finshActivity();
             }
         });
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -159,20 +158,30 @@ public class BackgroundEffectActivity extends BaseActivity implements IBodySegVi
 
 
     private void saveImage(ViewGroup view){
-        Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件
-        ImageUtils.saveImageToGallery(BackgroundEffectActivity.this, bitmap, System.currentTimeMillis() + ".jpg", new ImageUtils.CallBack() {
-            @Override
-            public void onStart() {
-            }
 
+        adHelper.playRewardedVideo(BackgroundEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
             @Override
-            public void onSuccess() {
-                MsgUtils.showToastCenter(BackgroundEffectActivity.this,"图片保存成功，请在相册中点击分享");
-            }
+            public void onDismissed(int action) {
+                Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件
+                ImageUtils.saveImageToGallery(BackgroundEffectActivity.this, bitmap, System.currentTimeMillis() + ".jpg", new ImageUtils.CallBack() {
+                    @Override
+                    public void onStart() {
+                    }
 
+                    @Override
+                    public void onSuccess() {
+                        MsgUtils.showToastCenter(BackgroundEffectActivity.this,"图片保存成功，请在相册中点击分享");
+                    }
+
+                    @Override
+                    public void onFail() {
+                        MsgUtils.showToastCenter(BackgroundEffectActivity.this,"图片保存失败");
+                    }
+                });
+            }
             @Override
             public void onFail() {
-                MsgUtils.showToastCenter(BackgroundEffectActivity.this,"图片保存失败");
+
             }
         });
     }
@@ -195,9 +204,19 @@ public class BackgroundEffectActivity extends BaseActivity implements IBodySegVi
                     viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            selectId = template.getName();
-                            mAdapter.notifyDataSetChanged();
-                            setEffectImage(template);
+                            if (template.isShowAD()) {
+                                setEffectImage(template);
+                                return;
+                            }
+                            adHelper.playRewardedVideo(BackgroundEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+                                @Override
+                                public void onDismissed(int action) {
+                                    setEffectImage(template);
+                                }
+                                @Override
+                                public void onFail() {
+                                }
+                            });
                         }
                     });
                 }
@@ -208,6 +227,9 @@ public class BackgroundEffectActivity extends BaseActivity implements IBodySegVi
     }
 
     public void setEffectImage(TemplatesConfigBean.Template template) {
+       selectId = template.getName();
+       template.setShowAD(true);
+       mAdapter.notifyDataSetChanged();
        BitmapUtil.loadImage(template.getImage(), ivPreviewBg);
     }
 
@@ -232,4 +254,28 @@ public class BackgroundEffectActivity extends BaseActivity implements IBodySegVi
         }
     }
 
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            finshActivity();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public void finshActivity(){
+
+        adHelper.playFullScreenVideoAd(this, fullScreenVideoType, new AdHelper.PlayRewardedAdCallback() {
+            @Override
+            public void onDismissed(int action) {
+                finish();
+            }
+
+            @Override
+            public void onFail() {
+                finish();
+            }
+        });
+    }
 }

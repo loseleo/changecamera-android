@@ -161,14 +161,14 @@ public class GDTFullScreenVideoAd extends RewardVideoAd<GDTFullScreenVideoAd.GDT
                 }
 
             });
-//            VideoOption.Builder builder = new VideoOption.Builder();
-//            VideoOption option = builder.build();
-//            if (!btnNoOption.isChecked()) {
-//                option = builder.setAutoPlayMuted(btnMute.isChecked())
-//                        .setAutoPlayPolicy(networkSpinner.getSelectedItemPosition()).build();
-//            }
-//            iad.setVideoOption(option);
-//            iad.setMaxVideoDuration(getMaxVideoDuration());
+            VideoOption.Builder builder = new VideoOption.Builder();
+            VideoOption option = builder.build();
+//            option = builder
+//                    .setAutoPlayMuted(btnMute.isChecked())
+//                    .setAutoPlayPolicy(networkSpinner.getSelectedItemPosition())
+//                    .build();
+            unifiedInterstitialAD.setVideoOption(option);
+            unifiedInterstitialAD.setMaxVideoDuration(60);
             unifiedInterstitialAD.loadAD();
         }
     }

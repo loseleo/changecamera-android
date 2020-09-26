@@ -6,6 +6,8 @@ import android.widget.FrameLayout;
 
 import com.beige.camera.advertisement.core.fullscreenvideo.GDTFullScreenVideoAd;
 import com.beige.camera.advertisement.core.fullscreenvideo.TTFullScreenVideoAd;
+import com.beige.camera.advertisement.core.infoflow.GDTInfoFlowAd;
+import com.beige.camera.advertisement.core.infoflow.TTInfoFlowAd;
 import com.beige.camera.common.feed.bean.AdModel;
 import com.beige.camera.advertisement.core.dismiss.OnDismissedListener;
 import com.beige.camera.advertisement.core.infoflow.GDTInfoFlowVideoAd;
@@ -67,7 +69,7 @@ public class AdManager {
                 }
                 return splashAd;
             }
-        },3000, callback);
+        }, 3000, callback);
     }
 
 
@@ -98,6 +100,23 @@ public class AdManager {
         }, callback);
     }
 
+    public static AdLoader<InfoFlowAd> loadInfoFlowAd(FrameLayout adContainer,
+                                                      List<AdModel> adModels,
+                                                      Callback<InfoFlowAd> callback) {
+        return loadAd(adModels, new AdFactory<InfoFlowAd>() {
+            @Override
+            public InfoFlowAd create(AdModel adModel) {
+                String adChannel = adModel.getAdChannel();
+                if (AdModel.AD_CHANNEL_TOUTIAO.equals(adChannel)) {
+                    return new TTInfoFlowAd(adContainer, adModel);
+                } else if (AdModel.AD_CHANNEL_GDT.equals(adChannel)) {
+                    return new GDTInfoFlowAd(adContainer, adModel);
+                }
+                return null;
+            }
+        }, callback);
+    }
+
 
     /**
      * 加载信息流广告
@@ -113,11 +132,11 @@ public class AdManager {
             @Override
             public InfoFlowAd create(AdModel adModel) {
                 String adChannel = adModel.getAdChannel();
-                 if (AdModel.AD_CHANNEL_TOUTIAO.equals(adChannel)) {
+                if (AdModel.AD_CHANNEL_TOUTIAO.equals(adChannel)) {
                     return new TTInfoFlowVideoAd(adContainer, adModel);
                 } else if (AdModel.AD_CHANNEL_GDT.equals(adChannel)) {
                     return new GDTInfoFlowVideoAd(adContainer, adModel);
-                } else if(AdModel.AD_CHANNEL_CPC_CA.equals(adChannel)){
+                } else if (AdModel.AD_CHANNEL_CPC_CA.equals(adChannel)) {
 //                    return new CPCCaInfoFlowAd(adContainer,adModel);
                 }
                 return null;
@@ -180,7 +199,7 @@ public class AdManager {
 
                         private void reportDuration(long duration) {
 
-                            long reportValidDuration = 1500 ;
+                            long reportValidDuration = 1500;
                             if (duration < reportValidDuration) {
                                 return;
                             }
@@ -205,7 +224,7 @@ public class AdManager {
      * @param adModels
      * @param callback
      */
-    public static <T extends Ad> AdLoader<T> loadAd(List<AdModel> adModels, AdFactory<T> adAdFactory,long timeout, Callback<T> callback) {
+    public static <T extends Ad> AdLoader<T> loadAd(List<AdModel> adModels, AdFactory<T> adAdFactory, long timeout, Callback<T> callback) {
 
         callback = wrapCallback(callback);
 
@@ -228,7 +247,7 @@ public class AdManager {
     }
 
     public static <T extends Ad> AdLoader<T> loadAd(List<AdModel> adModels, AdFactory<T> adAdFactory, Callback<T> callback) {
-        return loadAd(adModels,adAdFactory,0,callback);
+        return loadAd(adModels, adAdFactory, 0, callback);
     }
 
     /**
@@ -270,7 +289,7 @@ public class AdManager {
         loadAd(adModels, new RewardVideoAdFactory(activity), new RewardVideoAdCallback<>(callback));
     }
 
- /**
+    /**
      * 加载全屏视频
      *
      * @param activity
@@ -336,7 +355,7 @@ public class AdManager {
         @Override
         public void onAdLoaded() {
             AdModel adModel = ad.getAdModel();
-            AdReportDataUtils.adRequestSuccess(adModel,null);
+            AdReportDataUtils.adRequestSuccess(adModel, null);
         }
 
         @Override
@@ -345,7 +364,7 @@ public class AdManager {
             AdModel adModel = ad.getAdModel();
             HashMap<String, String> extra = new HashMap<>();
             extra.put("show_count", showCount + "");
-            AdReportDataUtils.adShowSuccess(adModel,null);
+            AdReportDataUtils.adShowSuccess(adModel, null);
         }
 
         @Override
@@ -362,7 +381,7 @@ public class AdManager {
             AdModel adModel = ad.getAdModel();
             HashMap<String, String> extra = new HashMap<>();
             extra.put("click_count", clickCount + "");
-            AdReportDataUtils.adClick(adModel,extra);
+            AdReportDataUtils.adClick(adModel, extra);
         }
     }
 

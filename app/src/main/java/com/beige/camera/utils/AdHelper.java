@@ -24,106 +24,48 @@ import static com.beige.camera.common.utils.RxUtil.io_main;
 
 public class AdHelper {
 
+    private boolean isShowFullScreenVideoAd = false;
+    private boolean isShowRewardedVideo = false;
+    private boolean isShowBannerAdView = false;
+
+
     public interface PlayRewardedAdCallback {
        void onDismissed(int action);
        void onFail();
     }
 
-    public static void playFullScreenVideoAd(Activity activity,String adType,PlayRewardedAdCallback callback) {
-
-        AdModel adModel = new AdModel();
-//        adModel.setAdCode("945489981");
-//        adModel.setAdId("945489981");
-//        adModel.setAdChannel(AdModel.AD_CHANNEL_TOUTIAO);
-        adModel.setAdCode("3041831491796621");
-        adModel.setAdId("3041831491796621");
-        adModel.setAdChannel(AdModel.AD_CHANNEL_GDT);
-        adModel.setAction(0);
-
-        ArrayList<AdModel> adModels = new ArrayList<>();
-        adModels.add(adModel);
-
-        AdManager.loadFullScreenAd(activity, adModels, new Callback<RewardVideoAd>() {
-            @Override
-            public void onAdLoadStart(RewardVideoAd ad) {
-                LogUtils.e("zhangning","onAdLoadStart = "+ad.getAdModel().getAdId());
-                ad.getDismissedHelper().addOnAdDismissListener(new OnDismissedListener() {
-                    @Override
-                    public void onDismissed() {
-                        if (callback != null) {
-                            callback.onDismissed(ad.isRewardVerify() ? 1 : 0);
-                        }
-                    }
-                });
-            }
-
-            @Override
-            public void onFail(Throwable e) {
-                LogUtils.e("zhangning","onFail e = " + e.getMessage());
-                if (callback != null) {
-                    callback.onFail();
-                }
-            }
-        });
-    }
-
-
-
-    public static void playRewardedVideo(Activity activity,String adType,PlayRewardedAdCallback callback) {
-
-        AdModel adModel = new AdModel();
-//        adModel.setAdCode("945489982");
-//        adModel.setAdId("945489982");
-//        adModel.setAdChannel(AdModel.AD_CHANNEL_TOUTIAO);
-//        adModel.setAdCode("3061239401492589");
-//        adModel.setAdId("3061239401492589");
-        adModel.setAdCode("6031237421692525");
-        adModel.setAdId("6031237421692525");
-        adModel.setAdChannel(AdModel.AD_CHANNEL_GDT);
-        adModel.setAction(0);
-
-        ArrayList<AdModel> adModels = new ArrayList<>();
-        adModels.add(adModel);
-
-        AdManager.loadRewardVideoAd(activity, adModels, new Callback<RewardVideoAd>() {
-            @Override
-            public void onAdLoadStart(RewardVideoAd ad) {
-                LogUtils.e("zhangning","onAdLoadStart = "+ad.getAdModel().getAdId());
-                ad.getDismissedHelper().addOnAdDismissListener(new OnDismissedListener() {
-                    @Override
-                    public void onDismissed() {
-                        if (callback != null) {
-                            callback.onDismissed(ad.isRewardVerify() ? 1 : 0);
-                        }
-                    }
-                });
-            }
-
-            @Override
-            public void onFail(Throwable e) {
-                LogUtils.e("zhangning","onFail e = " + e.getMessage());
-                if (callback != null) {
-                    callback.onFail();
-                }
-            }
-        });
-
-//        String adCode = "945489981";
-        /*AdComponentHolder.getComponent().getAdApi().getAdConfig(adType)
+    public void playFullScreenVideoAd(Activity activity,String adType,PlayRewardedAdCallback callback) {
+        if(isShowFullScreenVideoAd){
+            return;
+        }
+        isShowFullScreenVideoAd = true;
+        AdComponentHolder.getComponent().getAdApi().getAdConfig(adType)
                 .compose(io_main())
                 .timeout(2000, TimeUnit.MILLISECONDS)
                 .map(RxUtil.applyApiResult())
                 .subscribe(new Observer<AdConfigBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
                     }
 
                     @Override
                     public void onNext(AdConfigBean adModel) {
-                        AdManager.loadRewardVideoAd(activity, adModel.getCandidates(), new Callback<RewardVideoAd>() {
+                        AdModel adModelBean = new AdModel();
+                        adModelBean.setAdCode("945489981");
+                        adModelBean.setAdId("945489981");
+                        adModelBean.setAdChannel(AdModel.AD_CHANNEL_TOUTIAO);
+//                        adModelBean.setAdCode("3041831491796621");
+//                        adModelBean.setAdId("3041831491796621");
+//                        adModelBean.setAdChannel(AdModel.AD_CHANNEL_GDT);
+                        adModelBean.setAction(0);
+                        ArrayList<AdModel> adModels = new ArrayList<>();
+                        adModels.add(adModelBean);
+                        adModel.setCandidates(adModels);
+                        AdManager.loadFullScreenAd(activity, adModel.getCandidates(), new Callback<RewardVideoAd>() {
                             @Override
                             public void onAdLoadStart(RewardVideoAd ad) {
+                                LogUtils.e("zhangning","onAdLoadStart = "+ad.getAdModel().getAdId());
+                                isShowFullScreenVideoAd = false;
                                 ad.getDismissedHelper().addOnAdDismissListener(new OnDismissedListener() {
                                     @Override
                                     public void onDismissed() {
@@ -136,6 +78,8 @@ public class AdHelper {
 
                             @Override
                             public void onFail(Throwable e) {
+                                isShowFullScreenVideoAd = false;
+                                LogUtils.e("zhangning","onFail e = " + e.getMessage());
                                 if (callback != null) {
                                     callback.onFail();
                                 }
@@ -145,6 +89,7 @@ public class AdHelper {
 
                     @Override
                     public void onError(Throwable e) {
+                        isShowFullScreenVideoAd = false;
                         LogUtils.e("zhangning","onAdLoadStart e = " + e.getMessage());
                     }
 
@@ -152,40 +97,85 @@ public class AdHelper {
                     public void onComplete() {
 
                     }
-                });*/
+                });
     }
 
 
-    public static void showBannerAdView(String adType, FrameLayout adContainer) {
 
-        AdModel adModel = new AdModel();
-        adModel.setAdCode("945497259");
-        adModel.setAdId("945497259");
-        adModel.setAction(0);
-        adModel.setAdChannel(AdModel.AD_CHANNEL_TOUTIAO);
-        ArrayList<AdModel> adModels = new ArrayList<>();
-        adModels.add(adModel);
-        if (adContainer != null) {
-            adContainer.post(new Runnable() {
-                @Override
-                public void run() {
-                    AdManager.loadBigImgAd(adContainer, adModels, new Callback<InfoFlowAd>() {
-                        @Override
-                        public void onAdLoadStart(InfoFlowAd ad) {
-                            LogUtils.e("zhangning","onAdLoadStart = "+ad.getAdModel().getAdId());
-                        }
-
-                        @Override
-                        public void onFail(Throwable e) {
-                            LogUtils.e("zhangning","onFail e = " + e.getMessage());
-                        }
-                    });
-                }
-            });
+    public void playRewardedVideo(Activity activity,String adType,PlayRewardedAdCallback callback) {
+        if(isShowRewardedVideo){
+            return;
         }
+        isShowRewardedVideo = true;
+        AdComponentHolder.getComponent().getAdApi().getAdConfig(adType)
+                .compose(io_main())
+                .timeout(2000, TimeUnit.MILLISECONDS)
+                .map(RxUtil.applyApiResult())
+                .subscribe(new Observer<AdConfigBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onNext(AdConfigBean adModel) {
+
+                        AdModel adModelBean = new AdModel();
+                        adModelBean.setAdCode("945489982");
+                        adModelBean.setAdId("945489982");
+                        adModelBean.setAdChannel(AdModel.AD_CHANNEL_TOUTIAO);
+//                        adModelBean.setAdCode("6031237421692525");
+//                        adModelBean.setAdId("6031237421692525");
+//                        adModelBean.setAdChannel(AdModel.AD_CHANNEL_GDT);
+                        adModelBean.setAction(0);
+                        ArrayList<AdModel> adModels = new ArrayList<>();
+                        adModels.add(adModelBean);
+                        adModel.setCandidates(adModels);
+
+                        AdManager.loadRewardVideoAd(activity, adModel.getCandidates(), new Callback<RewardVideoAd>() {
+                            @Override
+                            public void onAdLoadStart(RewardVideoAd ad) {
+                                isShowRewardedVideo = false;
+                                ad.getDismissedHelper().addOnAdDismissListener(new OnDismissedListener() {
+                                    @Override
+                                    public void onDismissed() {
+                                        if (callback != null) {
+                                            callback.onDismissed(ad.isRewardVerify() ? 1 : 0);
+                                        }
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void onFail(Throwable e) {
+                                isShowRewardedVideo = false;
+                                if (callback != null) {
+                                    callback.onFail();
+                                }
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        isShowRewardedVideo = false;
+                        LogUtils.e("zhangning","onAdLoadStart e = " + e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
 
 
-        /*AdComponentHolder.getComponent().getAdApi().getAdConfig(adType)
+    public void showBannerAdView(String adType, FrameLayout adContainer) {
+
+        if(isShowBannerAdView){
+            return;
+        }
+        isShowBannerAdView = true;
+        AdComponentHolder.getComponent().getAdApi().getAdConfig(adType)
                 .compose(io_main())
                 .timeout(2000, TimeUnit.MILLISECONDS)
                 .map(RxUtil.applyApiResult())
@@ -195,19 +185,32 @@ public class AdHelper {
                     }
                     @Override
                     public void onNext(AdConfigBean adModel) {
-                        LogUtils.e("zhangning", "adConfigBean = " + adModel.getCandidates().toString());
+                        LogUtils.e("TTInfoFlowAd", "adConfigBean = " + adModel.getCandidates().toString());
+
                         if (adContainer != null) {
                             adContainer.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    AdManager.loadBigImgAd(adContainer, adModel.getCandidates(), new Callback<InfoFlowAd>() {
+                                    AdModel adModelBean = new AdModel();
+                                    adModelBean.setAdCode("945497259");
+                                    adModelBean.setAdId("945497259");
+                                    adModelBean.setAdChannel(AdModel.AD_CHANNEL_TOUTIAO);
+//                        adModelBean1.setAdCode("1051137491898582");
+//                        adModelBean1.setAdId("1051137491898582");
+//                        adModelBean1.setAdChannel(AdModel.AD_CHANNEL_GDT);
+                                    adModelBean.setAction(0);
+                                    ArrayList<AdModel> adModels = new ArrayList<>();
+                                    adModels.add(adModelBean);
+                                    adModel.setCandidates(adModels);
+
+                                    AdManager.loadInfoFlowAd(adContainer, adModels, new Callback<InfoFlowAd>() {
                                         @Override
                                         public void onAdLoadStart(InfoFlowAd ad) {
                                         }
 
                                         @Override
                                         public void onFail(Throwable e) {
-
+                                            isShowBannerAdView = false ;
                                         }
                                     });
                                 }
@@ -217,13 +220,14 @@ public class AdHelper {
 
                     @Override
                     public void onError(Throwable e) {
+                        isShowBannerAdView = false ;
                     }
 
                     @Override
                     public void onComplete() {
 
                     }
-                });*/
+                });
     }
 
 

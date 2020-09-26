@@ -25,6 +25,7 @@ public class FunctionBean implements Serializable {
     private String cover;
     private int drawable;
     private String imageUrl;
+    private boolean isShowAD = false;
 
     public FunctionBean(String id, String title, int drawable) {
         this.id = id;
@@ -76,5 +77,13 @@ public class FunctionBean implements Serializable {
 
     public void setDrawable(int drawable) {
         this.drawable = drawable;
+    }
+
+    public boolean isShowAD() {
+        return isShowAD;
+    }
+
+    public void setShowAD(boolean showAD) {
+        isShowAD = showAD;
     }
 }

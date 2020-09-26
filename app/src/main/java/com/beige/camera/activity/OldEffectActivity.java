@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -24,6 +25,8 @@ import com.beige.camera.dagger.MainComponentHolder;
 import com.beige.camera.presenter.EffectImagePresenter;
 import com.beige.camera.utils.AdHelper;
 
+import java.util.ArrayList;
+
 import javax.inject.Inject;
 
 @Route(path = PageIdentity.APP_OLDEFFECT)
@@ -31,12 +34,14 @@ public class OldEffectActivity extends BaseActivity implements IEffectImageView 
 
     public String bannerAdType = "bannerAdType";
     public String rewardedAdType = "rewardedAdType";
+    public String fullScreenVideoType = "fullScreenVideoType";
 
     private ImageView ivPreview;
     private ImageView icBack;
     private TextView btnSave;
     private TextView btnShare;
     private FrameLayout adContainer;
+    private ConstraintLayout layoutAdMantle;
     private ConstraintLayout clSelectAgeNow;
     private ConstraintLayout clSelectAge30;
     private ConstraintLayout clSelectAge40;
@@ -57,12 +62,17 @@ public class OldEffectActivity extends BaseActivity implements IEffectImageView 
     private String selectAge = "now";
     private String effectImage = "";
 
+    private ArrayList<String> showADList = new ArrayList<>();
+
     @Autowired(name = "image_path")
     String imagePath;
+
+    private AdHelper adHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPresenter.attachView(this);
     }
 
     @Override
@@ -78,23 +88,17 @@ public class OldEffectActivity extends BaseActivity implements IEffectImageView 
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.attachView(this);
-        AdHelper.playRewardedVideo(this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
-            @Override
-            public void onDismissed(int action) {
-
-            }
-
-            @Override
-            public void onFail() {
-
-            }
-        });
+        adHelper.showBannerAdView(bannerAdType,adContainer);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
         mPresenter.detachView();
     }
 
@@ -105,6 +109,7 @@ public class OldEffectActivity extends BaseActivity implements IEffectImageView 
         btnSave = findViewById(R.id.btn_save);
         btnShare = findViewById(R.id.btn_share);
         adContainer = findViewById(R.id.fl_ad_container);
+        layoutAdMantle = findViewById(R.id.layout_ad_mantle);
         clSelectAgeNow = findViewById(R.id.cl_select_age_now);
         clSelectAge30 = findViewById(R.id.cl_select_age_30);
         clSelectAge40 = findViewById(R.id.cl_select_age_40);
@@ -117,7 +122,8 @@ public class OldEffectActivity extends BaseActivity implements IEffectImageView 
         tvSelectAge30 = findViewById(R.id.tv_select_age_30);
         tvSelectAge40 = findViewById(R.id.tv_select_age_40);
         tvSelectAge50 = findViewById(R.id.tv_select_age_50);
-        AdHelper.showBannerAdView(bannerAdType,adContainer);
+        adHelper = new AdHelper();
+
     }
 
     @Override
@@ -131,24 +137,13 @@ public class OldEffectActivity extends BaseActivity implements IEffectImageView 
         icBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                finshActivity();
             }
         });
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 saveImage(ivPreview);
-                AdHelper.playRewardedVideo(OldEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
-                    @Override
-                    public void onDismissed(int action) {
-
-                    }
-
-                    @Override
-                    public void onFail() {
-
-                    }
-                });
             }
         });
 
@@ -189,7 +184,23 @@ public class OldEffectActivity extends BaseActivity implements IEffectImageView 
         });
 
         mPresenter.getFaceEditAttr(imagePath, "TO_OLD");
+        layoutAdMantle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                adHelper.playRewardedVideo(OldEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+                    @Override
+                    public void onDismissed(int action) {
+                        layoutAdMantle.setVisibility(View.GONE);
+                        showADList.add(selectAge);
+                    }
 
+                    @Override
+                    public void onFail() {
+                        layoutAdMantle.setVisibility(View.GONE);
+                    }
+                });
+            }
+        });
     }
 
     @Nullable
@@ -227,7 +238,13 @@ public class OldEffectActivity extends BaseActivity implements IEffectImageView 
     private void setEffectImage(){
         if (TextUtils.equals(selectAge, "now")) {
             BitmapUtil.loadImage(imagePath,ivPreview);
+            layoutAdMantle.setVisibility(View.GONE);
         }else{
+            if (showADList.contains(selectAge)) {
+                layoutAdMantle.setVisibility(View.GONE);
+            }else{
+                layoutAdMantle.setVisibility(View.VISIBLE);
+            }
             BitmapUtil.loadImage(effectImage,ivPreview);
         }
     }
@@ -248,21 +265,59 @@ public class OldEffectActivity extends BaseActivity implements IEffectImageView 
 
 
     private void saveImage(View view){
-        Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件
-        ImageUtils.saveImageToGallery(OldEffectActivity.this, bitmap, System.currentTimeMillis() + ".jpg", new ImageUtils.CallBack() {
-            @Override
-            public void onStart() {
-            }
 
+        adHelper.playRewardedVideo(OldEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
             @Override
-            public void onSuccess() {
-                MsgUtils.showToastCenter(OldEffectActivity.this,"图片保存成功，请在相册中点击分享");
+            public void onDismissed(int action) {
+
+                Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件
+                ImageUtils.saveImageToGallery(OldEffectActivity.this, bitmap, System.currentTimeMillis() + ".jpg", new ImageUtils.CallBack() {
+                    @Override
+                    public void onStart() {
+                    }
+
+                    @Override
+                    public void onSuccess() {
+                        MsgUtils.showToastCenter(OldEffectActivity.this,"图片保存成功，请在相册中点击分享");
+                    }
+
+                    @Override
+                    public void onFail() {
+                        MsgUtils.showToastCenter(OldEffectActivity.this,"图片保存失败");
+                    }
+                });
+            }
+            @Override
+            public void onFail() {
+
+            }
+        });
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            finshActivity();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public void finshActivity(){
+
+        adHelper.playFullScreenVideoAd(this, fullScreenVideoType, new AdHelper.PlayRewardedAdCallback() {
+            @Override
+            public void onDismissed(int action) {
+                finish();
             }
 
             @Override
             public void onFail() {
-                MsgUtils.showToastCenter(OldEffectActivity.this,"图片保存失败");
+                finish();
             }
         });
     }
+
+
 }

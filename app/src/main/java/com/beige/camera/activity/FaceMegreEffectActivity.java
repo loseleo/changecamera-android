@@ -8,6 +8,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -45,6 +46,7 @@ public class FaceMegreEffectActivity extends BaseActivity implements IFaceMergeV
 
     public String bannerAdType = "bannerAdType";
     public String rewardedAdType = "rewardedAdType";
+    public String fullScreenVideoType = "fullScreenVideoType";
 
     private ImageView ivPreview;
     private ImageView icBack;
@@ -52,6 +54,7 @@ public class FaceMegreEffectActivity extends BaseActivity implements IFaceMergeV
     private TextView btnSave;
     private TextView btnShare;
     private FrameLayout adContainer;
+    private ConstraintLayout layoutAdMantle;
     private CellRVAdapter mAdapter = new CellRVAdapter();
 
     @Inject
@@ -64,10 +67,11 @@ public class FaceMegreEffectActivity extends BaseActivity implements IFaceMergeV
     String function;
 
     private String selectId = "normal";
-
+    private AdHelper adHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPresenter.attachView(this);
     }
 
     @Override
@@ -83,22 +87,18 @@ public class FaceMegreEffectActivity extends BaseActivity implements IFaceMergeV
     @Override
     protected void onPause() {
         super.onPause();
-        mPresenter.detachView();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.attachView(this);
-        AdHelper.playRewardedVideo(this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
-            @Override
-            public void onDismissed(int action) {
-            }
+        adHelper.showBannerAdView(bannerAdType, adContainer);
+    }
 
-            @Override
-            public void onFail() {
-            }
-        });
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
     }
 
     @Override
@@ -109,7 +109,8 @@ public class FaceMegreEffectActivity extends BaseActivity implements IFaceMergeV
         btnSave = findViewById(R.id.btn_save);
         btnShare = findViewById(R.id.btn_share);
         adContainer = findViewById(R.id.fl_ad_container);
-        AdHelper.showBannerAdView(bannerAdType, adContainer);
+        layoutAdMantle = findViewById(R.id.layout_ad_mantle);
+        adHelper = new AdHelper();
     }
 
     @Override
@@ -132,7 +133,7 @@ public class FaceMegreEffectActivity extends BaseActivity implements IFaceMergeV
         icBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                finshActivity();
             }
         });
 
@@ -147,6 +148,24 @@ public class FaceMegreEffectActivity extends BaseActivity implements IFaceMergeV
             @Override
             public void onClick(View view) {
                 saveImage(ivPreview);
+            }
+        });
+
+        layoutAdMantle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                adHelper.playRewardedVideo(FaceMegreEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+                    @Override
+                    public void onDismissed(int action) {
+                        layoutAdMantle.setVisibility(View.GONE);
+                        getTemplateByName(selectId).setShowAD(true);
+                    }
+
+                    @Override
+                    public void onFail() {
+                        layoutAdMantle.setVisibility(View.GONE);
+                    }
+                });
             }
         });
     }
@@ -173,8 +192,6 @@ public class FaceMegreEffectActivity extends BaseActivity implements IFaceMergeV
                     viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            selectId = template.getName();
-                            mAdapter.notifyDataSetChanged();
                             setEffectImage(template);
                         }
                     });
@@ -187,6 +204,15 @@ public class FaceMegreEffectActivity extends BaseActivity implements IFaceMergeV
 
 
     public boolean setEffectImage(TemplatesConfigBean.Template template) {
+        selectId = template.getName();
+        mAdapter.notifyDataSetChanged();
+
+        if (template.isShowAD()) {
+            layoutAdMantle.setVisibility(View.GONE);
+        }else{
+            layoutAdMantle.setVisibility(View.VISIBLE);
+        }
+
         if (!TextUtils.isEmpty(template.getImageEffect())) {
             BitmapUtil.loadImage(template.getImageEffect(), ivPreview);
             return true;
@@ -215,22 +241,32 @@ public class FaceMegreEffectActivity extends BaseActivity implements IFaceMergeV
 
 
     private void saveImage(View view) {
-        Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件
-        ImageUtils.saveImageToGallery(FaceMegreEffectActivity.this, bitmap, System.currentTimeMillis() + ".jpg", new ImageUtils.CallBack() {
+        adHelper.playRewardedVideo(FaceMegreEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
             @Override
-            public void onStart() {
-            }
+            public void onDismissed(int action) {
+                Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件
+                ImageUtils.saveImageToGallery(FaceMegreEffectActivity.this, bitmap, System.currentTimeMillis() + ".jpg", new ImageUtils.CallBack() {
+                    @Override
+                    public void onStart() {
+                    }
 
-            @Override
-            public void onSuccess() {
-                MsgUtils.showToastCenter(FaceMegreEffectActivity.this, "图片保存成功，请在相册中点击分享");
-            }
+                    @Override
+                    public void onSuccess() {
+                        MsgUtils.showToastCenter(FaceMegreEffectActivity.this, "图片保存成功，请在相册中点击分享");
+                    }
 
+                    @Override
+                    public void onFail() {
+                        MsgUtils.showToastCenter(FaceMegreEffectActivity.this, "图片保存失败");
+                    }
+                });
+            }
             @Override
             public void onFail() {
-                MsgUtils.showToastCenter(FaceMegreEffectActivity.this, "图片保存失败");
+
             }
         });
+
     }
 
     @Override
@@ -250,5 +286,29 @@ public class FaceMegreEffectActivity extends BaseActivity implements IFaceMergeV
         } else {
             MsgUtils.showToastCenter(FaceMegreEffectActivity.this, "图片处理失败");
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            finshActivity();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public void finshActivity(){
+
+        adHelper.playFullScreenVideoAd(this, fullScreenVideoType, new AdHelper.PlayRewardedAdCallback() {
+            @Override
+            public void onDismissed(int action) {
+                finish();
+            }
+
+            @Override
+            public void onFail() {
+                finish();
+            }
+        });
     }
 }

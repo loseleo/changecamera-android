@@ -120,7 +120,7 @@ android:fitsSystemWindows="false">
 <FrameLayout
     android:id="@+id/fl_ad_container"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="wrap_content"
     android:paddingBottom="12dp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"

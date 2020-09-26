@@ -51,6 +51,7 @@ public class UserCenterActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        new AdHelper().showBannerAdView(bannerAdType,adContainer);
     }
 
 
@@ -76,7 +77,6 @@ public class UserCenterActivity extends BaseActivity {
         tvCleanNum = findViewById(R.id.tv_clean_num);
         clAboutus = findViewById(R.id.cl_aboutus);
         adContainer =findViewById(R.id.fl_ad_container);
-        AdHelper.showBannerAdView(bannerAdType,adContainer);
 
         findViewById(R.id.ic_back).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -30,6 +31,7 @@ public class BeautyVsEffectActivity extends BaseActivity implements IEffectImage
 
     public String bannerAdType = "bannerAdType";
     public String rewardedAdType = "rewardedAdType";
+    public String fullScreenVideoType = "fullScreenVideoType";
 
     private ImageView icBack;
     private TextView tvTitle;
@@ -64,7 +66,7 @@ public class BeautyVsEffectActivity extends BaseActivity implements IEffectImage
     private ProgressBar mProgressbar_right_skin;
     private ConstraintLayout clSaveImage;
     private FrameLayout adContainer;
-
+    private AdHelper adHelper;
 
     @Autowired(name = "image_path")
     String imagePath;
@@ -92,24 +94,12 @@ public class BeautyVsEffectActivity extends BaseActivity implements IEffectImage
     @Override
     protected void onResume() {
         super.onResume();
-//        mPresenter.attachView(this);
-        AdHelper.playRewardedVideo(this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
-            @Override
-            public void onDismissed(int action) {
-
-            }
-
-            @Override
-            public void onFail() {
-
-            }
-        });
+        adHelper.showBannerAdView(bannerAdType, adContainer);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-//        mPresenter.detachView();
     }
 
     @Override
@@ -146,7 +136,7 @@ public class BeautyVsEffectActivity extends BaseActivity implements IEffectImage
         mProgressbar_right_skin = (ProgressBar) findViewById(R.id.progressbar_right_skin);
         clSaveImage = findViewById(R.id.cl_save_image);
         adContainer = findViewById(R.id.fl_ad_container);
-        AdHelper.showBannerAdView(bannerAdType, adContainer);
+        adHelper = new AdHelper();
 
     }
 
@@ -216,7 +206,7 @@ public class BeautyVsEffectActivity extends BaseActivity implements IEffectImage
         icBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                finshActivity();
             }
         });
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -230,6 +220,15 @@ public class BeautyVsEffectActivity extends BaseActivity implements IEffectImage
             @Override
             public void onClick(View view) {
                 saveImage(clSaveImage);
+            }
+        });
+
+        adHelper.playRewardedVideo(BeautyVsEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+            @Override
+            public void onDismissed(int action) {
+            }
+            @Override
+            public void onFail() {
             }
         });
 
@@ -262,28 +261,38 @@ public class BeautyVsEffectActivity extends BaseActivity implements IEffectImage
 
 
     private void saveImage(ViewGroup view){
-        Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件
-        ImageUtils.saveImageToGallery(BeautyVsEffectActivity.this, bitmap, System.currentTimeMillis() + ".jpg", new ImageUtils.CallBack() {
-            @Override
-            public void onStart() {
-                mCustomDialog = CustomDialog.instance(BeautyVsEffectActivity.this);
-                mCustomDialog.show();
-            }
 
+        adHelper.playRewardedVideo(BeautyVsEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
             @Override
-            public void onSuccess() {
-                MsgUtils.showToastCenter(BeautyVsEffectActivity.this,"图片保存成功，请在相册中点击分享");
-                if (mCustomDialog != null) {
-                    mCustomDialog.dismiss();
-                }
-            }
+            public void onDismissed(int action) {
+                Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件
+                ImageUtils.saveImageToGallery(BeautyVsEffectActivity.this, bitmap, System.currentTimeMillis() + ".jpg", new ImageUtils.CallBack() {
+                    @Override
+                    public void onStart() {
+                        mCustomDialog = CustomDialog.instance(BeautyVsEffectActivity.this);
+                        mCustomDialog.show();
+                    }
 
+                    @Override
+                    public void onSuccess() {
+                        MsgUtils.showToastCenter(BeautyVsEffectActivity.this,"图片保存成功，请在相册中点击分享");
+                        if (mCustomDialog != null) {
+                            mCustomDialog.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onFail() {
+                        MsgUtils.showToastCenter(BeautyVsEffectActivity.this,"图片保存失败");
+                        if (mCustomDialog != null) {
+                            mCustomDialog.dismiss();
+                        }
+                    }
+                });
+            }
             @Override
             public void onFail() {
-                MsgUtils.showToastCenter(BeautyVsEffectActivity.this,"图片保存失败");
-                if (mCustomDialog != null) {
-                    mCustomDialog.dismiss();
-                }
+
             }
         });
     }
@@ -295,5 +304,29 @@ public class BeautyVsEffectActivity extends BaseActivity implements IEffectImage
             mCustomDialog.dismiss();
             mCustomDialog = null;
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            finshActivity();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public void finshActivity(){
+
+        adHelper.playFullScreenVideoAd(this, fullScreenVideoType, new AdHelper.PlayRewardedAdCallback() {
+            @Override
+            public void onDismissed(int action) {
+                finish();
+            }
+
+            @Override
+            public void onFail() {
+                finish();
+            }
+        });
     }
 }
