@@ -98,44 +98,44 @@ public class TTInfoFlowAd extends InfoFlowAd<TTInfoFlowAd.TTInfoFlowAdResource> 
         });
 
         //dislike设置
-        if (ttNativeExpressAd.getInteractionType() != TTAdConstant.INTERACTION_TYPE_DOWNLOAD){
-            return;
-        }
-        //可选，下载监听设置
-        ttNativeExpressAd.setDownloadListener(new TTAppDownloadListener() {
-            @Override
-            public void onIdle() {
+        if (ttNativeExpressAd.getInteractionType() == TTAdConstant.INTERACTION_TYPE_DOWNLOAD){
+            //可选，下载监听设置
+            ttNativeExpressAd.setDownloadListener(new TTAppDownloadListener() {
+                @Override
+                public void onIdle() {
 //                TToast.show(NativeExpressActivity.this, "点击开始下载", Toast.LENGTH_LONG);
-            }
+                }
 
-            @Override
-            public void onDownloadActive(long totalBytes, long currBytes, String fileName, String appName) {
+                @Override
+                public void onDownloadActive(long totalBytes, long currBytes, String fileName, String appName) {
 //                if (!mHasShowDownloadActive) {
 //                    mHasShowDownloadActive = true;
 //                    TToast.show(NativeExpressActivity.this, "下载中，点击暂停", Toast.LENGTH_LONG);
 //                }
-            }
+                }
 
-            @Override
-            public void onDownloadPaused(long totalBytes, long currBytes, String fileName, String appName) {
+                @Override
+                public void onDownloadPaused(long totalBytes, long currBytes, String fileName, String appName) {
 //                TToast.show(NativeExpressActivity.this, "下载暂停，点击继续", Toast.LENGTH_LONG);
-            }
+                }
 
-            @Override
-            public void onDownloadFailed(long totalBytes, long currBytes, String fileName, String appName) {
+                @Override
+                public void onDownloadFailed(long totalBytes, long currBytes, String fileName, String appName) {
 //                TToast.show(NativeExpressActivity.this, "下载失败，点击重新下载", Toast.LENGTH_LONG);
-            }
+                }
 
-            @Override
-            public void onInstalled(String fileName, String appName) {
+                @Override
+                public void onInstalled(String fileName, String appName) {
 //                TToast.show(NativeExpressActivity.this, "安装完成，点击图片打开", Toast.LENGTH_LONG);
-            }
+                }
 
-            @Override
-            public void onDownloadFinished(long totalBytes, String fileName, String appName) {
+                @Override
+                public void onDownloadFinished(long totalBytes, String fileName, String appName) {
 //                TToast.show(NativeExpressActivity.this, "点击安装", Toast.LENGTH_LONG);
-            }
-        });
+                }
+            });
+
+        }
 
         ttNativeExpressAd.render();//调用render开始渲染广告
 

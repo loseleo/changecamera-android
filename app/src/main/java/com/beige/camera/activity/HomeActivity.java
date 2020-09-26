@@ -1,5 +1,6 @@
 package com.beige.camera.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,12 +17,15 @@ import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.beige.camera.MyApplication;
 import com.beige.camera.R;
+import com.beige.camera.advertisement.api.bean.AdConfigBean;
 import com.beige.camera.bean.FunctionBean;
 import com.beige.camera.bean.RecommendBean;
 import com.beige.camera.bean.VersionInfoBean;
 import com.beige.camera.common.base.BaseActivity;
+import com.beige.camera.common.feed.bean.AdModel;
 import com.beige.camera.common.router.AppNavigator;
 import com.beige.camera.common.router.PageIdentity;
+import com.beige.camera.common.utils.AppUtils;
 import com.beige.camera.common.utils.BundleUtil;
 import com.beige.camera.common.utils.LogUtils;
 import com.beige.camera.common.utils.MsgUtils;
@@ -68,11 +72,15 @@ public class HomeActivity extends BaseActivity implements IHomeView {
     @Inject
     public HomePresenter mPresenter;
 
+    private String TYPE_BANNER = "banner";
+    private String TYPE_RECOMMENDER = "recommender";
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         Log.e("cold_start_dd", "onCreate total: " + (System.currentTimeMillis() - MyApplication.appStart));
         super.onCreate(savedInstanceState);
-        mPresenter.getPrivacyPoliceContent();
+        mPresenter.attachView(this);
+        mPresenter.checkVersion();
         getVisibleHelper().addVisibilityChangeListener(new OnVisibilityChangeListener() {
             @Override
             public void onVisibilityChange(boolean isVisible) {
@@ -120,48 +128,8 @@ public class HomeActivity extends BaseActivity implements IHomeView {
                 AppNavigator.goUserCenterActivity(HomeActivity.this);
             }
         });
-
-        setBanner();
-        ArrayList<RecommendBean> recommendList = new ArrayList<>();
-        recommendList.add( new RecommendBean("1","相机","",R.mipmap.icon_home_kks,""));
-//        recommendList.add( new RecommendBean("1","广告","http://mirage-test.oss-cn-hongkong.aliyuncs.com/01EJ399A0E0000000000000000.jpg",0,""));
-//        recommendList.add( new RecommendBean("1","广告","https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2058213453,278814451&fm=26&gp=0.jpg",0,""));
-//        recommendList.add( new RecommendBean("1","广告","https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2058213453,278814451&fm=26&gp=0.jpg",0,""));
         rvRecommend.setLayoutManager(new GridLayoutManager(this, 4));
         rvRecommend.setAdapter(recommendAdapter);
-        List<Cell> recommendCellList = new ArrayList<>();
-        for (RecommendBean recommend : recommendList) {
-            MultiCell<RecommendBean> cell = new MultiCell<>(R.layout.item_home_recommend, recommend, new ViewHolderBinder<RecommendBean>() {
-                @Override
-                public void onBind(ViewHolder viewHolder, RecommendBean recommend) {
-
-                    ImageView ivCover = viewHolder.getView(R.id.iv_cover);
-                    TextView tvTitle = viewHolder.getView(R.id.tv_title);
-                    if (recommend.getDrawable() != 0) {
-//                        ivCover.setImageResource(recommend.getDrawable());
-                        BitmapUtil.loadImage(recommend.getDrawable(), ivCover);
-                    }
-
-                    if(!TextUtils.isEmpty(recommend.getCover())){
-                        BitmapUtil.loadImage(recommend.getCover(), ivCover);
-                    }
-
-                    tvTitle.setText(recommend.getTitle());
-
-                    viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if(TextUtils.equals("1",recommend.getId())){
-                                AppNavigator.goCameraActivity(HomeActivity.this,"");
-                            }
-                        }
-                    });
-                }
-            });
-            recommendCellList.add(cell);
-        }
-        recommendAdapter.setDataList(recommendCellList);
-
 
         ArrayList<FunctionBean> functionBeanList = new ArrayList<>();
         functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_OLD,"变老相机",R.mipmap.img_home_pic_old));
@@ -172,7 +140,7 @@ public class HomeActivity extends BaseActivity implements IHomeView {
         functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_BACKGROUND,"换背景",R.mipmap.img_home_pic_background));
         functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_HAIR,"换发型",R.mipmap.img_home_pic_hair));
         functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_CUSTOMS,"异国风情",R.mipmap.img_home_pic_custom));
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_CLOTHES,"一键换装",R.mipmap.img_home_pic_custom));
+//        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_CLOTHES,"一键换装",R.mipmap.img_home_pic_custom));
         functionBeanList.add( new FunctionBean(FunctionBean.ID_DETECTION_AGE,"年龄检测",R.mipmap.img_home_pic_age));
         functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_ANIMAL,"动物预测",R.mipmap.img_home_pic_animal));
         functionBeanList.add( new FunctionBean(FunctionBean.ID_DETECTION_BABY,"宝宝预测",R.mipmap.img_home_pic_baby));
@@ -218,8 +186,37 @@ public class HomeActivity extends BaseActivity implements IHomeView {
 
     }
 
+    private void setRecommender(List<AdModel> adModelList) {
+
+        List<Cell> recommendCellList = new ArrayList<>();
+        for (AdModel adModel : adModelList) {
+            MultiCell<AdModel> cell = new MultiCell<>(R.layout.item_home_recommend, adModel, new ViewHolderBinder<AdModel>() {
+                @Override
+                public void onBind(ViewHolder viewHolder, AdModel adModel) {
+
+                    ImageView ivCover = viewHolder.getView(R.id.iv_cover);
+                    TextView tvTitle = viewHolder.getView(R.id.tv_title);
+                     BitmapUtil.loadImage(adModel.getImageUrl(), ivCover);
+
+                    tvTitle.setText(adModel.getTitle());
+
+                    viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            AppNavigator.goActivityByUri(HomeActivity.this,adModel.getLocation());
+                        }
+                    });
+                }
+            });
+            recommendCellList.add(cell);
+        }
+        recommendAdapter.setDataList(recommendCellList);
+    }
+
     @Override
     public void initData() {
+        mPresenter.getAdvertiseConfig(TYPE_BANNER);
+        mPresenter.getAdvertiseConfig(TYPE_RECOMMENDER);
     }
 
     @Override
@@ -243,6 +240,7 @@ public class HomeActivity extends BaseActivity implements IHomeView {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mPresenter.detachView();
     }
 
     @Nullable
@@ -282,22 +280,14 @@ public class HomeActivity extends BaseActivity implements IHomeView {
 
 
 
-    public void setBanner(){
-
-        ArrayList<FunctionBean> arrayList = new ArrayList<>();
-//        arrayList.add( new FunctionBean(FunctionBean.ID_CHANGE_OLD,"变老相机",R.mipmap.img_home_pic_old));
-//        arrayList.add( new FunctionBean(FunctionBean.ID_CHANGE_GENDER,"性别转换",R.mipmap.img_home_pic_change));
-//        arrayList.add( new FunctionBean(FunctionBean.ID_CHANGE_CHILD,"童颜相机",R.mipmap.img_home_pic_keds));
-        arrayList.add( new FunctionBean(FunctionBean.ID_CHANGE_CARTOON,"漫画脸",R.mipmap.banner_anime));
-        arrayList.add( new FunctionBean(FunctionBean.ID_CHANGE_ANIMAL,"动物预测",R.mipmap.banner_animal));
-//        arrayList.add( new FunctionBean(FunctionBean.ID_DETECTION_AGE,"年龄检测",R.mipmap.img_home_pic_age));
+    public void setBanner(List<AdModel> adModelList){
 
         //设置banner样式
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         //设置图片加载器
         banner.setImageLoader(new GlideImageLoader());
         //设置图片集合
-        banner.setImages(arrayList);
+        banner.setImages(adModelList);
         //设置banner动画效果
 //            mBanner.setBannerAnimation(Transformer.DepthPage);
         //设置标题集合（当banner样式有显示title时）
@@ -313,18 +303,41 @@ public class HomeActivity extends BaseActivity implements IHomeView {
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-//                FunctionBean functionBean = arrayList.get(position);
-//                AppNavigator.goCameraActivity(HomeActivity.this,functionBean.getId());
-
-                VersionInfoBean versionInfoBean = new VersionInfoBean();
-                versionInfoBean.setTitle("发现新版本");
-                versionInfoBean.setForceUpdate("0");
-                versionInfoBean.setVersionMemo("1,发现新版本\n2,发现新版本\n3,发现新版本\n2,发现新版本\n3,发现新版本\n2,发现新版本\n3,发现新版本");
-                UpdataVersionDialog updataVersionDialog = UpdataVersionDialog.newInstance(versionInfoBean);
-                updataVersionDialog.show(getSupportFragmentManager(), "updata_version_dialog");
+                AdModel adModel = adModelList.get(position);
+                AppNavigator.goActivityByUri(HomeActivity.this,adModel.getLocation());
             }
         });
 
     }
 
+    @Override
+    public void showDownloadApkDialog(VersionInfoBean mVersionInfo) {
+        if(mVersionInfo == null ){
+            return;
+        }
+        if (mVersionInfo.getVersionCode() > PackageUtils.getVersionCode(HomeActivity.this)) {
+            UpdataVersionDialog updataVersionDialog = UpdataVersionDialog.newInstance(mVersionInfo);
+            updataVersionDialog.show(getSupportFragmentManager(), "updata_version_dialog");
+        }
+    }
+
+    @Override
+    public void showAdvertiseConfig(String type, AdConfigBean adConfigBean) {
+
+        if(adConfigBean != null && adConfigBean.getCandidates() != null && adConfigBean.getCandidates().size() > 0){
+            if(TextUtils.equals(TYPE_BANNER,type)){
+                banner.setVisibility(View.VISIBLE);
+                setBanner(adConfigBean.getCandidates());
+            }else{
+                rvRecommend.setVisibility(View.VISIBLE);
+                setRecommender(adConfigBean.getCandidates());
+            }
+        }else{
+            if(TextUtils.equals(TYPE_BANNER,type)){
+                banner.setVisibility(View.GONE);
+            }else{
+                rvRecommend.setVisibility(View.GONE);
+            }
+        }
+    }
 }

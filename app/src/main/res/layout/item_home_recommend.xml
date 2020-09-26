@@ -12,7 +12,6 @@
         android:id="@+id/iv_cover"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:src="@mipmap/icon_home_kks"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>

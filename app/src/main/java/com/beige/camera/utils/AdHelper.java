@@ -65,10 +65,10 @@ public class AdHelper {
                             @Override
                             public void onAdLoadStart(RewardVideoAd ad) {
                                 LogUtils.e("zhangning","onAdLoadStart = "+ad.getAdModel().getAdId());
-                                isShowFullScreenVideoAd = false;
                                 ad.getDismissedHelper().addOnAdDismissListener(new OnDismissedListener() {
                                     @Override
                                     public void onDismissed() {
+                                        isShowFullScreenVideoAd = false;
                                         if (callback != null) {
                                             callback.onDismissed(ad.isRewardVerify() ? 1 : 0);
                                         }
@@ -134,10 +134,10 @@ public class AdHelper {
                         AdManager.loadRewardVideoAd(activity, adModel.getCandidates(), new Callback<RewardVideoAd>() {
                             @Override
                             public void onAdLoadStart(RewardVideoAd ad) {
-                                isShowRewardedVideo = false;
                                 ad.getDismissedHelper().addOnAdDismissListener(new OnDismissedListener() {
                                     @Override
                                     public void onDismissed() {
+                                        isShowRewardedVideo = false;
                                         if (callback != null) {
                                             callback.onDismissed(ad.isRewardVerify() ? 1 : 0);
                                         }
@@ -195,9 +195,9 @@ public class AdHelper {
                                     adModelBean.setAdCode("945497259");
                                     adModelBean.setAdId("945497259");
                                     adModelBean.setAdChannel(AdModel.AD_CHANNEL_TOUTIAO);
-//                        adModelBean1.setAdCode("1051137491898582");
-//                        adModelBean1.setAdId("1051137491898582");
-//                        adModelBean1.setAdChannel(AdModel.AD_CHANNEL_GDT);
+//                        adModelBean.setAdCode("1051137491898582");
+//                        adModelBean.setAdId("1051137491898582");
+//                        adModelBean.setAdChannel(AdModel.AD_CHANNEL_GDT);
                                     adModelBean.setAction(0);
                                     ArrayList<AdModel> adModels = new ArrayList<>();
                                     adModels.add(adModelBean);

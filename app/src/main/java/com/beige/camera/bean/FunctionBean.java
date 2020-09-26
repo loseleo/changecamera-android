@@ -15,7 +15,7 @@ public class FunctionBean implements Serializable {
     public static String ID_DETECTION_VS = "id_detection_vs";//宝宝检测
     public static String ID_CHANGE_BACKGROUND = "id_change_background";//换背景
     public static String ID_DETECTION_PAST = "id_detection_past";//前世今生
-    public static String ID_CHANGE_CLOTHES = "ID_CHANGE_CLOTHES";//一键换装
+    public static String ID_CHANGE_CLOTHES = "id_change_clothes";//一键换装
     public static String ID_CHANGE_HAIR = "id_change_hair";//换发型
     public static String ID_CHANGE_CUSTOMS = "id_change_customs";//异国风情
     public static String ID_CHANGE_ANIMALFACE = "id_change_animalface";//动物脸

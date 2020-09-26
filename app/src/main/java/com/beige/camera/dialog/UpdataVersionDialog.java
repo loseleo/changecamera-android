@@ -109,10 +109,8 @@ public class UpdataVersionDialog extends BaseDialogFragment {
     }
 
     private void downLoad() {
-
         String url = mVersionInfoBean.getUrl();
-
-        DownloadManager.getInstance().download("https://video-ddvideo.1sapp.com/assets/apk/2020_01_18/ddvideo.apk", new DownloadObserver() {
+        DownloadManager.getInstance().download(url, new DownloadObserver() {
             @Override
             public void onNext(DownloadInfo value) {
                 super.onNext(value);

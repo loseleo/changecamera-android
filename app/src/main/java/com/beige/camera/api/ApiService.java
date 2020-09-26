@@ -15,6 +15,7 @@
  */
 package com.beige.camera.api;
 
+import com.beige.camera.advertisement.api.bean.AdConfigBean;
 import com.beige.camera.bean.EffectAgeBean;
 import com.beige.camera.bean.EffectImageBean;
 import com.beige.camera.bean.TemplatesConfigBean;
@@ -36,9 +37,13 @@ import retrofit2.http.Query;
  */
 public interface ApiService {
 
-    @FormUrlEncoded
-    @POST("api/v1/image_process/check_version")
+
+    @GET("api/v1/config/version_update")
     Observable<ApiResult<VersionInfoBean>> checkVersion();
+
+    @GET("api/v1/config/advertise")
+    Observable<ApiResult<AdConfigBean>> getAdvertiseConfig(@Query("type") String type);
+
 
     @FormUrlEncoded
     @POST("api/v1/face/detect")

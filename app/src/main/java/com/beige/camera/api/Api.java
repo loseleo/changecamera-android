@@ -15,6 +15,7 @@
  */
 package com.beige.camera.api;
 
+import com.beige.camera.advertisement.api.bean.AdConfigBean;
 import com.beige.camera.bean.EffectAgeBean;
 import com.beige.camera.bean.EffectImageBean;
 import com.beige.camera.bean.TemplatesConfigBean;
@@ -70,6 +71,10 @@ public class Api {
 
     public Observable<ApiResult<TemplatesConfigBean>> getTemplateConfig(String type) {
         return service.getTemplateConfig(type);
+    }
+
+    public Observable<ApiResult<AdConfigBean>> getAdvertiseConfig(String type) {
+        return service.getAdvertiseConfig(type);
     }
 
 
