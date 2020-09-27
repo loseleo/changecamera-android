@@ -37,9 +37,9 @@ import javax.inject.Inject;
 @Route(path = PageIdentity.APP_BABYEFFECT)
 public class BabyEffectActivity extends BaseActivity implements IFaceMergeView {
 
-    public String bannerAdType = "bannerAdType";
-    public String rewardedAdType = "rewardedAdType";
-    public String fullScreenVideoType = "fullScreenVideoType";
+    public String bannerAdType = "Finnish_feeds";
+    public String rewardedAdType = "Baby_Incentivevideo";
+    public String fullScreenVideoType = "Baby_Fullvideo";
 
     private ImageView icBack;
     private TextView tvTitle;

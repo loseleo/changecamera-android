@@ -20,6 +20,7 @@ import com.beige.camera.R;
 import com.beige.camera.bean.FunctionBean;
 import com.beige.camera.bean.TemplatesConfigBean;
 import com.beige.camera.common.base.BaseActivity;
+import com.beige.camera.common.router.AppNavigator;
 import com.beige.camera.common.router.PageIdentity;
 import com.beige.camera.common.utils.ImageUtils;
 import com.beige.camera.common.utils.LogUtils;
@@ -44,9 +45,15 @@ import javax.inject.Inject;
 @Route(path = PageIdentity.APP_FACEMEGREEFFECT)
 public class FaceMegreEffectActivity extends BaseActivity implements IFaceMergeView {
 
-    public String bannerAdType = "bannerAdType";
-    public String rewardedAdType = "rewardedAdType";
-    public String fullScreenVideoType = "fullScreenVideoType";
+    public String customs_rewardedAdType = "Foreign_Incentivevideo";
+    public String hair_rewardedAdType = "Hairdo_Incentivevideo";
+    public String hair_fullScreenVideoType = "Hairdo_Fullvideo";
+    public String customs_fullScreenVideoType = "Foreign_Fullvideo";
+
+
+    public String bannerAdType = "Finnish_feeds";
+    public String rewardedAdType;
+    public String fullScreenVideoType;
 
     private ImageView ivPreview;
     private ImageView icBack;
@@ -111,6 +118,14 @@ public class FaceMegreEffectActivity extends BaseActivity implements IFaceMergeV
         adContainer = findViewById(R.id.fl_ad_container);
         layoutAdMantle = findViewById(R.id.layout_ad_mantle);
         adHelper = new AdHelper();
+
+        if (TextUtils.equals(function,FunctionBean.ID_CHANGE_HAIR)) {
+            rewardedAdType = hair_rewardedAdType;
+            fullScreenVideoType = hair_fullScreenVideoType;
+        }else if (TextUtils.equals(function,FunctionBean.ID_CHANGE_CUSTOMS)) {
+            rewardedAdType = customs_rewardedAdType;
+            fullScreenVideoType =customs_fullScreenVideoType;
+        }
     }
 
     @Override

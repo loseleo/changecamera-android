@@ -50,17 +50,6 @@ public class AdHelper {
 
                     @Override
                     public void onNext(AdConfigBean adModel) {
-                        AdModel adModelBean = new AdModel();
-                        adModelBean.setAdCode("945489981");
-                        adModelBean.setAdId("945489981");
-                        adModelBean.setAdChannel(AdModel.AD_CHANNEL_TOUTIAO);
-//                        adModelBean.setAdCode("3041831491796621");
-//                        adModelBean.setAdId("3041831491796621");
-//                        adModelBean.setAdChannel(AdModel.AD_CHANNEL_GDT);
-                        adModelBean.setAction(0);
-                        ArrayList<AdModel> adModels = new ArrayList<>();
-                        adModels.add(adModelBean);
-                        adModel.setCandidates(adModels);
                         AdManager.loadFullScreenAd(activity, adModel.getCandidates(), new Callback<RewardVideoAd>() {
                             @Override
                             public void onAdLoadStart(RewardVideoAd ad) {
@@ -118,19 +107,6 @@ public class AdHelper {
 
                     @Override
                     public void onNext(AdConfigBean adModel) {
-
-                        AdModel adModelBean = new AdModel();
-                        adModelBean.setAdCode("945489982");
-                        adModelBean.setAdId("945489982");
-                        adModelBean.setAdChannel(AdModel.AD_CHANNEL_TOUTIAO);
-//                        adModelBean.setAdCode("6031237421692525");
-//                        adModelBean.setAdId("6031237421692525");
-//                        adModelBean.setAdChannel(AdModel.AD_CHANNEL_GDT);
-                        adModelBean.setAction(0);
-                        ArrayList<AdModel> adModels = new ArrayList<>();
-                        adModels.add(adModelBean);
-                        adModel.setCandidates(adModels);
-
                         AdManager.loadRewardVideoAd(activity, adModel.getCandidates(), new Callback<RewardVideoAd>() {
                             @Override
                             public void onAdLoadStart(RewardVideoAd ad) {
@@ -191,19 +167,7 @@ public class AdHelper {
                             adContainer.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    AdModel adModelBean = new AdModel();
-                                    adModelBean.setAdCode("945497259");
-                                    adModelBean.setAdId("945497259");
-                                    adModelBean.setAdChannel(AdModel.AD_CHANNEL_TOUTIAO);
-//                        adModelBean.setAdCode("1051137491898582");
-//                        adModelBean.setAdId("1051137491898582");
-//                        adModelBean.setAdChannel(AdModel.AD_CHANNEL_GDT);
-                                    adModelBean.setAction(0);
-                                    ArrayList<AdModel> adModels = new ArrayList<>();
-                                    adModels.add(adModelBean);
-                                    adModel.setCandidates(adModels);
-
-                                    AdManager.loadInfoFlowAd(adContainer, adModels, new Callback<InfoFlowAd>() {
+                                    AdManager.loadInfoFlowAd(adContainer, adModel.getCandidates(), new Callback<InfoFlowAd>() {
                                         @Override
                                         public void onAdLoadStart(InfoFlowAd ad) {
                                         }

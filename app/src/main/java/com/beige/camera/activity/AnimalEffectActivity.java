@@ -45,9 +45,9 @@ import io.reactivex.functions.Consumer;
 @Route(path = PageIdentity.APP_ANIMALEFFECT)
 public class AnimalEffectActivity extends BaseActivity implements IFaceMergeView {
 
-    public String bannerAdType = "bannerAdType";
-    public String rewardedAdType = "rewardedAdType";
-    public String fullScreenVideoType = "fullScreenVideoType";
+    public String bannerAdType = "Finnish_feeds";
+    public String rewardedAdType = "Animal_Incentivevideo";
+    public String fullScreenVideoType = "Animal_Fullvideo";
 
     private ImageView icBack;
     private CardView cardview;

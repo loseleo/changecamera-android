@@ -29,9 +29,9 @@ import com.beige.camera.utils.AdHelper;
 @Route(path = PageIdentity.APP_BEAUTYVSEFFECT)
 public class BeautyVsEffectActivity extends BaseActivity implements IEffectImageView {
 
-    public String bannerAdType = "bannerAdType";
-    public String rewardedAdType = "rewardedAdType";
-    public String fullScreenVideoType = "fullScreenVideoType";
+    public String bannerAdType = "Finnish_feeds";
+    public String rewardedAdType = "Compete_Fullvideo";
+    public String fullScreenVideoType = "Compete_Incentivevideo";
 
     private ImageView icBack;
     private TextView tvTitle;

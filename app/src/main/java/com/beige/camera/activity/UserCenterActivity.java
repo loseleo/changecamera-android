@@ -27,8 +27,7 @@ import io.reactivex.disposables.Disposable;
 @Route(path = PageIdentity.APP_USERCENTER)
 public class UserCenterActivity extends BaseActivity {
 
-    public String bannerAdType = "bannerAdType";
-    public String rewardedAdType = "rewardedAdType";
+    public String bannerAdType = "Mine_feeds";
 
     private ConstraintLayout clClean;
     private TextView tvCleanNum;

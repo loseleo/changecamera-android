@@ -48,9 +48,9 @@ import javax.inject.Inject;
 @Route(path = PageIdentity.APP_BACKGROUNDEFFECT)
 public class BackgroundEffectActivity extends BaseActivity implements IBodySegView {
 
-    public String bannerAdType = "bannerAdType";
-    public String rewardedAdType = "rewardedAdType";
-    public String fullScreenVideoType = "fullScreenVideoType";
+    public String bannerAdType = "Finnish_feeds";
+    public String rewardedAdType = "Background_Incentivevideo";
+    public String fullScreenVideoType = "Background_Fullvideo";
 
     private ImageView icBack;
     private TextView tvTitle;

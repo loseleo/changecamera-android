@@ -47,7 +47,7 @@ public class WelcomePresenter extends Presenter<IWelcomeView> {
 
     public void showSplashAD(){
 
-        AdComponentHolder.getComponent().getAdApi().getAdConfig("welcome")
+        AdComponentHolder.getComponent().getAdApi().getAdConfig("Screen_cs")
                 .compose(io_main())
                 .timeout(2000, TimeUnit.MILLISECONDS)
                 .map(RxUtil.applyApiResult())

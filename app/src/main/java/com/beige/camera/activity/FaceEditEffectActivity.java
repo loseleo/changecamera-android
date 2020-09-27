@@ -32,9 +32,15 @@ import javax.inject.Inject;
 @Route(path = PageIdentity.APP_FACEEDITEFFECT)
 public class FaceEditEffectActivity extends BaseActivity implements IEffectImageView {
 
-    public String bannerAdType = "bannerAdType";
-    public String rewardedAdType = "rewardedAdType";
-    public String fullScreenVideoType = "fullScreenVideoType";
+    public String gender_rewardedAdType = "Gender_Incentivevideo";
+    public String children_rewardedAdType = "Children_Incentivevideo";
+    public String gender_fullScreenVideoType = "Gender_Fullvideo";
+    public String children_fullScreenVideoType = "Children_Fullvideo";
+    public String bannerAdType = "Finnish_feeds";
+    public String fullScreenVideoType;
+    public String rewardedAdType;
+
+
 
     private ConstraintLayout clSaveImage;
     private ImageView icBack;
@@ -110,8 +116,12 @@ public class FaceEditEffectActivity extends BaseActivity implements IEffectImage
     public void configViews() {
         if (TextUtils.equals(function,FunctionBean.ID_CHANGE_GENDER_BOY) || TextUtils.equals(function,FunctionBean.ID_CHANGE_GENDER_GIRL)) {
             tvTitle.setText("性别转换");
+            rewardedAdType = gender_rewardedAdType;
+            fullScreenVideoType = gender_fullScreenVideoType;
         }else if (TextUtils.equals(function,FunctionBean.ID_CHANGE_CHILD)) {
             tvTitle.setText("童颜相机");
+            rewardedAdType = children_rewardedAdType;
+            fullScreenVideoType = children_fullScreenVideoType;
         }
         LogUtils.e("zhangning", "imagePath = " + imagePath);
         BitmapUtil.loadImageCircle(this,imagePath,R.drawable.bg_shape_gender_gray,ivNormal);

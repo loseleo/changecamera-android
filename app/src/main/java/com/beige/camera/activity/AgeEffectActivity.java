@@ -35,9 +35,10 @@ import javax.inject.Inject;
 @Route(path = PageIdentity.APP_AGEEFFECT)
 public class AgeEffectActivity extends BaseActivity implements IEffectImageView {
 
-    public String bannerAdType = "bannerAdType";
-    public String rewardedAdType = "rewardedAdType";
-    public String fullScreenVideoType = "fullScreenVideoType";
+    public String bannerAdType = "Finnish_feeds";
+    public String rewardedAdType = "Age_Incentivevideo";
+    public String fullScreenVideoType = "Age_Fullvideo";
+
     private ImageView icBack;
     private ImageView ivPreview;
     private ConstraintLayout clSaveImage;

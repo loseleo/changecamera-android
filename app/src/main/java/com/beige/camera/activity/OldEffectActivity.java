@@ -33,7 +33,7 @@ import javax.inject.Inject;
 public class OldEffectActivity extends BaseActivity implements IEffectImageView {
 
     public String bannerAdType = "bannerAdType";
-    public String rewardedAdType = "rewardedAdType";
+    public String rewardedAdType = "Old_Incentivevideo";
     public String fullScreenVideoType = "fullScreenVideoType";
 
     private ImageView ivPreview;

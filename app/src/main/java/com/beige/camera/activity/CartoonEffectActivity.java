@@ -44,9 +44,9 @@ import javax.inject.Inject;
 @Route(path = PageIdentity.APP_CARTOONEFFECT)
 public class CartoonEffectActivity extends BaseActivity implements IEffectImageView {
 
-    public String bannerAdType = "bannerAdType";
-    public String rewardedAdType = "rewardedAdType";
-    public String fullScreenVideoType = "fullScreenVideoType";
+    public String bannerAdType = "Finnish_feeds";
+    public String rewardedAdType = "Cartoon_Incentivevideo";
+    public String fullScreenVideoType = "Cartoon_Fullvideo";
 
     private ImageView ivPreview;
     private ImageView icBack;

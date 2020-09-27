@@ -46,9 +46,9 @@ import javax.inject.Inject;
 @Route(path = PageIdentity.APP_ANIMALFACEEFFECT)
 public class AnimalFaceEffectActivity extends BaseActivity implements IFaceMergeView {
 
-    public String bannerAdType = "bannerAdType";
-    public String rewardedAdType = "rewardedAdType";
-    public String fullScreenVideoType = "fullScreenVideoType";
+    public String bannerAdType = "Finnish_feeds";
+    public String rewardedAdType = "Orc_Incentivevideo";
+    public String fullScreenVideoType = "Orc_Fullvideo";
 
     private ImageView ivPreview;
     private ImageView ivPreviewAnimal;
