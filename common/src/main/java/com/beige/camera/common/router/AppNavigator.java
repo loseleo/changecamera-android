@@ -218,10 +218,14 @@ public class AppNavigator {
             return;
         }
 
-        String path = uriString;
         String ddAppSchemeHost = PageIdentity.APP_SCHEME_HOST;
         // 需要中转的uri
-        path = uriString.substring(ddAppSchemeHost.length(), uriString.contains("?") ? uriString.indexOf("?") : uriString.length());
+        String path = uriString.substring(ddAppSchemeHost.length(), uriString.contains("?") ? uriString.indexOf("?") : uriString.length());
+        if(TextUtils.equals("/app/webview",path)){
+            String url = uriString.substring(uriString.indexOf("?") + 1).replace("url=","");
+            goWebViewActivity(context,url);
+            return;
+        }
         Postcard build = ARouter.getInstance().build(path);
         if (uriString.contains("?")) {
             String params = uriString.substring(uriString.indexOf("?") + 1);
