@@ -67,7 +67,6 @@ android {
         javaMaxHeapSize "4g"
     }
 
-
     buildTypes {
         debug {
             buildConfigField("String", "API_HOST", "${DEV_API_BASE_URL}")
@@ -164,6 +163,17 @@ allprojects {
         }
     }
 }
+
+walle {
+    // 指定渠道包的输出路径
+    apkOutputFolder = new File("${project.buildDir}/outputs/channels")
+    // 定制渠道包的APK的文件名称
+    apkFileNameFormat = 'mohuan_${channel}_v${versionName}_${buildType}.apk'
+    // 渠道配置文件
+    channelFile = new File("${project.getProjectDir()}/channel")
+}
+
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':common')
