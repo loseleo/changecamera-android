@@ -221,7 +221,7 @@ public class AppNavigator {
         String ddAppSchemeHost = PageIdentity.APP_SCHEME_HOST;
         // 需要中转的uri
         String path = uriString.substring(ddAppSchemeHost.length(), uriString.contains("?") ? uriString.indexOf("?") : uriString.length());
-        if(TextUtils.equals("/app/webview",path)){
+        if(TextUtils.equals(PageIdentity.APP_WEBVIEW,path)){
             String url = uriString.substring(uriString.indexOf("?") + 1).replace("url=","");
             goWebViewActivity(context,url);
             return;

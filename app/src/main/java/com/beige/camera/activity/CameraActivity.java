@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -22,6 +23,8 @@ import com.beige.camera.bean.FunctionBean;
 import com.beige.camera.common.base.BaseActivity;
 import com.beige.camera.common.router.AppNavigator;
 import com.beige.camera.common.router.PageIdentity;
+import com.beige.camera.common.utils.MmkvUtil;
+import com.beige.camera.utils.AdHelper;
 import com.beige.camera.utils.FileUtil;
 import com.beige.camera.view.CustomCameraPreview;
 
@@ -31,6 +34,7 @@ import com.beige.camera.view.CustomCameraPreview;
 @Route(path = PageIdentity.APP_CAMERA)
 public class CameraActivity extends BaseActivity implements View.OnClickListener {
 
+    public String fullScreenVideoType = "Camera_Fullvideo";
 
     public static final  String FUNCTION_IMG_TOOL = "function_img_tool";
     public static final int RESULT_LOAD_CODE = 10001;
@@ -40,6 +44,7 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
     private ImageView ivSwitchCamera;
     private View containerView;
     private View cropView;
+    private AdHelper adHelper;
 
     @Autowired(name = "function")
     String function;
@@ -48,6 +53,7 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        adHelper = new AdHelper();
     }
 
     @Override
@@ -109,7 +115,7 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
                 customCameraPreview.focus();
                 break;
             case R.id.camera_close:
-                finish();
+                finshActivity();
                 break;
             case R.id.camera_take:
                 takePhoto();
@@ -182,6 +188,7 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void goNextActivity(String imgPath) {
+
         if(TextUtils.isEmpty(function)){
             AppNavigator.goImgPreviewActivity(CameraActivity.this, imgPath);
         }else if(TextUtils.equals(FUNCTION_IMG_TOOL,function)){
@@ -220,7 +227,31 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
                 goNextActivity(picturePath);
             }
         }
+    }
 
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            finshActivity();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public void finshActivity(){
+
+        adHelper.playFullScreenVideoAd(this, fullScreenVideoType, new AdHelper.PlayRewardedAdCallback() {
+            @Override
+            public void onDismissed(int action) {
+                finish();
+            }
+
+            @Override
+            public void onFail() {
+                finish();
+            }
+        });
     }
 
 }

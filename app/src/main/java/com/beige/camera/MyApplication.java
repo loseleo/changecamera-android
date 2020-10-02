@@ -16,13 +16,16 @@
 package com.beige.camera;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.beige.camera.activity.WelcomeActivity;
 import com.beige.camera.advertisement.dagger.AdComponentHolder;
 import com.beige.camera.common.base.BaseApplication;
 import com.beige.camera.common.dagger.component.CommonComponentHolder;
 import com.beige.camera.common.helper.activitylife.ActivityLifeManager;
 import com.beige.camera.common.helper.activitylife.AppShowListener;
+import com.beige.camera.common.utils.LogUtils;
 import com.beige.camera.common.utils.ProcessUtil;
 import com.beige.camera.dagger.MainComponentHolder;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -97,20 +100,21 @@ public class MyApplication extends BaseApplication {
         ActivityLifeManager.get().addAppShowListener(new AppShowListener() {
             @Override
             public void onAppEnterForeground() {
-//                HashMap<String, String> extendInfo = new HashMap<>();
-//                extendInfo.put("action", "0");
-//                ReportUtils.onShow("app", "app_open", extendInfo);
+                LogUtils.e("zhangning","onAppEnterForeground");
             }
 
             @Override
             public void onAppReturnForeground() {
-//                HashMap<String, String> extendInfo = new HashMap<>();
-//                extendInfo.put("action", "1");
-//                ReportUtils.onShow("app", "app_open", extendInfo);
+                LogUtils.e("zhangning","onAppReturnForeground");
+                Intent intent = new Intent(sInstance, WelcomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                sInstance.startActivity(intent);
             }
 
             @Override
             public void onAppEnterBackground() {
+                LogUtils.e("zhangning","onAppEnterBackground");
             }
         });
     }

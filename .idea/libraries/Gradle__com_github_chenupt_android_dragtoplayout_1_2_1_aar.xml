@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.chenupt.android:dragtoplayout:1.2.1@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/dragtoplayout-1.2.1.aar/6d5b0c1bd8881798230f9e276d15ca64/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/dragtoplayout-1.2.1.aar/6d5b0c1bd8881798230f9e276d15ca64/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.chenupt.android/dragtoplayout/1.2.1/63b7c16f5b5862cfd13306a26d639a8c1fb7987f/dragtoplayout-1.2.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

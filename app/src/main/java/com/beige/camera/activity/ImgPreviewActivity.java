@@ -16,6 +16,8 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.beige.camera.R;
 import com.beige.camera.bean.FunctionBean;
 import com.beige.camera.common.router.AppNavigator;
+import com.beige.camera.common.utils.MmkvUtil;
+import com.beige.camera.dialog.CommonDialog;
 import com.beige.camera.utils.FileUtil;
 import com.beige.camera.common.base.BaseActivity;
 import com.beige.camera.common.router.PageIdentity;
@@ -158,7 +160,29 @@ public class ImgPreviewActivity extends BaseActivity {
     }
 
     private void goNextPage(){
-        AppNavigator.goImgUploadActivity(ImgPreviewActivity.this,imagePath,selectFunction);
+
+        if (MmkvUtil.getInstance().getBoolean(selectFunction,false)) {
+            AppNavigator.goImgUploadActivity(ImgPreviewActivity.this,imagePath,selectFunction);
+        }else{
+            CommonDialog commonDialog = CommonDialog.newInstance(getPageName());
+            commonDialog.setTvTitle("温馨提示");
+            commonDialog.setTvBtnConfirm("试试看！");
+            commonDialog.setTvContent("该功能暂未开放，观看广告可优先体验哦~");
+            commonDialog.setOnChoiceListener(new CommonDialog.OnChoiceListener() {
+                @Override
+                public void onAgree() {
+                    MmkvUtil.getInstance().putBoolean(selectFunction,true);
+                    AppNavigator.goImgUploadActivity(ImgPreviewActivity.this,imagePath,selectFunction);
+                }
+
+                @Override
+                public void onDisagree() {
+
+                }
+            });
+            commonDialog.show(getSupportFragmentManager(), "common_dialog");
+        }
+
     }
 
 }

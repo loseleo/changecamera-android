@@ -48,12 +48,12 @@ public class WelcomeActivity extends BaseActivity implements IWelcomeView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        boolean isBroughtToFront = (getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0;
-        boolean needShowAd = getIntent().getBooleanExtra("needShowAd", false);
-        if (!needShowAd && !isTaskRoot() || isBroughtToFront && !needShowAd) {
-            finish();
-            return;
-        }
+//        boolean isBroughtToFront = (getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0;
+//        boolean needShowAd = getIntent().getBooleanExtra("needShowAd", false);
+//        if (!needShowAd && !isTaskRoot() || isBroughtToFront && !needShowAd) {
+//            finish();
+//            return;
+//        }
 
     }
 

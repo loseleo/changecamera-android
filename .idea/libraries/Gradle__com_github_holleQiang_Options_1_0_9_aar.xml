@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.holleQiang:Options:1.0.9@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/Options-1.0.9.aar/60b20713543d7a4cd95ef8c76d23d70d/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/Options-1.0.9.aar/60b20713543d7a4cd95ef8c76d23d70d/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.holleQiang/Options/1.0.9/756294007ea5afc474469249444553d5bf8fd1df/Options-1.0.9-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

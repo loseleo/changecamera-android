@@ -28,11 +28,13 @@ import com.beige.camera.common.router.PageIdentity;
 import com.beige.camera.common.utils.AppUtils;
 import com.beige.camera.common.utils.BundleUtil;
 import com.beige.camera.common.utils.LogUtils;
+import com.beige.camera.common.utils.MmkvUtil;
 import com.beige.camera.common.utils.MsgUtils;
 import com.beige.camera.common.utils.PackageUtils;
 import com.beige.camera.common.utils.imageloader.BitmapUtil;
 import com.beige.camera.contract.IHomeView;
 import com.beige.camera.dagger.MainComponentHolder;
+import com.beige.camera.dialog.CommonDialog;
 import com.beige.camera.dialog.GenderSelecterDialog;
 import com.beige.camera.dialog.UpdataVersionDialog;
 import com.beige.camera.presenter.HomePresenter;
@@ -160,21 +162,10 @@ public class HomeActivity extends BaseActivity implements IHomeView {
                         @Override
                         public void onClick(View view) {
                             String id = functionBean.getId();
-                            if(TextUtils.equals(FunctionBean.ID_CHANGE_GENDER_BOY,id)){
-                                GenderSelecterDialog genderSelecterDialog = GenderSelecterDialog.newInstance();
-                                genderSelecterDialog.setOnChoiceListener(new GenderSelecterDialog.OnChoiceListener() {
-                                    @Override
-                                    public void onGenderResurt(int gender) {
-                                        if(gender == 1){
-                                            AppNavigator.goCameraActivity(HomeActivity.this,FunctionBean.ID_CHANGE_GENDER_BOY);
-                                        }else{
-                                            AppNavigator.goCameraActivity(HomeActivity.this,FunctionBean.ID_CHANGE_GENDER_GIRL);
-                                        }
-                                    }
-                                });
-                                genderSelecterDialog.show(getSupportFragmentManager(), "gender_selecter_dialog");
+                            if (MmkvUtil.getInstance().getBoolean(id,false)) {
+                                goCamera(id);
                             }else{
-                                AppNavigator.goCameraActivity(HomeActivity.this,id);
+                                showDialog(id);
                             }
                         }
                     });
@@ -340,4 +331,45 @@ public class HomeActivity extends BaseActivity implements IHomeView {
             }
         }
     }
+
+    private void showDialog(String id){
+        CommonDialog commonDialog = CommonDialog.newInstance(getPageName());
+        commonDialog.setTvTitle("温馨提示");
+        commonDialog.setTvBtnConfirm("试试看！");
+        commonDialog.setTvContent("该功能暂未开放，观看广告可优先体验哦~");
+        commonDialog.setOnChoiceListener(new CommonDialog.OnChoiceListener() {
+            @Override
+            public void onAgree() {
+                MmkvUtil.getInstance().putBoolean(id,true);
+                goCamera(id);
+            }
+
+            @Override
+            public void onDisagree() {
+
+            }
+        });
+        commonDialog.show(getSupportFragmentManager(), "common_dialog");
+    }
+
+
+    private void goCamera(String id) {
+        if(TextUtils.equals(FunctionBean.ID_CHANGE_GENDER_BOY,id)){
+            GenderSelecterDialog genderSelecterDialog = GenderSelecterDialog.newInstance();
+            genderSelecterDialog.setOnChoiceListener(new GenderSelecterDialog.OnChoiceListener() {
+                @Override
+                public void onGenderResurt(int gender) {
+                    if(gender == 1){
+                        AppNavigator.goCameraActivity(HomeActivity.this,FunctionBean.ID_CHANGE_GENDER_BOY);
+                    }else{
+                        AppNavigator.goCameraActivity(HomeActivity.this,FunctionBean.ID_CHANGE_GENDER_GIRL);
+                    }
+                }
+            });
+            genderSelecterDialog.show(getSupportFragmentManager(), "gender_selecter_dialog");
+        }else{
+            AppNavigator.goCameraActivity(HomeActivity.this,id);
+        }
+    }
+
 }

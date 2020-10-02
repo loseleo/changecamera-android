@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.holleQiang:MVPFramework:1.0.2@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/MVPFramework-1.0.2.aar/34ce434b03de21009e1fec1f776407d0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/MVPFramework-1.0.2.aar/34ce434b03de21009e1fec1f776407d0/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.holleQiang/MVPFramework/1.0.2/d411b30cfdd271d22c2e74bc3c85a742a2e3ba6f/MVPFramework-1.0.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
