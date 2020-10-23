@@ -168,7 +168,8 @@ walle {
     // 指定渠道包的输出路径
     apkOutputFolder = new File("${project.buildDir}/outputs/channels")
     // 定制渠道包的APK的文件名称
-    apkFileNameFormat = 'mohuan_${channel}_v${versionName}_${buildType}.apk'
+//    apkFileNameFormat = 'mohuan_${channel}_v${versionName}_${buildType}.apk'
+    apkFileNameFormat = 'mohuan_${channel}.apk'
     // 渠道配置文件
     channelFile = new File("${project.getProjectDir()}/channel")
 }

@@ -38,10 +38,6 @@ import javax.inject.Inject;
 @Route(path = PageIdentity.APP_PASTEFFECT)
 public class PastEffectActivity extends BaseActivity implements IFaceMergeView {
 
-    public String bannerAdType = "bannerAdType";
-    public String rewardedAdType = "rewardedAdType";
-    public String fullScreenVideoType = "fullScreenVideoType";
-
     private ImageView icBack;
     private TextView tvTitle;
     private ConstraintLayout clPreview;
@@ -82,7 +78,7 @@ public class PastEffectActivity extends BaseActivity implements IFaceMergeView {
     @Override
     protected void onResume() {
         super.onResume();
-        adHelper.showBannerAdView(bannerAdType,adContainer);
+        adHelper.showBannerAdView(AdHelper.getBannerAdTypeById(FunctionBean.ID_DETECTION_PAST),adContainer);
     }
 
     @Override
@@ -144,7 +140,7 @@ public class PastEffectActivity extends BaseActivity implements IFaceMergeView {
         layoutAdMantle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adHelper.playRewardedVideo(PastEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+                adHelper.playRewardedVideo(PastEffectActivity.this,AdHelper.getRewardedAdTypeById(FunctionBean.ID_DETECTION_PAST), new AdHelper.PlayRewardedAdCallback() {
                     @Override
                     public void onDismissed(int action) {
                         layoutAdMantle.setVisibility(View.GONE);
@@ -193,7 +189,7 @@ public class PastEffectActivity extends BaseActivity implements IFaceMergeView {
 
     private void saveImage(ViewGroup view){
 
-        adHelper.playRewardedVideo(PastEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+        adHelper.playRewardedVideo(PastEffectActivity.this, AdHelper.getRewardedAdTypeById(FunctionBean.ID_DETECTION_PAST), new AdHelper.PlayRewardedAdCallback() {
             @Override
             public void onDismissed(int action) {
 
@@ -234,7 +230,7 @@ public class PastEffectActivity extends BaseActivity implements IFaceMergeView {
 
     public void finshActivity(){
 
-        adHelper.playFullScreenVideoAd(this, fullScreenVideoType, new AdHelper.PlayRewardedAdCallback() {
+        adHelper.playFullScreenVideoAd(this, AdHelper.getFullScreenVideoAdTypeById(FunctionBean.ID_DETECTION_PAST), new AdHelper.PlayRewardedAdCallback() {
             @Override
             public void onDismissed(int action) {
                 finish();

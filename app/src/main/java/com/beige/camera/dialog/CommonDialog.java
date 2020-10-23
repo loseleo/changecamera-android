@@ -3,6 +3,7 @@ package com.beige.camera.dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,10 @@ public class CommonDialog extends BaseDialogFragment {
     private TextView btnCancel;
 
     private String pageName;
-
+    private String strTitle;
+    private String strContent;
+    private String tvBtnConfirm;
+    private String tvBtnCancel;
 
     public static CommonDialog newInstance(String pageName) {
         Bundle bundle = new Bundle();
@@ -70,6 +74,18 @@ public class CommonDialog extends BaseDialogFragment {
         tvContent = view.findViewById(R.id.tv_content);
         btnConfirm = view.findViewById(R.id.btn_confirm);
         btnCancel = view.findViewById(R.id.btn_cancel);
+        if (!TextUtils.isEmpty(strTitle)) {
+            SpanUtils.setHtmlText(tvTitle, strTitle);
+        }
+        if (!TextUtils.isEmpty(strContent)) {
+            SpanUtils.setHtmlText(tvContent, strContent);
+        }
+        if (!TextUtils.isEmpty(tvBtnConfirm)) {
+            SpanUtils.setHtmlText(btnConfirm, tvBtnConfirm);
+        }
+        if (!TextUtils.isEmpty(tvBtnCancel)) {
+            SpanUtils.setHtmlText(btnCancel, tvBtnCancel);
+        }
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,26 +109,18 @@ public class CommonDialog extends BaseDialogFragment {
     }
 
     public void setTvTitle(String title) {
-        if (tvTitle != null) {
-            SpanUtils.setHtmlText(tvTitle, title);
-        }
+        this.strTitle = title;
     }
 
     public void setTvContent(String strContent) {
-        if (tvTitle != null) {
-            SpanUtils.setHtmlText(tvContent, strContent);
-        }
+        this.strContent = strContent;
     }
 
     public void setTvBtnConfirm(String tvBtnConfirm) {
-        if (tvTitle != null) {
-            SpanUtils.setHtmlText(btnConfirm, tvBtnConfirm);
-        }
+        this.tvBtnConfirm = tvBtnConfirm;
     }
     public void setTvBtnCancel(String tvBtnCancel) {
-        if (tvTitle != null) {
-            SpanUtils.setHtmlText(btnCancel, tvBtnCancel);
-        }
+        this.tvBtnCancel = tvBtnCancel;
     }
 
     @Override

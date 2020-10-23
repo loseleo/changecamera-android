@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.beige.camera.R;
+import com.beige.camera.bean.FunctionBean;
 import com.beige.camera.common.base.BaseActivity;
 import com.beige.camera.common.router.PageIdentity;
 import com.beige.camera.common.utils.ImageUtils;
@@ -31,10 +32,6 @@ import javax.inject.Inject;
 
 @Route(path = PageIdentity.APP_OLDEFFECT)
 public class OldEffectActivity extends BaseActivity implements IEffectImageView {
-
-    public String bannerAdType = "bannerAdType";
-    public String rewardedAdType = "Old_Incentivevideo";
-    public String fullScreenVideoType = "fullScreenVideoType";
 
     private ImageView ivPreview;
     private ImageView icBack;
@@ -88,7 +85,7 @@ public class OldEffectActivity extends BaseActivity implements IEffectImageView 
     @Override
     protected void onResume() {
         super.onResume();
-        adHelper.showBannerAdView(bannerAdType,adContainer);
+        adHelper.showBannerAdView(AdHelper.getBannerAdTypeById(FunctionBean.ID_CHANGE_OLD),adContainer);
     }
 
     @Override
@@ -187,7 +184,7 @@ public class OldEffectActivity extends BaseActivity implements IEffectImageView 
         layoutAdMantle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adHelper.playRewardedVideo(OldEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+                adHelper.playRewardedVideo(OldEffectActivity.this, AdHelper.getRewardedAdTypeById(FunctionBean.ID_CHANGE_OLD), new AdHelper.PlayRewardedAdCallback() {
                     @Override
                     public void onDismissed(int action) {
                         layoutAdMantle.setVisibility(View.GONE);
@@ -266,7 +263,7 @@ public class OldEffectActivity extends BaseActivity implements IEffectImageView 
 
     private void saveImage(View view){
 
-        adHelper.playRewardedVideo(OldEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+        adHelper.playRewardedVideo(OldEffectActivity.this, AdHelper.getRewardedAdTypeById(FunctionBean.ID_CHANGE_OLD), new AdHelper.PlayRewardedAdCallback() {
             @Override
             public void onDismissed(int action) {
 
@@ -306,7 +303,7 @@ public class OldEffectActivity extends BaseActivity implements IEffectImageView 
 
     public void finshActivity(){
 
-        adHelper.playFullScreenVideoAd(this, fullScreenVideoType, new AdHelper.PlayRewardedAdCallback() {
+        adHelper.playFullScreenVideoAd(this, AdHelper.getFullScreenVideoAdTypeById(FunctionBean.ID_CHANGE_OLD), new AdHelper.PlayRewardedAdCallback() {
             @Override
             public void onDismissed(int action) {
                 finish();

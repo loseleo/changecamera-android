@@ -37,10 +37,6 @@ import javax.inject.Inject;
 @Route(path = PageIdentity.APP_BABYEFFECT)
 public class BabyEffectActivity extends BaseActivity implements IFaceMergeView {
 
-    public String bannerAdType = "Finnish_feeds";
-    public String rewardedAdType = "Baby_Incentivevideo";
-    public String fullScreenVideoType = "Baby_Fullvideo";
-
     private ImageView icBack;
     private TextView tvTitle;
     private ImageView ivPreview;
@@ -81,7 +77,7 @@ public class BabyEffectActivity extends BaseActivity implements IFaceMergeView {
     @Override
     protected void onResume() {
         super.onResume();
-        adHelper.showBannerAdView(bannerAdType,adContainer);
+        adHelper.showBannerAdView(AdHelper.getBannerAdTypeById(FunctionBean.ID_DETECTION_BABY),adContainer);
     }
 
     @Override
@@ -162,7 +158,7 @@ public class BabyEffectActivity extends BaseActivity implements IFaceMergeView {
         layoutAdMantle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adHelper.playRewardedVideo(BabyEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+                adHelper.playRewardedVideo(BabyEffectActivity.this, AdHelper.getRewardedAdTypeById(FunctionBean.ID_DETECTION_BABY), new AdHelper.PlayRewardedAdCallback() {
                     @Override
                     public void onDismissed(int action) {
                         layoutAdMantle.setVisibility(View.GONE);
@@ -225,7 +221,7 @@ public class BabyEffectActivity extends BaseActivity implements IFaceMergeView {
 
     private void saveImage(ViewGroup view){
 
-        adHelper.playRewardedVideo(BabyEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+        adHelper.playRewardedVideo(BabyEffectActivity.this, AdHelper.getRewardedAdTypeById(FunctionBean.ID_DETECTION_BABY), new AdHelper.PlayRewardedAdCallback() {
             @Override
             public void onDismissed(int action) {
                 Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件
@@ -282,7 +278,7 @@ public class BabyEffectActivity extends BaseActivity implements IFaceMergeView {
 
     public void finshActivity(){
 
-        adHelper.playFullScreenVideoAd(this, fullScreenVideoType, new AdHelper.PlayRewardedAdCallback() {
+        adHelper.playFullScreenVideoAd(this, AdHelper.getFullScreenVideoAdTypeById(FunctionBean.ID_DETECTION_BABY), new AdHelper.PlayRewardedAdCallback() {
             @Override
             public void onDismissed(int action) {
                 finish();

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.beige.camera.R;
+import com.beige.camera.bean.FunctionBean;
 import com.beige.camera.common.base.BaseActivity;
 import com.beige.camera.common.constant.Constant;
 import com.beige.camera.common.router.PageIdentity;
@@ -34,10 +35,6 @@ import javax.inject.Inject;
 
 @Route(path = PageIdentity.APP_AGEEFFECT)
 public class AgeEffectActivity extends BaseActivity implements IEffectImageView {
-
-    public String bannerAdType = "Finnish_feeds";
-    public String rewardedAdType = "Age_Incentivevideo";
-    public String fullScreenVideoType = "Age_Fullvideo";
 
     private ImageView icBack;
     private ImageView ivPreview;
@@ -68,7 +65,7 @@ public class AgeEffectActivity extends BaseActivity implements IEffectImageView 
     @Override
     protected void onResume() {
         super.onResume();
-        adHelper.showBannerAdView(bannerAdType,adContainer);
+        adHelper.showBannerAdView(AdHelper.getBannerAdTypeById(FunctionBean.ID_DETECTION_AGE),adContainer);
     }
 
     @Override
@@ -128,7 +125,7 @@ public class AgeEffectActivity extends BaseActivity implements IEffectImageView 
         layoutAdMantle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adHelper.playRewardedVideo(AgeEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+                adHelper.playRewardedVideo(AgeEffectActivity.this, AdHelper.getRewardedAdTypeById(FunctionBean.ID_DETECTION_AGE), new AdHelper.PlayRewardedAdCallback() {
                     @Override
                     public void onDismissed(int action) {
                         layoutAdMantle.setVisibility(View.GONE);
@@ -153,7 +150,7 @@ public class AgeEffectActivity extends BaseActivity implements IEffectImageView 
     }
 
     private void saveImage(ViewGroup view){
-        adHelper.playRewardedVideo(AgeEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+        adHelper.playRewardedVideo(AgeEffectActivity.this, AdHelper.getRewardedAdTypeById(FunctionBean.ID_DETECTION_AGE), new AdHelper.PlayRewardedAdCallback() {
             @Override
             public void onDismissed(int action) {
                 Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件
@@ -219,7 +216,7 @@ public class AgeEffectActivity extends BaseActivity implements IEffectImageView 
 
     public void finshActivity(){
 
-        adHelper.playFullScreenVideoAd(this, fullScreenVideoType, new AdHelper.PlayRewardedAdCallback() {
+        adHelper.playFullScreenVideoAd(this, AdHelper.getFullScreenVideoAdTypeById(FunctionBean.ID_DETECTION_AGE), new AdHelper.PlayRewardedAdCallback() {
             @Override
             public void onDismissed(int action) {
                 finish();

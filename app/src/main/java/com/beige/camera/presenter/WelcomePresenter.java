@@ -79,19 +79,12 @@ public class WelcomePresenter extends Presenter<IWelcomeView> {
     }
 
     public void loadSplashAd(AdConfigBean adModel) {
-        AdModel adModelm = new AdModel();
-//        adModelm.setAdCode("887382348");
-//        adModelm.setAdId("887382348");
-//        adModelm.setAdChannel(AdModel.AD_CHANNEL_TOUTIAO);
-        adModelm.setAdCode("3071432421593479");
-        adModelm.setAdId("3071432421593479");
-        adModelm.setAdChannel(AdModel.AD_CHANNEL_GDT);
-        adModelm.setAction(0);
-        ArrayList<AdModel> adModels = new ArrayList<>();
-        adModels.add(adModelm);
         IWelcomeView view = getAttachedView();
+        if(view == null){
+          return;
+        }
         FrameLayout adContainer = view.getAdContainer();
-        AdLoader<SplashAd> splashAdAdLoader = AdManager.loadSplashAd(adContainer, adModels, new Callback<SplashAd>() {
+        AdLoader<SplashAd> splashAdAdLoader = AdManager.loadSplashAd(adContainer, adModel.getCandidates(), new Callback<SplashAd>() {
             @Override
             public void onAdLoadStart(SplashAd ad) {
                 ad.addOnAdSkipListener(new OnAdSkipListener() {

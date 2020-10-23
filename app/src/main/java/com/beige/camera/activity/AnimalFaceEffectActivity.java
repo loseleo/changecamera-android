@@ -46,10 +46,6 @@ import javax.inject.Inject;
 @Route(path = PageIdentity.APP_ANIMALFACEEFFECT)
 public class AnimalFaceEffectActivity extends BaseActivity implements IFaceMergeView {
 
-    public String bannerAdType = "Finnish_feeds";
-    public String rewardedAdType = "Orc_Incentivevideo";
-    public String fullScreenVideoType = "Orc_Fullvideo";
-
     private ImageView ivPreview;
     private ImageView ivPreviewAnimal;
     private ImageView icBack;
@@ -92,7 +88,7 @@ public class AnimalFaceEffectActivity extends BaseActivity implements IFaceMerge
     @Override
     protected void onResume() {
         super.onResume();
-        adHelper.showBannerAdView(bannerAdType, adContainer);
+        adHelper.showBannerAdView(AdHelper.getBannerAdTypeById(FunctionBean.ID_CHANGE_ANIMALFACE), adContainer);
     }
 
     @Override
@@ -167,7 +163,7 @@ public class AnimalFaceEffectActivity extends BaseActivity implements IFaceMerge
 
     public void finshActivity(){
 
-        adHelper.playFullScreenVideoAd(this, fullScreenVideoType, new AdHelper.PlayRewardedAdCallback() {
+        adHelper.playFullScreenVideoAd(this, AdHelper.getFullScreenVideoAdTypeById(FunctionBean.ID_CHANGE_ANIMALFACE), new AdHelper.PlayRewardedAdCallback() {
             @Override
             public void onDismissed(int action) {
                 finish();
@@ -208,7 +204,7 @@ public class AnimalFaceEffectActivity extends BaseActivity implements IFaceMerge
                                 updataView(template);
                                 return;
                             }
-                            adHelper.playRewardedVideo(AnimalFaceEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+                            adHelper.playRewardedVideo(AnimalFaceEffectActivity.this, AdHelper.getRewardedAdTypeById(FunctionBean.ID_CHANGE_ANIMALFACE), new AdHelper.PlayRewardedAdCallback() {
                                 @Override
                                 public void onDismissed(int action) {
                                     updataView(template);
@@ -258,7 +254,7 @@ public class AnimalFaceEffectActivity extends BaseActivity implements IFaceMerge
 
     private void saveImage(View view) {
 
-        adHelper.playRewardedVideo(AnimalFaceEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+        adHelper.playRewardedVideo(AnimalFaceEffectActivity.this, AdHelper.getRewardedAdTypeById(FunctionBean.ID_CHANGE_ANIMALFACE), new AdHelper.PlayRewardedAdCallback() {
             @Override
             public void onDismissed(int action) {
                 Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件

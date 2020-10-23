@@ -45,9 +45,7 @@ import io.reactivex.functions.Consumer;
 @Route(path = PageIdentity.APP_ANIMALEFFECT)
 public class AnimalEffectActivity extends BaseActivity implements IFaceMergeView {
 
-    public String bannerAdType = "Finnish_feeds";
-    public String rewardedAdType = "Animal_Incentivevideo";
-    public String fullScreenVideoType = "Animal_Fullvideo";
+
 
     private ImageView icBack;
     private CardView cardview;
@@ -98,7 +96,7 @@ public class AnimalEffectActivity extends BaseActivity implements IFaceMergeView
     @Override
     protected void onResume() {
         super.onResume();
-        adHelper.showBannerAdView(bannerAdType,adContainer);
+        adHelper.showBannerAdView(AdHelper.getBannerAdTypeById(FunctionBean.ID_CHANGE_ANIMAL),adContainer);
     }
 
     @Override
@@ -152,7 +150,7 @@ public class AnimalEffectActivity extends BaseActivity implements IFaceMergeView
             }
         });
 
-        adHelper.playRewardedVideo(AnimalEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+        adHelper.playRewardedVideo(AnimalEffectActivity.this, AdHelper.getRewardedAdTypeById(FunctionBean.ID_CHANGE_ANIMAL), new AdHelper.PlayRewardedAdCallback() {
             @Override
             public void onDismissed(int action) {
                 showAutoAnimation();
@@ -192,7 +190,7 @@ public class AnimalEffectActivity extends BaseActivity implements IFaceMergeView
 
     private void saveImage(ViewGroup view){
 
-        adHelper.playRewardedVideo(AnimalEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+        adHelper.playRewardedVideo(AnimalEffectActivity.this, AdHelper.getRewardedAdTypeById(FunctionBean.ID_CHANGE_ANIMAL), new AdHelper.PlayRewardedAdCallback() {
             @Override
             public void onDismissed(int action) {
                 Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件
@@ -248,7 +246,7 @@ public class AnimalEffectActivity extends BaseActivity implements IFaceMergeView
     }
 
     public void finshActivity(){
-        adHelper.playFullScreenVideoAd(this, fullScreenVideoType, new AdHelper.PlayRewardedAdCallback() {
+        adHelper.playFullScreenVideoAd(this, AdHelper.getFullScreenVideoAdTypeById(FunctionBean.ID_CHANGE_ANIMAL), new AdHelper.PlayRewardedAdCallback() {
             @Override
             public void onDismissed(int action) {
                 finish();

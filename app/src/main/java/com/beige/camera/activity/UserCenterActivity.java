@@ -27,7 +27,7 @@ import io.reactivex.disposables.Disposable;
 @Route(path = PageIdentity.APP_USERCENTER)
 public class UserCenterActivity extends BaseActivity {
 
-    public String bannerAdType = "Mine_feeds";
+
 
     private ConstraintLayout clClean;
     private TextView tvCleanNum;
@@ -35,9 +35,13 @@ public class UserCenterActivity extends BaseActivity {
     private FrameLayout adContainer;
 
     private Disposable subscribe;
+
+    private AdHelper adHelper;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        adHelper = new AdHelper();
         getVisibleHelper().addVisibilityChangeListener(new OnVisibilityChangeListener() {
             @Override
             public void onVisibilityChange(boolean isVisible) {
@@ -50,7 +54,7 @@ public class UserCenterActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        new AdHelper().showBannerAdView(bannerAdType,adContainer);
+        adHelper.showBannerAdView(AdHelper.getBannerAdTypeById("USER_CENTER_ACTIVITY"),adContainer);
     }
 
 

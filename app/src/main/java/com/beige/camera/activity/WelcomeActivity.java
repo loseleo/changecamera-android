@@ -39,7 +39,7 @@ public class WelcomeActivity extends BaseActivity implements IWelcomeView {
     private static final String TAG = "WelcomeActivity";
     public static final String PRIVACY_VERSION_SERVICE = "privacy_version_service";
     public static final String PRIVACY_VERSION_SHOWED = "privacy_version_showed";
-
+    private boolean isBroughtToFront;
     @Inject
     public WelcomePresenter mPresenter;
 
@@ -48,12 +48,12 @@ public class WelcomeActivity extends BaseActivity implements IWelcomeView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        boolean isBroughtToFront = (getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0;
-//        boolean needShowAd = getIntent().getBooleanExtra("needShowAd", false);
-//        if (!needShowAd && !isTaskRoot() || isBroughtToFront && !needShowAd) {
-//            finish();
-//            return;
-//        }
+        isBroughtToFront = (getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0;
+        boolean needShowAd = getIntent().getBooleanExtra("needShowAd", false);
+        if (!needShowAd && !isTaskRoot() || isBroughtToFront && !needShowAd) {
+            finish();
+            return;
+        }
 
     }
 
@@ -130,7 +130,7 @@ public class WelcomeActivity extends BaseActivity implements IWelcomeView {
     private void getPermissions() {
 
         RxPermissions rxPermissions = new RxPermissions(WelcomeActivity.this);
-        rxPermissions.setLogging(BuildConfig.DEBUG);
+//        rxPermissions.setLogging(BuildConfig.DEBUG);
         rxPermissions.requestEachCombined(Manifest.permission.READ_PHONE_STATE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.CAMERA).subscribe(new Observer<Permission>() {
@@ -141,7 +141,8 @@ public class WelcomeActivity extends BaseActivity implements IWelcomeView {
 
             @Override
             public void onNext(Permission permission) {
-                goNextActivity();
+                mPresenter.showSplashAD();
+//                goNextActivity();
 //                if (permission.granted) {
 //                    goNextActivity();
 //                } else if (!permission.shouldShowRequestPermissionRationale && (System.currentTimeMillis() - requestTime < 500)) {
@@ -153,8 +154,9 @@ public class WelcomeActivity extends BaseActivity implements IWelcomeView {
 
             @Override
             public void onError(Throwable e) {
-                LogUtils.e("getPermissions onError");
-                goNextActivity();
+                mPresenter.showSplashAD();
+//                LogUtils.e("getPermissions onError");
+//                goNextActivity();
             }
 
             @Override
@@ -166,6 +168,9 @@ public class WelcomeActivity extends BaseActivity implements IWelcomeView {
 
 
     private void goNextActivity() {
+        if (!isTaskRoot() || isBroughtToFront) {
+            finish();
+        }
         if (isFinishing()) {
             return;
         }

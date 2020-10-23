@@ -55,6 +55,9 @@ public class CustomCameraPreview extends SurfaceView implements SurfaceHolder.Ca
     }
 
     public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
+        if (mCamera == null) {
+            return;
+        }
         mCamera.stopPreview();
         startPreview(holder);
     }
@@ -135,8 +138,12 @@ public class CustomCameraPreview extends SurfaceView implements SurfaceHolder.Ca
      * @param pictureCallback 在pictureCallback处理拍照回调
      */
     public void takePhoto(Camera.PictureCallback pictureCallback) {
-        if (mCamera != null) {
-            mCamera.takePicture(null, null, pictureCallback);
+        try {
+            if (mCamera != null) {
+                mCamera.takePicture(null, null, pictureCallback);
+            }
+        }catch (Exception e){
+
         }
     }
 
@@ -182,29 +189,38 @@ public class CustomCameraPreview extends SurfaceView implements SurfaceHolder.Ca
 
 
     private Camera openCamera(int type){
-        int frontIndex =-1;
-        int backIndex = -1;
-        int cameraCount = Camera.getNumberOfCameras();
-        Camera.CameraInfo info = new Camera.CameraInfo();
-        for(int cameraIndex = 0; cameraIndex<cameraCount; cameraIndex++){
-            Camera.getCameraInfo(cameraIndex, info);
-            if(info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT){
-                frontIndex = cameraIndex;
-            }else if(info.facing == Camera.CameraInfo.CAMERA_FACING_BACK){
-                backIndex = cameraIndex;
+
+        try {
+            int frontIndex =-1;
+            int backIndex = -1;
+            int cameraCount = Camera.getNumberOfCameras();
+            Camera.CameraInfo info = new Camera.CameraInfo();
+            for(int cameraIndex = 0; cameraIndex<cameraCount; cameraIndex++){
+                Camera.getCameraInfo(cameraIndex, info);
+                if(info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT){
+                    frontIndex = cameraIndex;
+                }else if(info.facing == Camera.CameraInfo.CAMERA_FACING_BACK){
+                    backIndex = cameraIndex;
+                }
             }
+            currentCameraType = type;
+            if(type == FRONT && frontIndex != -1){
+                return Camera.open(frontIndex);
+            }else if(type == BACK && backIndex != -1){
+                return Camera.open(backIndex);
+            }
+            return Camera.open();
+        }catch (Exception e){
+
         }
-        currentCameraType = type;
-        if(type == FRONT && frontIndex != -1){
-            return Camera.open(frontIndex);
-        }else if(type == BACK && backIndex != -1){
-            return Camera.open(backIndex);
-        }
-        return Camera.open();
+        return null;
     }
 
 
     public void switchCamera() {
+        if(mCamera == null){
+            return;
+        }
         long switchCameraTiem = System.currentTimeMillis();
         if (switchCameraTiem - lastSwitchCameraTime > 1000) {
             lastSwitchCameraTime = switchCameraTiem;

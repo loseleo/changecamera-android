@@ -1,5 +1,6 @@
 package com.beige.camera.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
@@ -18,15 +19,25 @@ import android.widget.ImageView;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.beige.camera.BuildConfig;
+import com.beige.camera.MyApplication;
 import com.beige.camera.R;
 import com.beige.camera.bean.FunctionBean;
 import com.beige.camera.common.base.BaseActivity;
 import com.beige.camera.common.router.AppNavigator;
 import com.beige.camera.common.router.PageIdentity;
+import com.beige.camera.common.utils.LogUtils;
 import com.beige.camera.common.utils.MmkvUtil;
+import com.beige.camera.common.utils.PermissionPageUtils;
 import com.beige.camera.utils.AdHelper;
 import com.beige.camera.utils.FileUtil;
 import com.beige.camera.view.CustomCameraPreview;
+import com.tbruyelle.rxpermissions2.Permission;
+import com.tbruyelle.rxpermissions2.RxPermissions;
+
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 /**
  * 拍照界面
@@ -34,15 +45,12 @@ import com.beige.camera.view.CustomCameraPreview;
 @Route(path = PageIdentity.APP_CAMERA)
 public class CameraActivity extends BaseActivity implements View.OnClickListener {
 
-    public String fullScreenVideoType = "Camera_Fullvideo";
-
     public static final  String FUNCTION_IMG_TOOL = "function_img_tool";
     public static final int RESULT_LOAD_CODE = 10001;
     private CustomCameraPreview customCameraPreview;
     private ImageView cameraFlash;
     private ImageView ivLocalImage;
     private ImageView ivSwitchCamera;
-    private View containerView;
     private View cropView;
     private AdHelper adHelper;
 
@@ -72,7 +80,6 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
         cameraFlash = findViewById(R.id.camera_flash);
         ivLocalImage = findViewById(R.id.iv_local_image);
         ivSwitchCamera = findViewById(R.id.iv_switch_camera);
-        containerView = findViewById(R.id.camera_crop_container);
         cropView = findViewById(R.id.camera_crop_container);
         customCameraPreview.setOnClickListener(this);
         ivLocalImage.setOnClickListener(this);
@@ -137,6 +144,7 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void takePhoto() {
+        MyApplication.getInstance().needShowSplashAd = false;
         customCameraPreview.setEnabled(false);
         customCameraPreview.takePhoto(new Camera.PictureCallback() {
             public void onPictureTaken(final byte[] data, final Camera camera) {
@@ -152,10 +160,10 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
                         if (bitmap != null) {
 //                            //计算裁剪位置
                             //计算裁剪位置
-                            float left = ((float) containerView.getLeft() - (float) customCameraPreview.getLeft()) / (float) customCameraPreview.getWidth();
+                            float left = ((float) cropView.getLeft() - (float) customCameraPreview.getLeft()) / (float) customCameraPreview.getWidth();
                             float top = (float) cropView.getTop() / (float) customCameraPreview.getHeight();
-                            float right = (float) containerView.getRight() / (float) customCameraPreview.getWidth();
-//                            float bottom = (float) cropView.getBottom() / (float) customCameraPreview.getHeight();
+                            float right = (float) cropView.getRight() / (float) customCameraPreview.getWidth();
+                            float bottom = (float) cropView.getBottom() / (float) customCameraPreview.getHeight();
 
                             Matrix matrix = new Matrix();
                             if (customCameraPreview.currentCameraType == customCameraPreview.FRONT) {
@@ -168,7 +176,7 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
                                     (int) (left * (float) bitmap.getWidth()),
                                     (int) (top * (float) bitmap.getHeight()),
                                     (int) ((right - left) * (float) bitmap.getWidth()),
-                                    (int) ((right - left) * (float) bitmap.getWidth()),matrix,true);
+                                    (int) ((bottom - top) * (float) bitmap.getHeight()),matrix,true);
 
                             String imgPath = FileUtil.saveBitmap(resBitmap);
                             if (!bitmap.isRecycled()) {
@@ -209,6 +217,7 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
         // 调用android的图库
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         CameraActivity.this.startActivityForResult(intent, RESULT_LOAD_CODE);
+        MyApplication.getInstance().needShowSplashAd = false;
     }
 
     @Override
@@ -241,7 +250,7 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
 
     public void finshActivity(){
 
-        adHelper.playFullScreenVideoAd(this, fullScreenVideoType, new AdHelper.PlayRewardedAdCallback() {
+        adHelper.playFullScreenVideoAd(this, AdHelper.getFullScreenVideoAdTypeById("CAMERA_ACTIVITY"), new AdHelper.PlayRewardedAdCallback() {
             @Override
             public void onDismissed(int action) {
                 finish();

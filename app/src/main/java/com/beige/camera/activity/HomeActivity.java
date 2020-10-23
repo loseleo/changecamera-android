@@ -1,7 +1,9 @@
 package com.beige.camera.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -27,17 +29,20 @@ import com.beige.camera.common.router.AppNavigator;
 import com.beige.camera.common.router.PageIdentity;
 import com.beige.camera.common.utils.AppUtils;
 import com.beige.camera.common.utils.BundleUtil;
+import com.beige.camera.common.utils.ImageUtils;
 import com.beige.camera.common.utils.LogUtils;
 import com.beige.camera.common.utils.MmkvUtil;
 import com.beige.camera.common.utils.MsgUtils;
 import com.beige.camera.common.utils.PackageUtils;
 import com.beige.camera.common.utils.imageloader.BitmapUtil;
+import com.beige.camera.common.view.loadding.CustomDialog;
 import com.beige.camera.contract.IHomeView;
 import com.beige.camera.dagger.MainComponentHolder;
 import com.beige.camera.dialog.CommonDialog;
 import com.beige.camera.dialog.GenderSelecterDialog;
 import com.beige.camera.dialog.UpdataVersionDialog;
 import com.beige.camera.presenter.HomePresenter;
+import com.beige.camera.utils.AdHelper;
 import com.beige.camera.utils.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -50,21 +55,30 @@ import com.zhangqiang.celladapter.vh.ViewHolder;
 import com.zhangqiang.visiblehelper.OnVisibilityChangeListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Stack;
 
 import javax.inject.Inject;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 
 
 @Route(path = PageIdentity.APP_HOME)
 public class HomeActivity extends BaseActivity implements IHomeView {
 
 
+    private static final String BUNDLE_FRAGMENTS_KEY = "android:support:fragments";
+
     @Autowired(name = "schemaUri")
     String schemaUri;
 
     private long mExitTime;
-    private  Banner banner;
-    private  ImageView ivMe;
+    private Banner banner;
+    private ImageView ivMe;
     private RecyclerView rvRecommend;
     private RecyclerView rvHotFunction;
 
@@ -76,11 +90,17 @@ public class HomeActivity extends BaseActivity implements IHomeView {
 
     private String TYPE_BANNER = "banner";
     private String TYPE_RECOMMENDER = "recommender";
+    private AdHelper adHelper;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        Log.e("cold_start_dd", "onCreate total: " + (System.currentTimeMillis() - MyApplication.appStart));
+
+        if (savedInstanceState != null) {
+            //重建时清除 fragment的状态
+            savedInstanceState.remove(BUNDLE_FRAGMENTS_KEY);
+        }
         super.onCreate(savedInstanceState);
+        adHelper = new AdHelper();
         mPresenter.attachView(this);
         mPresenter.checkVersion();
         getVisibleHelper().addVisibilityChangeListener(new OnVisibilityChangeListener() {
@@ -91,6 +111,16 @@ public class HomeActivity extends BaseActivity implements IHomeView {
             }
         });
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (outState != null) {
+            //销毁时不保存fragment的状态
+            outState.remove(BUNDLE_FRAGMENTS_KEY);
+        }
+    }
+
 
     @Override
     protected void onResume() {
@@ -134,20 +164,20 @@ public class HomeActivity extends BaseActivity implements IHomeView {
         rvRecommend.setAdapter(recommendAdapter);
 
         ArrayList<FunctionBean> functionBeanList = new ArrayList<>();
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_OLD,"变老相机",R.mipmap.img_home_pic_old));
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_GENDER_BOY,"性别转换",R.mipmap.img_home_pic_change));
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_CHILD,"童颜相机",R.mipmap.img_home_pic_keds));
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_CARTOON,"漫画脸",R.mipmap.img_home_pic_anime));
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_DETECTION_PAST,"前世今生",R.mipmap.img_home_pic_past));
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_BACKGROUND,"换背景",R.mipmap.img_home_pic_background));
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_HAIR,"换发型",R.mipmap.img_home_pic_hair));
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_CUSTOMS,"异国风情",R.mipmap.img_home_pic_custom));
+        functionBeanList.add(new FunctionBean(FunctionBean.ID_CHANGE_OLD, "变老相机", R.mipmap.img_home_pic_old));
+        functionBeanList.add(new FunctionBean(FunctionBean.ID_CHANGE_GENDER_BOY, "性别转换", R.mipmap.img_home_pic_change));
+        functionBeanList.add(new FunctionBean(FunctionBean.ID_CHANGE_CHILD, "童颜相机", R.mipmap.img_home_pic_keds));
+        functionBeanList.add(new FunctionBean(FunctionBean.ID_CHANGE_CARTOON, "漫画脸", R.mipmap.img_home_pic_anime));
+        functionBeanList.add(new FunctionBean(FunctionBean.ID_DETECTION_PAST, "前世今生", R.mipmap.img_home_pic_past));
+        functionBeanList.add(new FunctionBean(FunctionBean.ID_CHANGE_BACKGROUND, "换背景", R.mipmap.img_home_pic_background));
+        functionBeanList.add(new FunctionBean(FunctionBean.ID_CHANGE_HAIR, "换发型", R.mipmap.img_home_pic_hair));
+        functionBeanList.add(new FunctionBean(FunctionBean.ID_CHANGE_CUSTOMS, "异国风情", R.mipmap.img_home_pic_custom));
 //        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_CLOTHES,"一键换装",R.mipmap.img_home_pic_custom));
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_DETECTION_AGE,"年龄检测",R.mipmap.img_home_pic_age));
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_ANIMAL,"动物预测",R.mipmap.img_home_pic_animal));
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_DETECTION_BABY,"宝宝预测",R.mipmap.img_home_pic_baby));
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_DETECTION_VS,"比比谁美",R.mipmap.img_home_pic_beautiful));
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_ANIMALFACE,"动物人脸",R.mipmap.img_home_pic_animalface));
+        functionBeanList.add(new FunctionBean(FunctionBean.ID_DETECTION_AGE, "年龄检测", R.mipmap.img_home_pic_age));
+        functionBeanList.add(new FunctionBean(FunctionBean.ID_CHANGE_ANIMAL, "动物预测", R.mipmap.img_home_pic_animal));
+        functionBeanList.add(new FunctionBean(FunctionBean.ID_DETECTION_BABY, "宝宝预测", R.mipmap.img_home_pic_baby));
+        functionBeanList.add(new FunctionBean(FunctionBean.ID_DETECTION_VS, "比比谁美", R.mipmap.img_home_pic_beautiful));
+        functionBeanList.add(new FunctionBean(FunctionBean.ID_CHANGE_ANIMALFACE, "动物人脸", R.mipmap.img_home_pic_animalface));
         rvHotFunction.setNestedScrollingEnabled(false);
         rvHotFunction.setLayoutManager(new GridLayoutManager(this, 2));
         rvHotFunction.setAdapter(hotFunctionAdapter);
@@ -162,9 +192,9 @@ public class HomeActivity extends BaseActivity implements IHomeView {
                         @Override
                         public void onClick(View view) {
                             String id = functionBean.getId();
-                            if (MmkvUtil.getInstance().getBoolean(id,false)) {
+                            if (MmkvUtil.getInstance().getBoolean(id, false)) {
                                 goCamera(id);
-                            }else{
+                            } else {
                                 showDialog(id);
                             }
                         }
@@ -187,14 +217,14 @@ public class HomeActivity extends BaseActivity implements IHomeView {
 
                     ImageView ivCover = viewHolder.getView(R.id.iv_cover);
                     TextView tvTitle = viewHolder.getView(R.id.tv_title);
-                     BitmapUtil.loadImage(adModel.getImageUrl(), ivCover);
+                    BitmapUtil.loadImage(adModel.getImageUrl(), ivCover);
 
                     tvTitle.setText(adModel.getTitle());
 
                     viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            AppNavigator.goActivityByUri(HomeActivity.this,adModel.getLocation());
+                            AppNavigator.goActivityByUri(HomeActivity.this, adModel.getLocation());
                         }
                     });
                 }
@@ -215,7 +245,6 @@ public class HomeActivity extends BaseActivity implements IHomeView {
         super.onNewIntent(intent);
         setIntent(intent);
     }
-
 
 
     @Override
@@ -269,9 +298,7 @@ public class HomeActivity extends BaseActivity implements IHomeView {
     }
 
 
-
-
-    public void setBanner(List<AdModel> adModelList){
+    public void setBanner(List<AdModel> adModelList) {
 
         //设置banner样式
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
@@ -295,15 +322,16 @@ public class HomeActivity extends BaseActivity implements IHomeView {
             @Override
             public void OnBannerClick(int position) {
                 AdModel adModel = adModelList.get(position);
-                AppNavigator.goActivityByUri(HomeActivity.this,adModel.getLocation());
+                AppNavigator.goActivityByUri(HomeActivity.this, adModel.getLocation());
             }
         });
 
     }
 
+
     @Override
     public void showDownloadApkDialog(VersionInfoBean mVersionInfo) {
-        if(mVersionInfo == null ){
+        if (mVersionInfo == null) {
             return;
         }
         if (mVersionInfo.getVersionCode() > PackageUtils.getVersionCode(HomeActivity.this)) {
@@ -315,24 +343,24 @@ public class HomeActivity extends BaseActivity implements IHomeView {
     @Override
     public void showAdvertiseConfig(String type, AdConfigBean adConfigBean) {
 
-        if(adConfigBean != null && adConfigBean.getCandidates() != null && adConfigBean.getCandidates().size() > 0){
-            if(TextUtils.equals(TYPE_BANNER,type)){
+        if (adConfigBean != null && adConfigBean.getCandidates() != null && adConfigBean.getCandidates().size() > 0) {
+            if (TextUtils.equals(TYPE_BANNER, type)) {
                 banner.setVisibility(View.VISIBLE);
                 setBanner(adConfigBean.getCandidates());
-            }else{
+            } else {
                 rvRecommend.setVisibility(View.VISIBLE);
                 setRecommender(adConfigBean.getCandidates());
             }
-        }else{
-            if(TextUtils.equals(TYPE_BANNER,type)){
+        } else {
+            if (TextUtils.equals(TYPE_BANNER, type)) {
                 banner.setVisibility(View.GONE);
-            }else{
+            } else {
                 rvRecommend.setVisibility(View.GONE);
             }
         }
     }
 
-    private void showDialog(String id){
+    private void showDialog(String id) {
         CommonDialog commonDialog = CommonDialog.newInstance(getPageName());
         commonDialog.setTvTitle("温馨提示");
         commonDialog.setTvBtnConfirm("试试看！");
@@ -340,8 +368,18 @@ public class HomeActivity extends BaseActivity implements IHomeView {
         commonDialog.setOnChoiceListener(new CommonDialog.OnChoiceListener() {
             @Override
             public void onAgree() {
-                MmkvUtil.getInstance().putBoolean(id,true);
-                goCamera(id);
+                adHelper.playRewardedVideo(HomeActivity.this, AdHelper.getRewardedAdTypeById(id), new AdHelper.PlayRewardedAdCallback() {
+                    @Override
+                    public void onDismissed(int action) {
+                        MmkvUtil.getInstance().putBoolean(id, true);
+                        goCamera(id);
+                    }
+
+                    @Override
+                    public void onFail() {
+
+                    }
+                });
             }
 
             @Override
@@ -354,21 +392,21 @@ public class HomeActivity extends BaseActivity implements IHomeView {
 
 
     private void goCamera(String id) {
-        if(TextUtils.equals(FunctionBean.ID_CHANGE_GENDER_BOY,id)){
+        if (TextUtils.equals(FunctionBean.ID_CHANGE_GENDER_BOY, id)) {
             GenderSelecterDialog genderSelecterDialog = GenderSelecterDialog.newInstance();
             genderSelecterDialog.setOnChoiceListener(new GenderSelecterDialog.OnChoiceListener() {
                 @Override
                 public void onGenderResurt(int gender) {
-                    if(gender == 1){
-                        AppNavigator.goCameraActivity(HomeActivity.this,FunctionBean.ID_CHANGE_GENDER_BOY);
-                    }else{
-                        AppNavigator.goCameraActivity(HomeActivity.this,FunctionBean.ID_CHANGE_GENDER_GIRL);
+                    if (gender == 1) {
+                        AppNavigator.goCameraActivity(HomeActivity.this, FunctionBean.ID_CHANGE_GENDER_BOY);
+                    } else {
+                        AppNavigator.goCameraActivity(HomeActivity.this, FunctionBean.ID_CHANGE_GENDER_GIRL);
                     }
                 }
             });
             genderSelecterDialog.show(getSupportFragmentManager(), "gender_selecter_dialog");
-        }else{
-            AppNavigator.goCameraActivity(HomeActivity.this,id);
+        } else {
+            AppNavigator.goCameraActivity(HomeActivity.this, id);
         }
     }
 

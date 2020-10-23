@@ -44,10 +44,6 @@ import javax.inject.Inject;
 @Route(path = PageIdentity.APP_CARTOONEFFECT)
 public class CartoonEffectActivity extends BaseActivity implements IEffectImageView {
 
-    public String bannerAdType = "Finnish_feeds";
-    public String rewardedAdType = "Cartoon_Incentivevideo";
-    public String fullScreenVideoType = "Cartoon_Fullvideo";
-
     private ImageView ivPreview;
     private ImageView icBack;
     private RecyclerView recyclerView;
@@ -90,7 +86,7 @@ public class CartoonEffectActivity extends BaseActivity implements IEffectImageV
     @Override
     protected void onResume() {
         super.onResume();
-        adHelper.showBannerAdView(bannerAdType,adContainer);
+        adHelper.showBannerAdView(AdHelper.getBannerAdTypeById(FunctionBean.ID_CHANGE_CARTOON),adContainer);
     }
 
     @Override
@@ -189,7 +185,7 @@ public class CartoonEffectActivity extends BaseActivity implements IEffectImageV
         layoutAdMantle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adHelper.playRewardedVideo(CartoonEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+                adHelper.playRewardedVideo(CartoonEffectActivity.this, AdHelper.getRewardedAdTypeById(FunctionBean.ID_CHANGE_CARTOON), new AdHelper.PlayRewardedAdCallback() {
                     @Override
                     public void onDismissed(int action) {
                         layoutAdMantle.setVisibility(View.GONE);
@@ -270,7 +266,7 @@ public class CartoonEffectActivity extends BaseActivity implements IEffectImageV
 
     private void saveImage(View view){
 
-        adHelper.playRewardedVideo(CartoonEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+        adHelper.playRewardedVideo(CartoonEffectActivity.this, AdHelper.getRewardedAdTypeById(FunctionBean.ID_CHANGE_CARTOON), new AdHelper.PlayRewardedAdCallback() {
             @Override
             public void onDismissed(int action) {
                 Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件
@@ -308,7 +304,7 @@ public class CartoonEffectActivity extends BaseActivity implements IEffectImageV
 
     public void finshActivity(){
 
-        adHelper.playFullScreenVideoAd(this, fullScreenVideoType, new AdHelper.PlayRewardedAdCallback() {
+        adHelper.playFullScreenVideoAd(this, AdHelper.getFullScreenVideoAdTypeById(FunctionBean.ID_CHANGE_CARTOON), new AdHelper.PlayRewardedAdCallback() {
             @Override
             public void onDismissed(int action) {
                 finish();

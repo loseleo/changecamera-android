@@ -41,6 +41,7 @@ public class MyApplication extends BaseApplication {
 
     private static MyApplication sInstance;
     public static long appStart;
+    public boolean needShowSplashAd = true;
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -107,9 +108,11 @@ public class MyApplication extends BaseApplication {
             public void onAppReturnForeground() {
                 LogUtils.e("zhangning","onAppReturnForeground");
                 Intent intent = new Intent(sInstance, WelcomeActivity.class);
+                intent.putExtra("needShowAd", needShowSplashAd);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 sInstance.startActivity(intent);
+                needShowSplashAd =true;
             }
 
             @Override

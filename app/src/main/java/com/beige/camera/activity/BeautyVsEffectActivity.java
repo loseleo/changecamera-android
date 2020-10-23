@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.beige.camera.R;
+import com.beige.camera.bean.FunctionBean;
 import com.beige.camera.common.base.BaseActivity;
 import com.beige.camera.common.router.PageIdentity;
 import com.beige.camera.common.utils.ImageUtils;
@@ -28,10 +29,6 @@ import com.beige.camera.utils.AdHelper;
 
 @Route(path = PageIdentity.APP_BEAUTYVSEFFECT)
 public class BeautyVsEffectActivity extends BaseActivity implements IEffectImageView {
-
-    public String bannerAdType = "Finnish_feeds";
-    public String rewardedAdType = "Compete_Fullvideo";
-    public String fullScreenVideoType = "Compete_Incentivevideo";
 
     private ImageView icBack;
     private TextView tvTitle;
@@ -94,7 +91,7 @@ public class BeautyVsEffectActivity extends BaseActivity implements IEffectImage
     @Override
     protected void onResume() {
         super.onResume();
-        adHelper.showBannerAdView(bannerAdType, adContainer);
+        adHelper.showBannerAdView(AdHelper.getBannerAdTypeById(FunctionBean.ID_DETECTION_VS), adContainer);
     }
 
     @Override
@@ -223,7 +220,7 @@ public class BeautyVsEffectActivity extends BaseActivity implements IEffectImage
             }
         });
 
-        adHelper.playRewardedVideo(BeautyVsEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+        adHelper.playRewardedVideo(BeautyVsEffectActivity.this, AdHelper.getRewardedAdTypeById(FunctionBean.ID_DETECTION_VS), new AdHelper.PlayRewardedAdCallback() {
             @Override
             public void onDismissed(int action) {
             }
@@ -262,7 +259,7 @@ public class BeautyVsEffectActivity extends BaseActivity implements IEffectImage
 
     private void saveImage(ViewGroup view){
 
-        adHelper.playRewardedVideo(BeautyVsEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+        adHelper.playRewardedVideo(BeautyVsEffectActivity.this, AdHelper.getRewardedAdTypeById(FunctionBean.ID_DETECTION_VS), new AdHelper.PlayRewardedAdCallback() {
             @Override
             public void onDismissed(int action) {
                 Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件
@@ -317,7 +314,7 @@ public class BeautyVsEffectActivity extends BaseActivity implements IEffectImage
 
     public void finshActivity(){
 
-        adHelper.playFullScreenVideoAd(this, fullScreenVideoType, new AdHelper.PlayRewardedAdCallback() {
+        adHelper.playFullScreenVideoAd(this, AdHelper.getFullScreenVideoAdTypeById(FunctionBean.ID_DETECTION_VS), new AdHelper.PlayRewardedAdCallback() {
             @Override
             public void onDismissed(int action) {
                 finish();

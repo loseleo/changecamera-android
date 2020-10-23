@@ -45,16 +45,6 @@ import javax.inject.Inject;
 @Route(path = PageIdentity.APP_FACEMEGREEFFECT)
 public class FaceMegreEffectActivity extends BaseActivity implements IFaceMergeView {
 
-    public String customs_rewardedAdType = "Foreign_Incentivevideo";
-    public String hair_rewardedAdType = "Hairdo_Incentivevideo";
-    public String hair_fullScreenVideoType = "Hairdo_Fullvideo";
-    public String customs_fullScreenVideoType = "Foreign_Fullvideo";
-
-
-    public String bannerAdType = "Finnish_feeds";
-    public String rewardedAdType;
-    public String fullScreenVideoType;
-
     private ImageView ivPreview;
     private ImageView icBack;
     private RecyclerView recyclerView;
@@ -99,7 +89,7 @@ public class FaceMegreEffectActivity extends BaseActivity implements IFaceMergeV
     @Override
     protected void onResume() {
         super.onResume();
-        adHelper.showBannerAdView(bannerAdType, adContainer);
+        adHelper.showBannerAdView(AdHelper.getBannerAdTypeById(function), adContainer);
     }
 
     @Override
@@ -118,14 +108,6 @@ public class FaceMegreEffectActivity extends BaseActivity implements IFaceMergeV
         adContainer = findViewById(R.id.fl_ad_container);
         layoutAdMantle = findViewById(R.id.layout_ad_mantle);
         adHelper = new AdHelper();
-
-        if (TextUtils.equals(function,FunctionBean.ID_CHANGE_HAIR)) {
-            rewardedAdType = hair_rewardedAdType;
-            fullScreenVideoType = hair_fullScreenVideoType;
-        }else if (TextUtils.equals(function,FunctionBean.ID_CHANGE_CUSTOMS)) {
-            rewardedAdType = customs_rewardedAdType;
-            fullScreenVideoType =customs_fullScreenVideoType;
-        }
     }
 
     @Override
@@ -169,7 +151,7 @@ public class FaceMegreEffectActivity extends BaseActivity implements IFaceMergeV
         layoutAdMantle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adHelper.playRewardedVideo(FaceMegreEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+                adHelper.playRewardedVideo(FaceMegreEffectActivity.this, AdHelper.getRewardedAdTypeById(function), new AdHelper.PlayRewardedAdCallback() {
                     @Override
                     public void onDismissed(int action) {
                         layoutAdMantle.setVisibility(View.GONE);
@@ -256,7 +238,7 @@ public class FaceMegreEffectActivity extends BaseActivity implements IFaceMergeV
 
 
     private void saveImage(View view) {
-        adHelper.playRewardedVideo(FaceMegreEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+        adHelper.playRewardedVideo(FaceMegreEffectActivity.this, AdHelper.getRewardedAdTypeById(function), new AdHelper.PlayRewardedAdCallback() {
             @Override
             public void onDismissed(int action) {
                 Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件
@@ -314,7 +296,7 @@ public class FaceMegreEffectActivity extends BaseActivity implements IFaceMergeV
 
     public void finshActivity(){
 
-        adHelper.playFullScreenVideoAd(this, fullScreenVideoType, new AdHelper.PlayRewardedAdCallback() {
+        adHelper.playFullScreenVideoAd(this, AdHelper.getFullScreenVideoAdTypeById(function), new AdHelper.PlayRewardedAdCallback() {
             @Override
             public void onDismissed(int action) {
                 finish();

@@ -86,4 +86,5 @@ public class FunctionBean implements Serializable {
     public void setShowAD(boolean showAD) {
         isShowAD = showAD;
     }
+
 }

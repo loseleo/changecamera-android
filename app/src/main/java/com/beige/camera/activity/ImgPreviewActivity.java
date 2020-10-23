@@ -18,6 +18,7 @@ import com.beige.camera.bean.FunctionBean;
 import com.beige.camera.common.router.AppNavigator;
 import com.beige.camera.common.utils.MmkvUtil;
 import com.beige.camera.dialog.CommonDialog;
+import com.beige.camera.utils.AdHelper;
 import com.beige.camera.utils.FileUtil;
 import com.beige.camera.common.base.BaseActivity;
 import com.beige.camera.common.router.PageIdentity;
@@ -45,14 +46,16 @@ public class ImgPreviewActivity extends BaseActivity {
     @Autowired(name = "image_path")
     String imagePath;
 
+    private AdHelper adHelper;
+
     ArrayList<FunctionBean> functionBeanList;
     private String selectFunction = FunctionBean.ID_CHANGE_OLD;
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        adHelper = new AdHelper();
     }
 
     @Override
@@ -76,26 +79,26 @@ public class ImgPreviewActivity extends BaseActivity {
     @Override
     public void initData() {
         functionBeanList = new ArrayList<>();
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_OLD,"变老相机",R.mipmap.icon_camera_pic_old));
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_GENDER_BOY,"性别转换",R.mipmap.icon_camera_pic_change));
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_CHILD,"童颜相机",R.mipmap.icon_camera_pic_keds));
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_CARTOON,"漫画脸",R.mipmap.icon_camera_pic_anime));
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_DETECTION_PAST,"前世今生",R.mipmap.icon_camera_pic_pre));
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_BACKGROUND,"换背景",R.mipmap.icon_camera_pic_bg));
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_HAIR,"换发型",R.mipmap.icon_camera_pic_hair));
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_CUSTOMS,"异国风情",R.mipmap.icon_camera_pic_exotic));
+        functionBeanList.add(new FunctionBean(FunctionBean.ID_CHANGE_OLD, "变老相机", R.mipmap.icon_camera_pic_old));
+        functionBeanList.add(new FunctionBean(FunctionBean.ID_CHANGE_GENDER_BOY, "性别转换", R.mipmap.icon_camera_pic_change));
+        functionBeanList.add(new FunctionBean(FunctionBean.ID_CHANGE_CHILD, "童颜相机", R.mipmap.icon_camera_pic_keds));
+        functionBeanList.add(new FunctionBean(FunctionBean.ID_CHANGE_CARTOON, "漫画脸", R.mipmap.icon_camera_pic_anime));
+        functionBeanList.add(new FunctionBean(FunctionBean.ID_DETECTION_PAST, "前世今生", R.mipmap.icon_camera_pic_pre));
+        functionBeanList.add(new FunctionBean(FunctionBean.ID_CHANGE_BACKGROUND, "换背景", R.mipmap.icon_camera_pic_bg));
+        functionBeanList.add(new FunctionBean(FunctionBean.ID_CHANGE_HAIR, "换发型", R.mipmap.icon_camera_pic_hair));
+        functionBeanList.add(new FunctionBean(FunctionBean.ID_CHANGE_CUSTOMS, "异国风情", R.mipmap.icon_camera_pic_exotic));
 //        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_CLOTHES,"一键换装",R.mipmap.icon_camera_pic_exotic));
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_DETECTION_AGE,"年龄检测",R.mipmap.icon_camera_pic_age));
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_ANIMAL,"动物预测",R.mipmap.icon_camera_pic_animal));
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_DETECTION_BABY,"宝宝预测",R.mipmap.icon_camera_pic_baby));
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_DETECTION_VS,"比比谁美",R.mipmap.icon_camera_pic_beautiful));
-        functionBeanList.add( new FunctionBean(FunctionBean.ID_CHANGE_ANIMALFACE,"动物人脸",R.mipmap.icon_camera_pic_aniface));
+        functionBeanList.add(new FunctionBean(FunctionBean.ID_DETECTION_AGE, "年龄检测", R.mipmap.icon_camera_pic_age));
+        functionBeanList.add(new FunctionBean(FunctionBean.ID_CHANGE_ANIMAL, "动物预测", R.mipmap.icon_camera_pic_animal));
+        functionBeanList.add(new FunctionBean(FunctionBean.ID_DETECTION_BABY, "宝宝预测", R.mipmap.icon_camera_pic_baby));
+        functionBeanList.add(new FunctionBean(FunctionBean.ID_DETECTION_VS, "比比谁美", R.mipmap.icon_camera_pic_beautiful));
+        functionBeanList.add(new FunctionBean(FunctionBean.ID_CHANGE_ANIMALFACE, "动物人脸", R.mipmap.icon_camera_pic_aniface));
 
     }
 
     @Override
     public void configViews() {
-        LogUtils.e("zhangning","imagePath = " + imagePath);
+        LogUtils.e("zhangning", "imagePath = " + imagePath);
         ivPreview.setImageBitmap(BitmapFactory.decodeFile(imagePath));
         icBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +110,6 @@ public class ImgPreviewActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 goNextPage();
-                finish();
             }
         });
 
@@ -133,9 +135,9 @@ public class ImgPreviewActivity extends BaseActivity {
                     TextView tvTitle = viewHolder.getView(R.id.tv_title);
                     BitmapUtil.loadImage(function.getDrawable(), ivCover);
                     tvTitle.setText(function.getTitle());
-                    if (TextUtils.equals(selectFunction,function.getId())) {
+                    if (TextUtils.equals(selectFunction, function.getId())) {
                         bgSelected.setVisibility(View.VISIBLE);
-                    }else{
+                    } else {
                         bgSelected.setVisibility(View.INVISIBLE);
                     }
                     viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -159,11 +161,12 @@ public class ImgPreviewActivity extends BaseActivity {
         return PageIdentity.APP_IMGPREVIEW;
     }
 
-    private void goNextPage(){
+    private void goNextPage() {
 
-        if (MmkvUtil.getInstance().getBoolean(selectFunction,false)) {
-            AppNavigator.goImgUploadActivity(ImgPreviewActivity.this,imagePath,selectFunction);
-        }else{
+        if (MmkvUtil.getInstance().getBoolean(selectFunction, false)) {
+            AppNavigator.goImgUploadActivity(ImgPreviewActivity.this, imagePath, selectFunction);
+            finish();
+        } else {
             CommonDialog commonDialog = CommonDialog.newInstance(getPageName());
             commonDialog.setTvTitle("温馨提示");
             commonDialog.setTvBtnConfirm("试试看！");
@@ -171,8 +174,20 @@ public class ImgPreviewActivity extends BaseActivity {
             commonDialog.setOnChoiceListener(new CommonDialog.OnChoiceListener() {
                 @Override
                 public void onAgree() {
-                    MmkvUtil.getInstance().putBoolean(selectFunction,true);
-                    AppNavigator.goImgUploadActivity(ImgPreviewActivity.this,imagePath,selectFunction);
+                    adHelper.playRewardedVideo(ImgPreviewActivity.this, AdHelper.getRewardedAdTypeById(selectFunction), new AdHelper.PlayRewardedAdCallback() {
+                        @Override
+                        public void onDismissed(int action) {
+                            MmkvUtil.getInstance().putBoolean(selectFunction, true);
+                            AppNavigator.goImgUploadActivity(ImgPreviewActivity.this, imagePath, selectFunction);
+                            finish();
+                        }
+
+                        @Override
+                        public void onFail() {
+
+                        }
+                    });
+
                 }
 
                 @Override

@@ -7,7 +7,6 @@ import android.text.TextUtils;
 
 import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.beige.camera.common.BuildConfig;
 import com.beige.camera.common.base.BaseActivity;
 import com.beige.camera.common.utils.LogUtils;
 import com.beige.camera.common.utils.PermissionPageUtils;
@@ -15,6 +14,7 @@ import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
 
@@ -33,69 +33,78 @@ public class AppNavigator {
     }
 
     public static void goCameraActivity(BaseActivity context, String function) {
+        try {
+            RxPermissions rxPermissions = new RxPermissions(context);
+            rxPermissions.requestEachCombined(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<Permission>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+                            LogUtils.e("getPermissions onSubscribe");
+                        }
 
-        RxPermissions rxPermissions = new RxPermissions(context);
-        rxPermissions.setLogging(BuildConfig.DEBUG);
-        rxPermissions.requestEachCombined(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA).subscribe(new Observer<Permission>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-                LogUtils.e("getPermissions onSubscribe");
-            }
+                        @Override
+                        public void onNext(Permission permission) {
+                            LogUtils.e("zhangning", "Permission = " + permission.toString());
+                            if (permission.granted) {
+                                ARouter.getInstance().build(PageIdentity.APP_CAMERA)
+                                        .withString("function", function)
+                                        .navigation(context);
 
-            @Override
-            public void onNext(Permission permission) {
-                LogUtils.e("zhangning", "Permission = " + permission.toString());
-                if (permission.granted) {
-                    ARouter.getInstance().build(PageIdentity.APP_CAMERA)
-                            .withString("function", function)
-                            .navigation(context);
+                            } else if (!permission.shouldShowRequestPermissionRationale) {
+                                new PermissionPageUtils(context).jumpPermissionPage();
+                            }
+                        }
 
-                } else if (!permission.shouldShowRequestPermissionRationale) {
-                    new PermissionPageUtils(context).jumpPermissionPage();
-                }
-            }
+                        @Override
+                        public void onError(Throwable e) {
+                        }
 
-            @Override
-            public void onError(Throwable e) {
-            }
+                        @Override
+                        public void onComplete() {
+                        }
+                    });
+        } catch (Exception e) {
 
-            @Override
-            public void onComplete() {
-            }
-        });
+        }
+
     }
 
     public static void goCameraActivity(BaseActivity context, String function, int requestCode) {
+        try {
+            RxPermissions rxPermissions = new RxPermissions(context);
+            rxPermissions.requestEachCombined(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<Permission>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+                            LogUtils.e("getPermissions onSubscribe");
+                        }
 
-        RxPermissions rxPermissions = new RxPermissions(context);
-        rxPermissions.setLogging(BuildConfig.DEBUG);
-        rxPermissions.requestEachCombined(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA).subscribe(new Observer<Permission>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-                LogUtils.e("getPermissions onSubscribe");
-            }
+                        @Override
+                        public void onNext(Permission permission) {
+                            LogUtils.e("zhangning", "Permission = " + permission.toString());
+                            if (permission.granted) {
+                                ARouter.getInstance().build(PageIdentity.APP_CAMERA)
+                                        .withString("function", function)
+                                        .navigation(context, requestCode);
 
-            @Override
-            public void onNext(Permission permission) {
-                LogUtils.e("zhangning", "Permission = " + permission.toString());
-                if (permission.granted) {
-                    ARouter.getInstance().build(PageIdentity.APP_CAMERA)
-                            .withString("function", function)
-                            .navigation(context, requestCode);
+                            } else if (!permission.shouldShowRequestPermissionRationale) {
+                                new PermissionPageUtils(context).jumpPermissionPage();
+                            }
+                        }
 
-                } else if (!permission.shouldShowRequestPermissionRationale) {
-                    new PermissionPageUtils(context).jumpPermissionPage();
-                }
-            }
+                        @Override
+                        public void onError(Throwable e) {
+                        }
 
-            @Override
-            public void onError(Throwable e) {
-            }
+                        @Override
+                        public void onComplete() {
+                        }
+                    });
+        } catch (Exception e) {
 
-            @Override
-            public void onComplete() {
-            }
-        });
+        }
     }
 
     public static void goImgPreviewActivity(Context context, String imagePath) {
@@ -221,9 +230,9 @@ public class AppNavigator {
         String ddAppSchemeHost = PageIdentity.APP_SCHEME_HOST;
         // 需要中转的uri
         String path = uriString.substring(ddAppSchemeHost.length(), uriString.contains("?") ? uriString.indexOf("?") : uriString.length());
-        if(TextUtils.equals(PageIdentity.APP_WEBVIEW,path)){
-            String url = uriString.substring(uriString.indexOf("?") + 1).replace("url=","");
-            goWebViewActivity(context,url);
+        if (TextUtils.equals(PageIdentity.APP_WEBVIEW, path)) {
+            String url = uriString.substring(uriString.indexOf("?") + 1).replace("url=", "");
+            goWebViewActivity(context, url);
             return;
         }
         Postcard build = ARouter.getInstance().build(path);

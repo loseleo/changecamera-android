@@ -48,10 +48,6 @@ import javax.inject.Inject;
 @Route(path = PageIdentity.APP_BACKGROUNDEFFECT)
 public class BackgroundEffectActivity extends BaseActivity implements IBodySegView {
 
-    public String bannerAdType = "Finnish_feeds";
-    public String rewardedAdType = "Background_Incentivevideo";
-    public String fullScreenVideoType = "Background_Fullvideo";
-
     private ImageView icBack;
     private TextView tvTitle;
     private ConstraintLayout clSaveImage;
@@ -91,7 +87,7 @@ public class BackgroundEffectActivity extends BaseActivity implements IBodySegVi
     @Override
     protected void onResume() {
         super.onResume();
-        adHelper.showBannerAdView(bannerAdType,adContainer);
+        adHelper.showBannerAdView(AdHelper.getBannerAdTypeById(FunctionBean.ID_CHANGE_BACKGROUND),adContainer);
     }
 
     @Override
@@ -159,7 +155,7 @@ public class BackgroundEffectActivity extends BaseActivity implements IBodySegVi
 
     private void saveImage(ViewGroup view){
 
-        adHelper.playRewardedVideo(BackgroundEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+        adHelper.playRewardedVideo(BackgroundEffectActivity.this, AdHelper.getRewardedAdTypeById(FunctionBean.ID_CHANGE_BACKGROUND), new AdHelper.PlayRewardedAdCallback() {
             @Override
             public void onDismissed(int action) {
                 Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件
@@ -208,7 +204,7 @@ public class BackgroundEffectActivity extends BaseActivity implements IBodySegVi
                                 setEffectImage(template);
                                 return;
                             }
-                            adHelper.playRewardedVideo(BackgroundEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+                            adHelper.playRewardedVideo(BackgroundEffectActivity.this, AdHelper.getRewardedAdTypeById(FunctionBean.ID_CHANGE_BACKGROUND), new AdHelper.PlayRewardedAdCallback() {
                                 @Override
                                 public void onDismissed(int action) {
                                     setEffectImage(template);
@@ -266,7 +262,7 @@ public class BackgroundEffectActivity extends BaseActivity implements IBodySegVi
 
     public void finshActivity(){
 
-        adHelper.playFullScreenVideoAd(this, fullScreenVideoType, new AdHelper.PlayRewardedAdCallback() {
+        adHelper.playFullScreenVideoAd(this, AdHelper.getFullScreenVideoAdTypeById(FunctionBean.ID_CHANGE_BACKGROUND), new AdHelper.PlayRewardedAdCallback() {
             @Override
             public void onDismissed(int action) {
                 finish();

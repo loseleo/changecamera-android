@@ -32,16 +32,6 @@ import javax.inject.Inject;
 @Route(path = PageIdentity.APP_FACEEDITEFFECT)
 public class FaceEditEffectActivity extends BaseActivity implements IEffectImageView {
 
-    public String gender_rewardedAdType = "Gender_Incentivevideo";
-    public String children_rewardedAdType = "Children_Incentivevideo";
-    public String gender_fullScreenVideoType = "Gender_Fullvideo";
-    public String children_fullScreenVideoType = "Children_Fullvideo";
-    public String bannerAdType = "Finnish_feeds";
-    public String fullScreenVideoType;
-    public String rewardedAdType;
-
-
-
     private ConstraintLayout clSaveImage;
     private ImageView icBack;
     private TextView tvTitle;
@@ -81,7 +71,7 @@ public class FaceEditEffectActivity extends BaseActivity implements IEffectImage
     @Override
     protected void onResume() {
         super.onResume();
-        adHelper.showBannerAdView(bannerAdType,adContainer);
+        adHelper.showBannerAdView(AdHelper.getBannerAdTypeById(function),adContainer);
     }
 
     @Override
@@ -116,12 +106,8 @@ public class FaceEditEffectActivity extends BaseActivity implements IEffectImage
     public void configViews() {
         if (TextUtils.equals(function,FunctionBean.ID_CHANGE_GENDER_BOY) || TextUtils.equals(function,FunctionBean.ID_CHANGE_GENDER_GIRL)) {
             tvTitle.setText("性别转换");
-            rewardedAdType = gender_rewardedAdType;
-            fullScreenVideoType = gender_fullScreenVideoType;
         }else if (TextUtils.equals(function,FunctionBean.ID_CHANGE_CHILD)) {
             tvTitle.setText("童颜相机");
-            rewardedAdType = children_rewardedAdType;
-            fullScreenVideoType = children_fullScreenVideoType;
         }
         LogUtils.e("zhangning", "imagePath = " + imagePath);
         BitmapUtil.loadImageCircle(this,imagePath,R.drawable.bg_shape_gender_gray,ivNormal);
@@ -154,7 +140,7 @@ public class FaceEditEffectActivity extends BaseActivity implements IEffectImage
             actionType = "TO_KID";
         }
         mPresenter.getFaceEditAttr(imagePath,actionType);
-        adHelper.playRewardedVideo(FaceEditEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+        adHelper.playRewardedVideo(FaceEditEffectActivity.this, AdHelper.getRewardedAdTypeById(function), new AdHelper.PlayRewardedAdCallback() {
             @Override
             public void onDismissed(int action) {
             }
@@ -193,7 +179,7 @@ public class FaceEditEffectActivity extends BaseActivity implements IEffectImage
 
     private void saveImage(View view){
 
-        adHelper.playRewardedVideo(FaceEditEffectActivity.this, rewardedAdType, new AdHelper.PlayRewardedAdCallback() {
+        adHelper.playRewardedVideo(FaceEditEffectActivity.this, AdHelper.getRewardedAdTypeById(function), new AdHelper.PlayRewardedAdCallback() {
             @Override
             public void onDismissed(int action) {
                 Bitmap bitmap = ImageUtils.getBitmapByView(view);//contentLly是布局文件
@@ -231,7 +217,7 @@ public class FaceEditEffectActivity extends BaseActivity implements IEffectImage
 
     public void finshActivity(){
 
-        adHelper.playFullScreenVideoAd(this, fullScreenVideoType, new AdHelper.PlayRewardedAdCallback() {
+        adHelper.playFullScreenVideoAd(this, AdHelper.getFullScreenVideoAdTypeById(function), new AdHelper.PlayRewardedAdCallback() {
             @Override
             public void onDismissed(int action) {
                 finish();
