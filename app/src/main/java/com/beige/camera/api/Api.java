@@ -49,8 +49,8 @@ public class Api {
         return service.getEffectAge(imageUrl);
     }
 
-    public Observable<ApiResult<EffectImageBean>> getFaceEditAttr(String imageUrl, String actionType) {
-        return service.getFaceEditAttr(imageUrl, actionType);
+    public Observable<ApiResult<EffectImageBean>> getFaceEditAttr(String imageUrl, String actionType,String age) {
+        return service.getFaceEditAttr(imageUrl, actionType,age);
     }
 
     public Observable<ApiResult<EffectImageBean>> getImageStyleTrans(String imageUrl, String option) {

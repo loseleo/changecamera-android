@@ -27,6 +27,7 @@ import com.beige.camera.presenter.EffectImagePresenter;
 import com.beige.camera.utils.AdHelper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.inject.Inject;
 
@@ -57,8 +58,7 @@ public class OldEffectActivity extends BaseActivity implements IEffectImageView 
     public EffectImagePresenter mPresenter;
 
     private String selectAge = "now";
-    private String effectImage = "";
-
+    HashMap<String,String>  effectImageMap = new HashMap<String,String>();
     private ArrayList<String> showADList = new ArrayList<>();
 
     @Autowired(name = "image_path")
@@ -168,22 +168,22 @@ public class OldEffectActivity extends BaseActivity implements IEffectImageView 
         clSelectAge40.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectAge = "40";
+                selectAge = "50";
                 setSelectAge();
             }
         });
         clSelectAge50.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectAge = "50";
+                selectAge = "80";
                 setSelectAge();
             }
         });
 
-        mPresenter.getFaceEditAttr(imagePath, "TO_OLD");
         layoutAdMantle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 adHelper.playRewardedVideo(OldEffectActivity.this, AdHelper.getRewardedAdTypeById(FunctionBean.ID_CHANGE_OLD), new AdHelper.PlayRewardedAdCallback() {
                     @Override
                     public void onDismissed(int action) {
@@ -222,10 +222,10 @@ public class OldEffectActivity extends BaseActivity implements IEffectImageView 
         } else if (TextUtils.equals(selectAge, "30")) {
             selectAge30.setVisibility(View.VISIBLE);
             tvSelectAge30.setTextColor(getResources().getColor(R.color.common_color_FF390B));
-        } else if (TextUtils.equals(selectAge, "40")) {
+        } else if (TextUtils.equals(selectAge, "50")) {
             selectAge40.setVisibility(View.VISIBLE);
             tvSelectAge40.setTextColor(getResources().getColor(R.color.common_color_FF390B));
-        } else if (TextUtils.equals(selectAge, "50")) {
+        } else if (TextUtils.equals(selectAge, "80")) {
             selectAge50.setVisibility(View.VISIBLE);
             tvSelectAge50.setTextColor(getResources().getColor(R.color.common_color_FF390B));
         }
@@ -237,12 +237,19 @@ public class OldEffectActivity extends BaseActivity implements IEffectImageView 
             BitmapUtil.loadImage(imagePath,ivPreview);
             layoutAdMantle.setVisibility(View.GONE);
         }else{
+            String effectImage = effectImageMap.get(selectAge);
+
             if (showADList.contains(selectAge)) {
                 layoutAdMantle.setVisibility(View.GONE);
             }else{
                 layoutAdMantle.setVisibility(View.VISIBLE);
             }
-            BitmapUtil.loadImage(effectImage,ivPreview);
+
+            if(TextUtils.isEmpty(effectImage)){
+                mPresenter.getFaceEditAttr(imagePath, "TO_AGE",selectAge);
+            }else{
+                BitmapUtil.loadImage(effectImage,ivPreview);
+            }
         }
     }
 
@@ -250,9 +257,8 @@ public class OldEffectActivity extends BaseActivity implements IEffectImageView 
     public void onResultEffectImage(String image, String actionType) {
         if (TextUtils.isEmpty(image)) {
             MsgUtils.showToastCenter(OldEffectActivity.this,"图片处理失败");
-            effectImage = imagePath;
         }
-        effectImage = image;
+        effectImageMap.put(selectAge,image);
         setEffectImage();
     }
 

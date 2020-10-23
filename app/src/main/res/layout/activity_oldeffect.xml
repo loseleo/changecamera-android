@@ -161,7 +161,7 @@
             app:layout_constraintTop_toBottomOf="@+id/select_age_40"
             app:layout_constraintLeft_toLeftOf="@+id/select_age_40"
             app:layout_constraintRight_toRightOf="@+id/select_age_40"
-            android:text="40年后"/>
+            android:text="50年后"/>
 
     </android.support.constraint.ConstraintLayout>
 
@@ -202,7 +202,7 @@
             app:layout_constraintTop_toBottomOf="@+id/iv_select"
             app:layout_constraintLeft_toLeftOf="@+id/iv_select"
             app:layout_constraintRight_toRightOf="@+id/iv_select"
-            android:text="50年后"/>
+            android:text="80年后"/>
 
     </android.support.constraint.ConstraintLayout>
 

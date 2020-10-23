@@ -52,7 +52,7 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("api/v1/face/edit_attr")
-    Observable<ApiResult<EffectImageBean>> getFaceEditAttr(@Field("image") String image, @Field("action_type") String actionType);
+    Observable<ApiResult<EffectImageBean>> getFaceEditAttr(@Field("image") String image, @Field("action_type") String actionType,@Field("age") String age);
 
 
     @FormUrlEncoded

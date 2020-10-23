@@ -102,7 +102,41 @@ public class EffectImagePresenter extends Presenter<IEffectImageView> {
 
     public void getFaceEditAttr(String image, String actionType) {
         //选值 TO_KID; TO_OLD; TO_FEMALE; TO_MALE
-        api.getFaceEditAttr(image, actionType)
+        api.getFaceEditAttr(image, actionType,"")
+                .compose(RxUtil.io_main())
+                .map(RxUtil.applyApiResult())
+                .subscribe(new Observer<EffectImageBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(EffectImageBean effectAgeBean) {
+                        IEffectImageView attachedView = getAttachedView();
+                        if (attachedView != null) {
+                            attachedView.onResultEffectImage(effectAgeBean.getImage(),actionType);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        IEffectImageView attachedView = getAttachedView();
+                        if (attachedView != null) {
+                            attachedView.onResultEffectImage("",actionType);
+                        }
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    public void getFaceEditAttr(String image, String actionType, String age) {
+        //选值 TO_KID; TO_OLD; TO_FEMALE; TO_MALE
+        api.getFaceEditAttr(image, actionType,age)
                 .compose(RxUtil.io_main())
                 .map(RxUtil.applyApiResult())
                 .subscribe(new Observer<EffectImageBean>() {
