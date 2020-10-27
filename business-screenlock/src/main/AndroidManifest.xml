@@ -1,0 +1,21 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+package="com.jifen.dandan.screenlock">
+
+<application>
+
+    <activity
+        android:name=".activity.LockReaderActivity"
+        android:configChanges="keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize"
+        android:excludeFromRecents="true"
+        android:exported="false"
+        android:hardwareAccelerated="true"
+        android:showWhenLocked="true"
+        android:launchMode="singleInstance"
+        android:resizeableActivity="true"
+        android:screenOrientation="portrait"
+        android:taskAffinity="android.task.ddvideo"
+        android:theme="@style/LockPopStyle" />
+
+    <service android:name=".ScreenLockService"/>
+</application>
+</manifest>

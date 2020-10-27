@@ -72,7 +72,7 @@ public class HomeActivity extends BaseActivity implements IHomeView {
 
 
     private static final String BUNDLE_FRAGMENTS_KEY = "android:support:fragments";
-
+    public static  HomeActivity mHomeActivity;
     @Autowired(name = "schemaUri")
     String schemaUri;
 
@@ -110,6 +110,7 @@ public class HomeActivity extends BaseActivity implements IHomeView {
                 }
             }
         });
+        mHomeActivity = this;
     }
 
     @Override
@@ -125,6 +126,14 @@ public class HomeActivity extends BaseActivity implements IHomeView {
     @Override
     protected void onResume() {
         super.onResume();
+        if(MyApplication.getInstance().needShowSplashAd){
+            Intent intent = new Intent( this, WelcomeActivity.class);
+            intent.putExtra("needShowAd", MyApplication.getInstance().needShowSplashAd);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            MyApplication.getInstance().needShowSplashAd =false;
+        }
     }
 
     @Override

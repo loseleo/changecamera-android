@@ -57,7 +57,6 @@
     </style>
 
 
-
     <style name="personal_dialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">#2592C0</item>
         <item name="android:background">#00000000</item>
@@ -71,7 +70,7 @@
     </style>
 
 
-    <style name="AppTheme.Main" parent="AppTheme" />
+    <style name="AppTheme.Main" parent="AppTheme"/>
 
     <style name="HomeTab">
         <item name="android:gravity">center</item>
@@ -89,7 +88,5 @@
     </style>
 
 
-
-    <style name="DialogTakeMedal" parent="CommonDialog">
-    </style>
+    <style name="DialogTakeMedal" parent="CommonDialog"></style>
 </resources>

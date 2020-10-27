@@ -1,0 +1,27 @@
+<resources>
+
+    <!-- 锁屏阅读 -->
+    <string name="lock_read_time">21:47</string>
+    <string name="lock_read_date">9月23日</string>
+    <string name="lock_read_week">星期日</string>
+    <string name="lock_read_item_title">逍遥小村医</string>
+    <string name="lock_read_item_category">三级分类</string>
+    <string name="lock_read_item_comment">主编评论，最多长达12个字</string>
+
+    <string name="lock_permission_navigate_title">前往设置-权限管理-%s-开启锁屏显示</string>
+    <string name="lock_permission_navigate_more">更多设置</string>
+    <string name="lock_permission_navigate_permission">应用管理/权限管理</string>
+    <string name="lock_permission_navigate_lock_view">锁屏显示</string>
+    <string name="lock_permission_navigate_open">前往设置</string>
+    <string name="lock_cared">已关注</string>
+    <string name="lock_not_care">+ 关注</string>
+
+    <item name="lock_tag_key_data" type="id" />
+    <item name="lock_tag_key_position" type="id" />
+
+
+    <string name="lock_network_fail">当前无网络连接，请稍后再试</string>
+    <string name="lock_network_no_wifi">当前为非WIFI情况，请注意流量消耗</string>
+    <string name="lock_video_error_msg">视频加载出错</string>
+    <string name="lock_look_more">查看更多</string>
+</resources>

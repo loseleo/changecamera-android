@@ -17,6 +17,9 @@ package com.beige.camera;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.wifi.WifiManager;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.beige.camera.activity.WelcomeActivity;
@@ -28,10 +31,20 @@ import com.beige.camera.common.helper.activitylife.AppShowListener;
 import com.beige.camera.common.utils.LogUtils;
 import com.beige.camera.common.utils.ProcessUtil;
 import com.beige.camera.dagger.MainComponentHolder;
+import com.beige.camera.receiver.HomeWatcherReceiver;
+import com.beige.camera.receiver.WifiReceiver;
+import com.jifen.dandan.screenlock.ScreenLockService;
+import com.jifen.dandan.screenlock.dagger.LockComponentHolder;
 import com.tencent.bugly.crashreport.CrashReport;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.plugins.RxJavaPlugins;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author zhangning.
@@ -41,7 +54,7 @@ public class MyApplication extends BaseApplication {
 
     private static MyApplication sInstance;
     public static long appStart;
-    public boolean needShowSplashAd = true;
+    public boolean needShowSplashAd = false;
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -83,6 +96,7 @@ public class MyApplication extends BaseApplication {
         CommonComponentHolder.init(this);
         MainComponentHolder.init();
         AdComponentHolder.init();
+        LockComponentHolder.init();
     }
 
     public static void initRouter(MyApplication application) {
@@ -107,16 +121,13 @@ public class MyApplication extends BaseApplication {
             @Override
             public void onAppReturnForeground() {
                 LogUtils.e("zhangning","onAppReturnForeground");
-                Intent intent = new Intent(sInstance, WelcomeActivity.class);
-                intent.putExtra("needShowAd", needShowSplashAd);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                sInstance.startActivity(intent);
-                needShowSplashAd =true;
+                onAppAllForeground();
             }
 
             @Override
             public void onAppEnterBackground() {
+                needShowSplashAd = true;
+                onAppAllForeground();
                 LogUtils.e("zhangning","onAppEnterBackground");
             }
         });
@@ -124,5 +135,50 @@ public class MyApplication extends BaseApplication {
 
 
 
+    private void onAppAllForeground() {
+        Observable.create(new ObservableOnSubscribe<Boolean>() {
+            @Override
+            public void subscribe(ObservableEmitter<Boolean> emitter) throws Exception {
+                ScreenLockService.init(BaseApplication.getsInstance().getBaseContext());
+
+                IntentFilter filter = new IntentFilter();
+                filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+                filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+                filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+                registerReceiver(new WifiReceiver(), filter);
+
+
+                HomeWatcherReceiver mHomeKeyReceiver = new HomeWatcherReceiver();
+                IntentFilter homeFilter = new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+                registerReceiver(mHomeKeyReceiver, homeFilter);
+
+                emitter.onNext(true);
+                emitter.onComplete();
+            }
+        })
+                .subscribeOn(Schedulers.io())
+                .onErrorReturnItem(false)
+                .subscribe(new Observer<Boolean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Boolean o) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
 
 }

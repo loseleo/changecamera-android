@@ -34,5 +34,6 @@ public class PageIdentity {
     public static final String APP_BACKGROUNDEFFECT = "/app/backgroundeffect";
     public static final String APP_ANIMALFACEEFFECT = "/app/animalfaceeffect";
     public static final String APP_FACEMEGREEFFECT = "/app/facemegreeffect";
+    public static final String APP_LOCK_LOCKACTIVITY = "/screenlock/lockactivity";
 
 }

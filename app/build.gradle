@@ -159,6 +159,7 @@ allprojects {
             dirs 'libs'
             dirs project(':common').file('libs')
             dirs project(':business-advertisement').file('libs')
+            dirs project(':business-screenlock').file('libs')
 //            dirs project(':business-ringtone').file('libs')
         }
     }
@@ -182,5 +183,6 @@ dependencies {
 //    implementation project(':business-ringtone')
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.14.1'
+    compile project(path: ':business-screenlock')
 
 }
