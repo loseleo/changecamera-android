@@ -8,10 +8,14 @@ import android.text.TextUtils;
 import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.beige.camera.common.base.BaseActivity;
+import com.beige.camera.common.feed.bean.AdModel;
 import com.beige.camera.common.utils.LogUtils;
 import com.beige.camera.common.utils.PermissionPageUtils;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+
+import java.io.Serializable;
+import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;

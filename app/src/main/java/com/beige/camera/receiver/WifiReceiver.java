@@ -1,17 +1,25 @@
 package com.beige.camera.receiver;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 
-import com.beige.camera.R;
-import com.beige.camera.activity.HomeActivity;
+import com.beige.camera.advertisement.api.bean.AdConfigBean;
+import com.beige.camera.advertisement.dagger.AdComponentHolder;
+import com.beige.camera.common.base.BaseApplication;
 import com.beige.camera.common.utils.LogUtils;
-import com.beige.camera.dialog.ADWifiDialog;
+import com.beige.camera.common.utils.RxUtil;
+import com.beige.camera.floatwindow.FloatWindowService;
+
+import java.io.Serializable;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+
+import static com.beige.camera.common.utils.RxUtil.io_main;
 
 public class WifiReceiver extends BroadcastReceiver {
     private static final String TAG = "wifiReceiver";
@@ -49,46 +57,42 @@ public class WifiReceiver extends BroadcastReceiver {
 
     private void showAD(){
 
-        if(System.currentTimeMillis() - startTime < 2000 ){
+        if(System.currentTimeMillis() - startTime < 60 *1000 ){
             return;
         }
         startTime = System.currentTimeMillis();
-        Activity activity = HomeActivity.mHomeActivity;
-        if(activity == null){
-            LogUtils.i(TAG, "topActivity is null");
-            return;
-        }
         LogUtils.i(TAG, "can show ad");
 
-        ADWifiDialog commonDialog = ADWifiDialog.newInstance("WifiReceiver");
-        commonDialog.setTvTitle("温馨提示");
-        commonDialog.setTvBtnConfirm("继续使用");
-        commonDialog.setTvBtnCancel("切换网络");
-        commonDialog.setTvContent("检查到当前Wi-Fi状态不加，是否要切换到移动网络");
-        commonDialog.setIcon(R.mipmap.icon_wifi_error);
-        commonDialog.setOnChoiceListener(new ADWifiDialog.OnChoiceListener() {
-            @Override
-            public void onAgree() {
+        AdComponentHolder.getComponent().getAdApi().getAdConfig("WiFi_feeds")
+                .compose(io_main())
+                .timeout(2000, TimeUnit.MILLISECONDS)
+                .map(RxUtil.applyApiResult())
+                .subscribe(new Observer<AdConfigBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
 
-            }
+                    @Override
+                    public void onNext(AdConfigBean adModel) {
+                        LogUtils.e("TTInfoFlowAd", "adConfigBean = " + adModel.getCandidates().toString());
+                        if(adModel != null && adModel.getCandidates().size() >0 ){
+                            Context baseContext = BaseApplication.getsInstance().getBaseContext();
+                            Intent intent = new Intent(baseContext, FloatWindowService.class);
+                            intent.setAction(FloatWindowService.ACTION_WIFI_AD);
+                            intent.putExtra("admodel",(Serializable) adModel.getCandidates());
+                            baseContext.startService(intent);
+                        }
+                    }
 
-            @Override
-            public void onDisagree() {
-                Intent intent = null;
-                //判断手机系统的版本  即API大于10 就是3.0或以上版本
-                if(android.os.Build.VERSION.SDK_INT>10){
-                    intent = new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS);
-                }else{
-                    intent = new Intent();
-                    ComponentName component = new ComponentName("com.android.settings","com.android.settings.WirelessSettings");
-                    intent.setComponent(component);
-                    intent.setAction("android.intent.action.VIEW");
-                }
-                activity.startActivity(intent);
+                    @Override
+                    public void onError(Throwable e) {
+                    }
 
-            }
-        });
-        commonDialog.show(((HomeActivity) activity).getSupportFragmentManager(), "adwifi_dialog");
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
 
     }
 }

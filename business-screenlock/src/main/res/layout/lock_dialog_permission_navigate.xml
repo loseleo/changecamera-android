@@ -166,6 +166,28 @@
             android:drawableRight="@drawable/common_icon_switch_select"
             android:drawablePadding="@dimen/dp6"/>
 
+
+
+
+        <TextView
+            android:id="@+id/tv_folat_show"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            app:layout_constraintWidth_default="spread"
+            android:textSize="16sp"
+            android:textColor="@color/comment_dlg_text"
+            app:layout_constraintTop_toBottomOf="@id/tv_lock_show"
+            app:layout_constraintLeft_toLeftOf="@id/tv_title"
+            app:layout_constraintRight_toRightOf="@id/tv_title"
+            android:text="显示悬浮窗"
+            android:gravity="left|center_vertical"
+            android:paddingRight="@dimen/dp10"
+            android:paddingLeft="@dimen/dp12"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/lock_shape_dialog_text"
+            android:drawableRight="@drawable/common_icon_switch_select"
+            android:drawablePadding="@dimen/dp6"/>
+
         <Button
             android:id="@+id/btn_open"
             android:layout_width="0dp"
@@ -181,7 +203,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_lock_show" />
+            app:layout_constraintTop_toBottomOf="@id/tv_folat_show" />
+
 
     </android.support.constraint.ConstraintLayout>
 </LinearLayout>

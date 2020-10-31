@@ -76,10 +76,17 @@ public class LockManager {
 
 
 
-    public void showPermissionNavigateDialog(FragmentActivity activity, LockPermissionNavigateDialog.ClickCallback mClickCallback){
-        LockPermissionNavigateDialog dialog = new LockPermissionNavigateDialog();
-        dialog.setClickCallback(mClickCallback);
-        dialog.show(activity.getSupportFragmentManager(),"lock");
+    public static void showPermissionNavigateDialog(FragmentActivity activity, LockPermissionNavigateDialog.ClickCallback mClickCallback){
+        boolean aBoolean = MmkvUtil.getInstance().getBoolean(LockConfig.LockSpKey.HAS_SHOW_LOCKPERMIASSION_GUID);
+        if(!aBoolean){
+            LockPermissionNavigateDialog dialog = new LockPermissionNavigateDialog();
+            dialog.setClickCallback(mClickCallback);
+            dialog.show(activity.getSupportFragmentManager(),"lock");
+            MmkvUtil.getInstance().putBoolean(LockConfig.LockSpKey.HAS_SHOW_LOCKPERMIASSION_GUID, true);
+        }
+
+
+
     }
 
 

@@ -61,6 +61,9 @@ public class LockConfig {
          * 一共展示了多少次
          */
         String SHOW_LOCK_SCREEN_TIPS_TIMES = "show_lock_screen_tips_times";
+
+        String HAS_SHOW_LOCKPERMIASSION_GUID = "has_show_lockpermiassion_guid";
+
     }
 
 }

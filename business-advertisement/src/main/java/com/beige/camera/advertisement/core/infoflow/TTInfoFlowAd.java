@@ -78,24 +78,24 @@ public class TTInfoFlowAd extends InfoFlowAd<TTInfoFlowAd.TTInfoFlowAdResource> 
             }
         });
 
-        //使用默认个性化模板中默认dislike弹出样式
-        ttNativeExpressAd.setDislikeCallback((Activity) getAdContainer().getContext(), new TTAdDislike.DislikeInteractionCallback() {
-            @Override
-            public void onSelected(int position, String value) {
-//                TToast.show(mContext, "点击 " + value);
-//                //用户选择不喜欢原因后，移除广告展示
-                adContainer.removeAllViews();
-            }
-            @Override
-            public void onCancel() {
-                LogUtils.e("TTInfoFlowAd", "onCancel");
-            }
-
-            @Override
-            public void onRefuse() {
-
-            }
-        });
+//        //使用默认个性化模板中默认dislike弹出样式
+//        ttNativeExpressAd.setDislikeCallback((Activity) getAdContainer().getContext(), new TTAdDislike.DislikeInteractionCallback() {
+//            @Override
+//            public void onSelected(int position, String value) {
+////                TToast.show(mContext, "点击 " + value);
+////                //用户选择不喜欢原因后，移除广告展示
+//                adContainer.removeAllViews();
+//            }
+//            @Override
+//            public void onCancel() {
+//                LogUtils.e("TTInfoFlowAd", "onCancel");
+//            }
+//
+//            @Override
+//            public void onRefuse() {
+//
+//            }
+//        });
 
         //dislike设置
         if (ttNativeExpressAd.getInteractionType() == TTAdConstant.INTERACTION_TYPE_DOWNLOAD){

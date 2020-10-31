@@ -185,4 +185,6 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-compiler:2.14.1'
     compile project(path: ':business-screenlock')
 
+    implementation 'com.blankj:utilcode:1.22.7'
+    api 'com.google.guava:guava:27.0.1-android'
 }
