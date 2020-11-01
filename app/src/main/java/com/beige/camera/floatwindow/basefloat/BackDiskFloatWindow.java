@@ -2,6 +2,7 @@ package com.beige.camera.floatwindow.basefloat;
 
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.beige.camera.R;
 import com.beige.camera.advertisement.core.AdManager;
+import com.beige.camera.advertisement.core.SimpleAdListener;
 import com.beige.camera.advertisement.core.infoflow.InfoFlowAd;
 import com.beige.camera.advertisement.core.strategy.Callback;
 import com.beige.camera.common.feed.bean.AdModel;
@@ -36,7 +38,26 @@ public class BackDiskFloatWindow extends AbsFloatBase {
         AdManager.loadInfoFlowAd(adContainer, adModel, new Callback<InfoFlowAd>() {
             @Override
             public void onAdLoadStart(InfoFlowAd ad) {
+                ad.addAdListener(new SimpleAdListener() {
 
+                    @Override
+                    public void onAdClick() {
+                        super.onAdClick();
+                        remove();
+                    }
+
+                    @Override
+                    public void onAdLoaded() {
+                        super.onAdLoaded();
+
+                    }
+
+                    @Override
+                    public void onAdFail(Throwable e) {
+                        super.onAdFail(e);
+
+                    }
+                });
             }
 
             @Override

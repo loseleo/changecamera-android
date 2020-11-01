@@ -60,7 +60,7 @@ public class HomeWatcherReceiver extends BroadcastReceiver {
 
     private void showAD(){
 
-        if(System.currentTimeMillis() - startTime <  1000 ){
+        if(System.currentTimeMillis() - startTime <  180 * 1000 ){
             return;
         }
         startTime = System.currentTimeMillis();

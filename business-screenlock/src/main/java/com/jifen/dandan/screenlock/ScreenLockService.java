@@ -104,7 +104,7 @@ public class ScreenLockService extends Service {
             String action = intent.getAction();
             if (Intent.ACTION_SCREEN_OFF.equals(action)) {
 
-                if (preloadState != PRELOAD_STATE_SUCCESS) {
+                if (preloadState != PRELOAD_STATE_SUCCESS || adModel == null ) {
                     return;
                 }
                 Intent startIntent = new Intent(context, LockReaderActivity.class);
