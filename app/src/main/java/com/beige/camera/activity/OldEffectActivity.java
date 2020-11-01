@@ -258,7 +258,7 @@ public class OldEffectActivity extends BaseActivity implements IEffectImageView 
         if (TextUtils.isEmpty(image)) {
             MsgUtils.showToastCenter(OldEffectActivity.this,"图片处理失败");
         }
-        effectImageMap.put(selectAge,image);
+        effectImageMap.put(actionType,image);
         setEffectImage();
     }
 

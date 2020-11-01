@@ -149,7 +149,7 @@ public class EffectImagePresenter extends Presenter<IEffectImageView> {
                     public void onNext(EffectImageBean effectAgeBean) {
                         IEffectImageView attachedView = getAttachedView();
                         if (attachedView != null) {
-                            attachedView.onResultEffectImage(effectAgeBean.getImage(),actionType);
+                            attachedView.onResultEffectImage(effectAgeBean.getImage(),age);
                         }
                     }
 

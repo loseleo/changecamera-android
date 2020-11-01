@@ -163,20 +163,33 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
                             float left = ((float) cropView.getLeft() - (float) customCameraPreview.getLeft()) / (float) customCameraPreview.getWidth();
                             float top = (float) cropView.getTop() / (float) customCameraPreview.getHeight();
                             float right = (float) cropView.getRight() / (float) customCameraPreview.getWidth();
-                            float bottom = (float) cropView.getBottom() / (float) customCameraPreview.getHeight();
+//                            float bottom = (float) cropView.getBottom() / (float) customCameraPreview.getHeight();
 
                             Matrix matrix = new Matrix();
-                            if (customCameraPreview.currentCameraType == customCameraPreview.FRONT) {
-                                matrix.postRotate(180);
-                            }else{
-                                matrix.postRotate(0);
-                            }
+                            Bitmap resBitmap;
                             //裁剪及保存到文件
-                            Bitmap resBitmap = Bitmap.createBitmap(bitmap,
-                                    (int) (left * (float) bitmap.getWidth()),
-                                    (int) (top * (float) bitmap.getHeight()),
-                                    (int) ((right - left) * (float) bitmap.getWidth()),
-                                    (int) ((bottom - top) * (float) bitmap.getHeight()),matrix,true);
+                            if(bitmap.getHeight() >  bitmap.getWidth()){
+                                if (customCameraPreview.currentCameraType == customCameraPreview.FRONT) {
+                                    matrix.postRotate(180);
+                                }else{
+                                    matrix.postRotate(0);
+                                }
+                                 resBitmap = Bitmap.createBitmap(bitmap, 0, (bitmap.getHeight()- bitmap.getWidth())/2,
+                                        bitmap.getWidth(), bitmap.getWidth(),matrix,true);
+                            }else{
+
+                                if (customCameraPreview.currentCameraType == customCameraPreview.FRONT) {
+                                    matrix.postRotate(-90);
+                                }else{
+                                    matrix.postRotate(90);
+                                }
+                                resBitmap = Bitmap.createBitmap(bitmap,( bitmap.getWidth() - bitmap.getHeight())/2, 0,
+                                        bitmap.getHeight(), bitmap.getHeight(),matrix,true);
+
+
+                            }
+
+
 
                             String imgPath = FileUtil.saveBitmap(resBitmap);
                             if (!bitmap.isRecycled()) {

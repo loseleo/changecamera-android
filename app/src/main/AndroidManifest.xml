@@ -61,6 +61,7 @@
             android:name="com.beige.camera.activity.CameraActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
+            screenOritation = "Lanscape"
             android:theme="@style/AppTheme.Main">
         </activity>
         <activity
