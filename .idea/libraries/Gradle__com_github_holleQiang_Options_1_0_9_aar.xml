@@ -2,7 +2,9 @@
   <library name="Gradle: com.github.holleQiang:Options:1.0.9@aar">
     <CLASSES>
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/Options-1.0.9.aar/60b20713543d7a4cd95ef8c76d23d70d/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/Options-1.0.9.aar/60b20713543d7a4cd95ef8c76d23d70d/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/Options-1.0.9.aar/5759aacf7b82b4493ca459ffc57de233/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/Options-1.0.9.aar/5759aacf7b82b4493ca459ffc57de233/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/Options-1.0.9.aar/5759aacf7b82b4493ca459ffc57de233/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/business-advertisement/business-advertisement.iml" filepath="$PROJECT_DIR$/business-advertisement/business-advertisement.iml" />
-      <module fileurl="file://$PROJECT_DIR$/business-screenlock/business-screenlock.iml" filepath="$PROJECT_DIR$/business-screenlock/business-screenlock.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/changecamera-android.iml" filepath="$PROJECT_DIR$/.idea/changecamera-android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/changecamera-android.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/changecamera-android.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/business-advertisement/changecamera-android.business-advertisement.iml" filepath="$PROJECT_DIR$/.idea/modules/business-advertisement/changecamera-android.business-advertisement.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/business-screenlock/changecamera-android.business-screenlock.iml" filepath="$PROJECT_DIR$/.idea/modules/business-screenlock/changecamera-android.business-screenlock.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/business-shortvideo/changecamera-android.business-shortvideo.iml" filepath="$PROJECT_DIR$/.idea/modules/business-shortvideo/changecamera-android.business-shortvideo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/changecamera-android.common.iml" filepath="$PROJECT_DIR$/.idea/modules/common/changecamera-android.common.iml" />
     </modules>
   </component>
 </project>

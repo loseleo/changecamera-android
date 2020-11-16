@@ -1,8 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.holleQiang:CellAdapter:1.1.6@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/CellAdapter-1.1.6.aar/c9b3f0795f0590bcdffce83466357c83/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/CellAdapter-1.1.6.aar/c9b3f0795f0590bcdffce83466357c83/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/CellAdapter-1.1.6.aar/f3e78f2a99c4f629c2dd43f8a2d65fa3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/CellAdapter-1.1.6.aar/f3e78f2a99c4f629c2dd43f8a2d65fa3/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/CellAdapter-1.1.6.aar/f3e78f2a99c4f629c2dd43f8a2d65fa3/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

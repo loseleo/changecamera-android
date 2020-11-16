@@ -1,10 +1,14 @@
 <component name="libraryTable">
   <library name="Gradle: com.tencent:mmkv:1.0.20@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/mmkv-1.0.20.aar/48df74016cb95c9c7d329a0c3bdc8adb/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/mmkv-1.0.20.aar/48df74016cb95c9c7d329a0c3bdc8adb/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/mmkv-1.0.20.aar/4759a69aad87cf9829e6353ff994a9ed/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/mmkv-1.0.20.aar/4759a69aad87cf9829e6353ff994a9ed/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/mmkv-1.0.20.aar/4759a69aad87cf9829e6353ff994a9ed/AndroidManifest.xml" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.tencent/mmkv/1.0.20/1d196210e00a742a402e480e20769dc93b432880/mmkv-1.0.20-javadoc.jar!/" />
+    </JAVADOC>
     <SOURCES />
   </library>
 </component>

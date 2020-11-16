@@ -1,8 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.aliyun.dpa:oss-android-sdk:2.9.2@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/oss-android-sdk-2.9.2.aar/4763ccb85d387ff083ec7876d28b0c4a/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/oss-android-sdk-2.9.2.aar/4763ccb85d387ff083ec7876d28b0c4a/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/oss-android-sdk-2.9.2.aar/b701774f7144e395cac79d7bd7c1daf0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/oss-android-sdk-2.9.2.aar/b701774f7144e395cac79d7bd7c1daf0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/oss-android-sdk-2.9.2.aar/b701774f7144e395cac79d7bd7c1daf0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.aliyun.ams:alicloud-android-httpdns:1.2.3@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/alicloud-android-httpdns-1.2.3.aar/b4aa147d0527f18ac6e0c508c956b00b/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/alicloud-android-httpdns-1.2.3.aar/b4aa147d0527f18ac6e0c508c956b00b/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/alicloud-android-httpdns-1.2.3.aar/b4aa147d0527f18ac6e0c508c956b00b/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

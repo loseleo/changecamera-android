@@ -1,10 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: :open_ad_sdk:@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/open_ad_sdk.aar/7fc55b703f6eefa18719ea935b4af361/jars/classes.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/open_ad_sdk.aar/7fc55b703f6eefa18719ea935b4af361/jars/libs/adhost.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/open_ad_sdk.aar/7fc55b703f6eefa18719ea935b4af361/jars/libs/ttmd5-0.0.2-alpha.7.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/open_ad_sdk.aar/7fc55b703f6eefa18719ea935b4af361/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/open_ad_sdk.aar/d12925ea721deb447e5b947622304cf3/jars/libs/ttmd5-0.0.2-alpha.7.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/open_ad_sdk.aar/d12925ea721deb447e5b947622304cf3/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/open_ad_sdk.aar/d12925ea721deb447e5b947622304cf3/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/open_ad_sdk.aar/d12925ea721deb447e5b947622304cf3/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/open_ad_sdk.aar/d12925ea721deb447e5b947622304cf3/jars/libs/adhost.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

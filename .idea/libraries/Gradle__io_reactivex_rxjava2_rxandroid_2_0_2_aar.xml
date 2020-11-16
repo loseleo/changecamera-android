@@ -2,7 +2,9 @@
   <library name="Gradle: io.reactivex.rxjava2:rxandroid:2.0.2@aar">
     <CLASSES>
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/rxandroid-2.0.2.aar/1a4f42a7657dd848b43b4d5973fd1b7a/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/rxandroid-2.0.2.aar/1a4f42a7657dd848b43b4d5973fd1b7a/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/rxandroid-2.0.2.aar/1c0ae8a16c1e1069d0942543eec5f5ac/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/rxandroid-2.0.2.aar/1c0ae8a16c1e1069d0942543eec5f5ac/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/rxandroid-2.0.2.aar/1c0ae8a16c1e1069d0942543eec5f5ac/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

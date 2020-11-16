@@ -2,7 +2,9 @@
   <library name="Gradle: android.arch.lifecycle:viewmodel:1.1.0@aar">
     <CLASSES>
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.0.aar/8bbf822e7ee5cbeaedb811334d42b9ba/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.0.aar/8bbf822e7ee5cbeaedb811334d42b9ba/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.0.aar/c5d62d31fefa3f644c16fd6b2ed6b679/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.0.aar/c5d62d31fefa3f644c16fd6b2ed6b679/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.0.aar/c5d62d31fefa3f644c16fd6b2ed6b679/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
