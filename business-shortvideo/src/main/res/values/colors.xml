@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="lock_blue_color">#FF1C89ED</color>
+    <color name="lock_player_bg_color">#191D25</color>
+    <color name="lock_bg_color">#272C42</color>
+    <color name="color_ff303741">#ff303741</color>
+    <color name="color_ff5d646e">#ff5d646e</color>
+
+</resources>

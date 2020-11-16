@@ -1,15 +1,11 @@
 package com.beige.camera.activity;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,25 +16,16 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.beige.camera.MyApplication;
 import com.beige.camera.R;
 import com.beige.camera.advertisement.api.bean.AdConfigBean;
-import com.beige.camera.advertisement.dagger.AdComponentHolder;
 import com.beige.camera.bean.FunctionBean;
-import com.beige.camera.bean.RecommendBean;
 import com.beige.camera.bean.VersionInfoBean;
 import com.beige.camera.common.base.BaseActivity;
-import com.beige.camera.common.base.BaseApplication;
 import com.beige.camera.common.feed.bean.AdModel;
 import com.beige.camera.common.router.AppNavigator;
 import com.beige.camera.common.router.PageIdentity;
-import com.beige.camera.common.utils.AppUtils;
-import com.beige.camera.common.utils.BundleUtil;
-import com.beige.camera.common.utils.ImageUtils;
-import com.beige.camera.common.utils.LogUtils;
 import com.beige.camera.common.utils.MmkvUtil;
 import com.beige.camera.common.utils.MsgUtils;
 import com.beige.camera.common.utils.PackageUtils;
-import com.beige.camera.common.utils.RxUtil;
 import com.beige.camera.common.utils.imageloader.BitmapUtil;
-import com.beige.camera.common.view.loadding.CustomDialog;
 import com.beige.camera.contract.IHomeView;
 import com.beige.camera.dagger.MainComponentHolder;
 import com.beige.camera.dialog.CommonDialog;
@@ -47,7 +34,7 @@ import com.beige.camera.dialog.UpdataVersionDialog;
 import com.beige.camera.presenter.HomePresenter;
 import com.beige.camera.utils.AdHelper;
 import com.beige.camera.utils.GlideImageLoader;
-import com.jifen.dandan.screenlock.activity.LockManager;
+import com.beige.camera.screenlock.activity.LockManager;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
@@ -59,21 +46,9 @@ import com.zhangqiang.celladapter.vh.ViewHolder;
 import com.zhangqiang.visiblehelper.OnVisibilityChangeListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Stack;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
-
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-
-import static com.beige.camera.common.utils.RxUtil.io_main;
 
 
 @Route(path = PageIdentity.APP_HOME)

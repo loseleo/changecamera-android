@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TabbedDemo</string>
+    <string name="tab_text_1">ugc Tab 1</string>
+    <string name="tab_text_2">ugc Tab 2</string>
+</resources>

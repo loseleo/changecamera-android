@@ -74,6 +74,8 @@ public class TTInfoFlowAd extends InfoFlowAd<TTInfoFlowAd.TTInfoFlowAdResource> 
                 //返回view的宽高 单位 dp
                 //在渲染成功回调时展示广告，提升体验
                 adContainer.removeAllViews();
+                FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+                view.setLayoutParams(layoutParams);
                 adContainer.addView(view);
             }
         });

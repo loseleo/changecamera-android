@@ -1,21 +1,21 @@
 #----------动态生成-------------
--keep class com.jifen.qukan.web.JSApiManager{ *; }
--keep class com.jifen.framework.router.** { *; }
--keep class * implements com.jifen.framework.router.template.ParamInjector {*;}
--keep class * implements com.jifen.framework.http.old.IHttpApi {*;}
+-keep class com.beige.qukan.web.JSApiManager{ *; }
+-keep class com.beige.framework.router.** { *; }
+-keep class * implements com.beige.framework.router.template.ParamInjector {*;}
+-keep class * implements com.beige.framework.http.old.IHttpApi {*;}
 
--keepclassmembers class com.jifen.qukan.plugin.framework.activity.PluginInstrumentation {*;}
+-keepclassmembers class com.beige.qukan.plugin.framework.activity.PluginInstrumentation {*;}
 
 
 #-------------Web----------------
 -dontwarn android.webkit.**
 -keepattributes *JavascriptInterface*
 -keepattributes *JavascriptApi*
--keep class * implements com.jifen.qukan.web.IH5LocaleBridge { *; }
--keep class com.jifen.qkbase.web.webbridge.H5LocaleBridge { *; }
+-keep class * implements com.beige.qukan.web.IH5LocaleBridge { *; }
+-keep class com.beige.qkbase.web.webbridge.H5LocaleBridge { *; }
 #-keep class * extends com.jifen.framework.web.bridge.AbstractApiHandler { *; }
--keep class * extends com.jifen.qu.open.web.bridge.AbstractApiHandler { *; }
--keep class com.jifen.qukan.web.api.** { *; }
+-keep class * extends com.beige.qu.open.web.bridge.AbstractApiHandler { *; }
+-keep class com.beige.qukan.web.api.** { *; }
 #------web------
 
 #------KeepAlive------
@@ -141,46 +141,46 @@ public static java.lang.String TABLENAME;
 
 
 #--------------View-----------------
--keep public class com.jifen.** extends android.view.View
--keepclasseswithmembers class com.jifen.** {
+-keep public class com.beige.** extends android.view.View
+-keepclasseswithmembers class com.beige.** {
     public <init>(android.content.Context, android.util.AttributeSet);
 }
--keepclasseswithmembers class com.jifen.** {
+-keepclasseswithmembers class com.beige.** {
     public <init>(android.content.Context, android.util.AttributeSet, int);
 }
 
 #frameworkHttp
 #-------------model----------------
--keep class com.jifen.framework.http.model.APIStatus { *; }
--keep class com.jifen.framework.http.model.AbsBaseResult { *; }
--keep class com.jifen.framework.http.model.BaseResult { *; }
--keep class * extends com.jifen.framework.http.model.AbsBaseResult { *; }
--keep class * extends com.jifen.framework.http.model.BaseResult { *; }
--keep class * extends com.jifen.framework.http.model.BaseResult$* { *; }
--keep class com.jifen.framework.**$* {
+-keep class com.beige.framework.http.model.APIStatus { *; }
+-keep class com.beige.framework.http.model.AbsBaseResult { *; }
+-keep class com.beige.framework.http.model.BaseResult { *; }
+-keep class * extends com.beige.framework.http.model.AbsBaseResult { *; }
+-keep class * extends com.beige.framework.http.model.BaseResult { *; }
+-keep class * extends com.beige.framework.http.model.BaseResult$* { *; }
+-keep class com.beige.framework.**$* {
     *;
 }
--keep class com.jifen.framework.core.model.** { *; }
+-keep class com.beige.framework.core.model.** { *; }
 #---api
--keep class com.jifen.framework.annotation.**{*;}
--keep class com.jifen.framework.compiler.**{*;}
+-keep class com.beige.framework.annotation.**{*;}
+-keep class com.beige.framework.compiler.**{*;}
 
 #-------------socket----------------
--keep public class com.jifen.framework.socket.procotol.** { *; }
--keep public class com.jifen.framework.socket.service.** { *; }
+-keep public class com.beige.framework.socket.procotol.** { *; }
+-keep public class com.beige.framework.socket.service.** { *; }
 
 #-------------push----------------
 #推送组件本身
--keep class com.jifen.push.**{*;}
--keep class com.jifen.push.ChannelResolver{*;}
--keep class com.jifen.framework.push.huawei.agent.**{*;}
--keep class com.jifen.framework.push.huawei.HuaweiPushRevicer{*;}
--keep class com.jifen.framework.push.xiaomi.MiPushReceiver{*;}
--keep class com.jifen.framework.push.vivo.VivoPushMessageReceiver{*;}
+-keep class com.beige.push.**{*;}
+-keep class com.beige.push.ChannelResolver{*;}
+-keep class com.beige.framework.push.huawei.agent.**{*;}
+-keep class com.beige.framework.push.huawei.HuaweiPushRevicer{*;}
+-keep class com.beige.framework.push.xiaomi.MiPushReceiver{*;}
+-keep class com.beige.framework.push.vivo.VivoPushMessageReceiver{*;}
 ## jifen keepalive
 -keep class com.google.**{*;}
 -keep class sun.misc.Unsafe { *; }
--keep class com.jifen.** implements java.io.Serializable { *; }
+-keep class com.beige.** implements java.io.Serializable { *; }
 -keepclassmembers class * implements java.io.Serializable {
     static final long serialVersionUID;
     private static final java.io.ObjectStreamField[] serialPersistentFields;
@@ -191,7 +191,7 @@ public static java.lang.String TABLENAME;
 }
 #小米
 -keep public class * extends android.content.BroadcastReceiver
--keep class com.jifen.push.XiaoMiMessageReceiver {*;}
+-keep class com.beige.push.XiaoMiMessageReceiver {*;}
 #华为
 -ignorewarning
 -keep class com.hianalytics.android.**{*;}
@@ -225,41 +225,41 @@ public static java.lang.String TABLENAME;
 #rxlifecycle
 #-keep class com.trello.rxlifecycle2.** { *; }
 
--keep class com.jifen.framework.router.Module_*Extends {*;}
+-keep class com.beige.framework.router.Module_*Extends {*;}
 -keep class android.app.** {*;}
 -keep class android.content.** {*;}
 -keep class android.databinding.** {*;}
 -keep class android.os.** {*;}
 -keep class android.util.** {*;}
 -keep class com.android.internal.** {*;}
--keep class com.jifen.framework.common.mvp.IMvpPresenter { *; }
--keepnames @com.jifen.framework.annotation.Route class *
+-keep class com.beige.framework.common.mvp.IMvpPresenter { *; }
+-keepnames @com.beige.framework.annotation.Route class *
 # 之前某sdk引入，导致后面warning全部忽略，这次剔除后又集体爆发，再次加入先忽略
 -ignorewarning
 
 # 趣应用
--keep class com.jifen.qu.open.** { *; }
+-keep class com.beige.qu.open.** { *; }
 # Gson
 -keep class com.google.gson.Gson {
     public <fields>;
     private <fields>;
 }
 
--keep class com.jifen.framework.core.utils.JSONUtils {
+-keep class com.beige.framework.core.utils.JSONUtils {
     public <fields>;
     private <fields>;
 }
--keep class com.jifen.framework.core.common.App {
+-keep class com.beige.framework.core.common.App {
     *** setApplicationContext(android.app.Application);
 }
 
--keep class com.jifen.qukan.utils.NativeUtils {
+-keep class com.beige.qukan.utils.NativeUtils {
     *** getInnoSoInfo(java.lang.String);
 }
 # 混淆插件逻辑
 # -keep class com.jifen.qukan.plugin.** {*;}
 # -keep class android.support.v4.app.** {*;}
--keep @com.jifen.framework.core.service.QkServiceDeclare public class *
+-keep @com.beige.framework.core.service.QkServiceDeclare public class *
 
 # 加固
 -keep class com.inno.innosdk.pb.** {
@@ -276,10 +276,10 @@ public static java.lang.String TABLENAME;
     *** loadInfo(android.content.Context);
 }
 
--keep class com.jifen.qukan.lib.account.model.*
+-keep class com.beige.qukan.lib.account.model.*
 
 # datatracker
--keep class com.jifen.platform.datatracker.** {
+-keep class com.beige.platform.datatracker.** {
     <fields>;
     <methods>;
 }
@@ -427,10 +427,10 @@ public static java.lang.String TABLENAME;
 -keep class com.qtt.perfmonitor.net.okhttp3.PerfEventListener{*;}
 #trace-net
 
--keep class com.jifen.open.manager.JFIdentifierManager{*;}
+-keep class com.beige.open.manager.JFIdentifierManager{*;}
 
--keep class com.jifen.compontent.ICpcCommonInterface{*;}
--keep class com.jifen.compontent.ICpcCommonInterface$Callback{*;}
+-keep class com.beige.compontent.ICpcCommonInterface{*;}
+-keep class com.beige.compontent.ICpcCommonInterface$Callback{*;}
 
 #InnoPush#####################
 -keep class com.innotech.** {*;}
@@ -454,18 +454,18 @@ public static java.lang.String TABLENAME;
 #InnoPush#####################
 
 #--- qapp --#
--keep class com.jifen.bridge.api.** { *; }
--keep class com.jifen.bridge.base.**{*;}
--keep class com.jifen.bridge.function.ad.**{*;}
--keep class com.jifen.bridge.function.upload.**{*;}
+-keep class com.beige.bridge.api.** { *; }
+-keep class com.beige.bridge.base.**{*;}
+-keep class com.beige.bridge.function.ad.**{*;}
+-keep class com.beige.bridge.function.upload.**{*;}
 -dontwarn android.webkit.**
 -keepattributes *JavascriptInterface*
 -keepattributes *JavascriptApi*
--keep class com.jifen.bridge.IBridgeProvider{*;}
--keep public class * extends com.jifen.bridge.base.apimodel.AbstractApiHandler{*;}
--keep @com.jifen.framework.core.service.QkServiceDeclare public class *
--keep class com.jifen.framework.core.service.QkServiceDeclare{*;}
--keep class com.jifen.compontent.ICpcCommonInterface{*;}
--keep class com.jifen.compontent.ICpcCommonInterface$Callback{*;}
+-keep class com.beige.bridge.IBridgeProvider{*;}
+-keep public class * extends com.beige.bridge.base.apimodel.AbstractApiHandler{*;}
+-keep @com.beige.framework.core.service.QkServiceDeclare public class *
+-keep class com.beige.framework.core.service.QkServiceDeclare{*;}
+-keep class com.beige.compontent.ICpcCommonInterface{*;}
+-keep class com.beige.compontent.ICpcCommonInterface$Callback{*;}
 #--- qapp --#
 

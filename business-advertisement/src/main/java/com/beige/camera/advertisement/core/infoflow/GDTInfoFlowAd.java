@@ -96,6 +96,8 @@ public class GDTInfoFlowAd extends InfoFlowAd<GDTInfoFlowAd.GDTInfoFlowAdResourc
             adContainer.removeAllViews();
         }
         // 需要保证 View 被绘制的时候是可见的，否则将无法产生曝光和收益。
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+        nativeExpressADView.setLayoutParams(layoutParams);
         adContainer.addView(nativeExpressADView);
 
     }

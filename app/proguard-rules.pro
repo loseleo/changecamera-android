@@ -179,8 +179,8 @@
 -keep class android.support.design.**{*;}
 -keep interface android.support.design.** { *; }
 
--keep class com.jifen.dandan.common.module.** { *; }
--keep class com.jifen.dandan.db.entity.** { *; }
+-keep class com.beige.camera.common.module.** { *; }
+-keep class com.beige.camera.db.entity.** { *; }
 
 -keepclassmembers class * {
    public <init>(org.json.JSONObject);
@@ -217,19 +217,19 @@
     public static ** valueOf(java.lang.String);
 }
 
--keep public class com.jifen.dandan.R$*{
+-keep public class com.beige.camera.R$*{
 public static final int *;
 }
 
 #Trace sdk
 -keep class com.qtt.perfmonitor.trace.core.MethodBeat { *; }
--keep class com.jifen.dandan.BuildConfig{
+-keep class com.beige.camera.BuildConfig{
     public static final java.lang.String APPLICATION_ID;
     public static final java.lang.String VERSION_NAME;
 }
 
--keep class com.jifen.framework.router.** {*;}
--keep class * implements com.jifen.framework.router.template.ParamInjector {*;}
+-keep class com.beige.framework.router.** {*;}
+-keep class * implements com.beige.framework.router.template.ParamInjector {*;}
 
 
 # manifest: provider for updates
@@ -240,18 +240,18 @@ public static final int *;
 -keepclassmembers class * {
     public static ** sMethodTrampoline;
 }
--keep class com.jifen.qukan.patch.MethodPatchEntry{ *; }
--keep class com.jifen.qukan.patch.MethodTrampoline{ *; }
+-keep class com.beige.qukan.patch.MethodPatchEntry{ *; }
+-keep class com.beige.qukan.patch.MethodTrampoline{ *; }
 
--keep class com.jifen.dandan.bean.** { *; }
--keep interface com.jifen.dandan.bean.** { *; }
--keep class com.jifen.dandan.common.base.bean.** { *; }
--keep interface com.jifen.dandan.common.base.bean.** { *; }
--keep class com.jifen.dandan.ad.AdJsApi { *; }
--keep class com.jifen.dandan.common.feed.bean.AdModel { *; }
--keep class com.jifen.dandan.ad.api.bean.** { *; }
--keep class com.jifen.dandan.common.push.bean.** { *; }
--keep class * extends com.jifen.qu.open.web.bridge.AbstractApiHandler {*;}
+-keep class com.beige.camera.bean.** { *; }
+-keep interface com.beige.camera.bean.** { *; }
+-keep class com.beige.camera.common.base.bean.** { *; }
+-keep interface com.beige.camera.common.base.bean.** { *; }
+-keep class com.beige.camera.ad.AdJsApi { *; }
+-keep class com.beige.camera.common.feed.bean.AdModel { *; }
+-keep class com.beige.camera.ad.api.bean.** { *; }
+-keep class com.beige.camera.common.push.bean.** { *; }
+-keep class * extends com.beige.qu.open.web.bridge.AbstractApiHandler {*;}
 
 #广告
 -keep class com.iclicash.advlib.**{*;}
@@ -289,8 +289,8 @@ public static final int *;
 }
 
 #plugin framework
--keep class com.jifen.qukan.plugin.framework.runtime.fragment.** {*;}
--keep class com.jifen.qukan.plugin.framework.activity.PluginInstrumentation {
+-keep class com.beige.qukan.plugin.framework.runtime.fragment.** {*;}
+-keep class com.beige.qukan.plugin.framework.activity.PluginInstrumentation {
     <fields>;
     <methods>;
 }
@@ -304,7 +304,7 @@ public static final int *;
 #实现注入
 -keep class com.uqu.live.sdkbridge.** {*;}
 -keep class com.uqu.lib.im.** {*;}
--keep class com.jifen.qukan.plugin.framework.fake.FakePackageParseCallbackImp {*;}
+-keep class com.beige.qukan.plugin.framework.fake.FakePackageParseCallbackImp {*;}
 
 ########### 直播 end #############
 
@@ -339,7 +339,7 @@ public static final int *;
 -keep class sdk.android.innshortvideo.innimageprocess.** { *; }
 
 #提现sdk混淆
--keep class com.jifen.qu.withdraw.** { *; }
+-keep class com.beige.qu.withdraw.** { *; }
 
 
 #crash report

@@ -1,10 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-package="com.jifen.dandan.screenlock">
+package="com.beige.camera.screenlock">
 
 <application>
 
     <activity
-        android:name=".activity.LockReaderActivity"
+        android:name="com.beige.camera.screenlock.activity.LockReaderActivity"
         android:configChanges="keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize"
         android:excludeFromRecents="true"
         android:exported="false"
@@ -16,6 +16,6 @@ package="com.jifen.dandan.screenlock">
         android:taskAffinity="android.task.ddvideo"
         android:theme="@style/LockPopStyle" />
 
-    <service android:name=".ScreenLockService"/>
+    <service android:name="com.beige.camera.screenlock.ScreenLockService"/>
 </application>
 </manifest>

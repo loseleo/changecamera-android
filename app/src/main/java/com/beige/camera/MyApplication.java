@@ -22,7 +22,6 @@ import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.beige.camera.activity.WelcomeActivity;
 import com.beige.camera.advertisement.dagger.AdComponentHolder;
 import com.beige.camera.common.base.BaseApplication;
 import com.beige.camera.common.dagger.component.CommonComponentHolder;
@@ -33,8 +32,8 @@ import com.beige.camera.common.utils.ProcessUtil;
 import com.beige.camera.dagger.MainComponentHolder;
 import com.beige.camera.receiver.HomeWatcherReceiver;
 import com.beige.camera.receiver.WifiReceiver;
-import com.jifen.dandan.screenlock.ScreenLockService;
-import com.jifen.dandan.screenlock.dagger.LockComponentHolder;
+import com.beige.camera.screenlock.ScreenLockService;
+import com.beige.camera.screenlock.dagger.LockComponentHolder;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import io.reactivex.Observable;
